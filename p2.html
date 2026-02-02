@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 2 - Information and Organizations</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .font-body {
+      font-family: 'Inter', sans-serif;
+    }
+    .section-divider {
+      border-top: 3px solid #e0e7ff;
+      margin: 2rem 0;
+    }
+    .concept-card {
+      transition: all 0.3s ease;
+      border-left: 4px solid #8b5cf6;
+    }
+    .concept-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+    }
+    .activity-card {
+      transition: all 0.3s ease;
+    }
+    .activity-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    .definition-box {
+      background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+      border-left: 4px solid #8b5cf6;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .real-world-box {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border-left: 4px solid #22c55e;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .example-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 0.75rem 0;
+      font-size: 0.95rem;
+    }
+    .role-box {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .role-box:hover {
+      border-color: #8b5cf6;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
+    }
+    .gradient-header {
+      background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+      color: white;
+    }
+    .collapsible-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1rem;
+      background: #f3f4f6;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .collapsible-btn:hover {
+      background: #e5e7eb;
+    }
+    .collapsible-btn.active {
+      background: #8b5cf6;
+      color: white;
+    }
+    .collapsible-content {
+      display: none;
+      padding: 1rem;
+      background: #f9fafb;
+      border-radius: 0 0 0.5rem 0.5rem;
+    }
+    .collapsible-content.active {
+      display: block;
+    }
+    .flow-chart {
+      background: linear-gradient(to right, #f3e8ff, #ede9fe, #f3e8ff);
+      border-radius: 0.75rem;
+      padding: 2rem;
+    }
+    .flow-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .flow-arrow {
+      color: #8b5cf6;
+      font-size: 1.5rem;
+    }
+    .org-structure {
+      background: #f5f3ff;
+      border: 2px dashed #c4b5fd;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      text-align: center;
+      margin: 0.5rem 0;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body bg-gray-50 text-gray-800">
+  <div class="h-full overflow-auto"><!-- Header -->
+   <header class="gradient-header sticky top-0 z-50 py-6 px-4 md:px-6 shadow-lg">
+    <div class="max-w-5xl mx-auto">
+     <h1 class="font-heading text-2xl md:text-3xl font-bold mb-2" id="week-title">Week 2: Information and Organizations</h1>
+     <p class="text-purple-200">CC105 | Learn how organizations create, use, and benefit from information</p>
+    </div>
+   </header>
+   <main class="max-w-5xl mx-auto px-4 md:px-6 py-8"><!-- Learning Outcomes Section -->
+    <section class="mb-8">
+     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+      <h2 class="font-heading text-2xl font-bold text-gray-800 mb-4 flex items-center gap-3"><span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center">🎯</span> What You'll Learn Today</h2>
+      <ul class="space-y-3">
+       <li class="flex items-start gap-3"><span class="text-purple-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Describe how organizations use information</strong> — understand the different ways businesses rely on data to operate</span></li>
+       <li class="flex items-start gap-3"><span class="text-purple-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Identify roles of information managers</strong> — learn who handles data and their responsibilities</span></li>
+       <li class="flex items-start gap-3"><span class="text-purple-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Understand roles of information users</strong> — see how different employees use information daily</span></li>
+      </ul>
+     </div>
+    </section><!-- Part 1: How Organizations Use Information -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">🏢</span> Part 1: How Organizations Use Information</h2>
+     <p class="text-gray-700 mb-6 text-lg">Organizations use information in 4 key ways. Let's explore each:</p><!-- Use 1: Decision Making -->
+     <div class="concept-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">1️⃣ Decision-Making</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-purple-900">What it means:</p>
+       <p class="text-purple-800">Organizations use information to make smart choices about strategy, operations, and investments.</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Why it matters:</strong> Better information = Better decisions = Better results</p>
+      <p class="font-semibold text-gray-800 mb-3">🔍 Real-World Examples:</p>
+      <div class="space-y-2">
+       <div class="example-box"><strong>💼 Restaurant Manager:</strong> "Our data shows lunch rush is 11 AM - 1 PM. We should staff more people then and order ingredients accordingly."
+       </div>
+       <div class="example-box"><strong>💼 Hospital Administrator:</strong> "We tracked patient wait times and found Emergency is slower on weekends. Let's add weekend staff."
+       </div>
+       <div class="example-box"><strong>💼 School Principal:</strong> "Our test scores dropped this year. Using past data, we see math scores are lowest. We should hire a math tutor."
+       </div>
+      </div>
+     </div><!-- Use 2: Operational Efficiency -->
+     <div class="concept-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">2️⃣ Operational Efficiency (Running Smoothly)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-purple-900">What it means:</p>
+       <p class="text-purple-800">Organizations use information to reduce waste, save time, and save money in daily operations.</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Why it matters:</strong> Efficiency saves money and makes customers happier</p>
+      <p class="font-semibold text-gray-800 mb-3">🔍 Real-World Examples:</p>
+      <div class="space-y-2">
+       <div class="example-box"><strong>🚚 Logistics Company:</strong> "We track delivery routes with GPS data. We found Route A was taking 2 hours but Route B only takes 1.5 hours. Now all drivers use Route B."
+       </div>
+       <div class="example-box"><strong>🚚 Hospital Supply:</strong> "Our data shows we waste 20% of supplies each month. We now track inventory better and order only what we need."
+       </div>
+       <div class="example-box"><strong>🚚 Bookstore:</strong> "We analyzed sales data and saw notebooks sell more than paperbacks. We reduced paperback stock and increased notebooks — less waste!"
+       </div>
+      </div>
+     </div><!-- Use 3: Competitive Advantage -->
+     <div class="concept-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">3️⃣ Competitive Advantage (Winning Against Rivals)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-purple-900">What it means:</p>
+       <p class="text-purple-800">Organizations that use information better than competitors gain an edge and attract more customers.</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Why it matters:</strong> In a competitive world, information-smart companies survive and grow</p>
+      <p class="font-semibold text-gray-800 mb-3">🔍 Real-World Examples:</p>
+      <div class="space-y-2">
+       <div class="example-box"><strong>🛍️ E-commerce Platform:</strong> "Amazon uses customer data to recommend products. Competitor stores don't. So customers buy more on Amazon."
+       </div>
+       <div class="example-box"><strong>🛍️ Netflix:</strong> "Netflix tracks what you watch and recommends similar shows. This keeps you watching longer. Cable TV can't do this."
+       </div>
+       <div class="example-box"><strong>🛍️ Mobile App:</strong> "We track user behavior and optimize app speed. Our app loads 2 seconds faster than competitor's. Users prefer ours."
+       </div>
+      </div>
+     </div><!-- Use 4: Compliance & Risk Management -->
+     <div class="concept-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">4️⃣ Compliance &amp; Risk Management (Following Rules &amp; Staying Safe)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-purple-900">What it means:</p>
+       <p class="text-purple-800">Organizations track and document information to follow laws, regulations, and avoid problems like fraud or security breaches.</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Why it matters:</strong> Breaking rules = fines, lawsuits, and loss of trust</p>
+      <p class="font-semibold text-gray-800 mb-3">🔍 Real-World Examples:</p>
+      <div class="space-y-2">
+       <div class="example-box"><strong>🏦 Bank:</strong> "Banks must record every transaction for government audits. They track money to prevent money laundering."
+       </div>
+       <div class="example-box"><strong>🏦 Hospital:</strong> "Hospitals keep patient medical records to comply with health laws and to have proof of treatment if sued."
+       </div>
+       <div class="example-box"><strong>🏦 Company:</strong> "Companies track cybersecurity incidents to prevent data breaches and report them to authorities if they happen."
+       </div>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Part 2: Roles in Information Management -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">👥</span> Part 2: Key Roles in Information Management</h2>
+     <p class="text-gray-700 mb-6 text-lg">Different people in organizations have different responsibilities for information:</p><!-- Role 1: Information Manager -->
+     <div class="role-box mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-3 flex items-center gap-2"><span class="text-2xl">👨‍💼</span> Role 1: Information Manager / IT Manager / Data Manager</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-purple-900">What they do:</p>
+       <p class="text-purple-800">Responsible for collecting, organizing, storing, protecting, and maintaining information systems.</p>
+      </div>
+      <p class="font-semibold text-gray-800 mb-3">Key Responsibilities:</p>
+      <ul class="space-y-2 text-gray-700">
+       <li class="flex items-start gap-2"><span class="text-purple-600 font-bold">▪</span> <span><strong>Collect Data:</strong> Gather information from various sources</span></li>
+       <li class="flex items-start gap-2"><span class="text-purple-600 font-bold">▪</span> <span><strong>Organize:</strong> Structure data in databases so it's easy to find</span></li>
+       <li class="flex items-start gap-2"><span class="text-purple-600 font-bold">▪</span> <span><strong>Protect:</strong> Keep information secure from hackers and unauthorized access</span></li>
+       <li class="flex items-start gap-2"><span class="text-purple-600 font-bold">▪</span> <span><strong>Maintain Systems:</strong> Ensure databases and software work properly</span></li>
+       <li class="flex items-start gap-2"><span class="text-purple-600 font-bold">▪</span> <span><strong>Backup:</strong> Create copies in case of accidents or disasters</span></li>
+      </ul>
+      <p class="font-semibold text-gray-800 mt-4 mb-2">Examples of Information Managers:</p>
+      <div class="space-y-2">
+       <div class="org-structure">
+        📊 Database Administrator — manages company databases
+       </div>
+       <div class="org-structure">
+        🔒 Information Security Officer — protects data from cyber attacks
+       </div>
+       <div class="org-structure">
+        👨‍💻 IT Manager — oversees all technology and systems
+       </div>
+       <div class="org-structure">
+        📁 Records Manager — organizes and files important documents
+       </div>
+       <div class="org-structure">
+        📈 Data Analyst — analyzes data to find patterns and insights
+       </div>
+      </div>
+     </div><!-- Role 2: Information User -->
+     <div class="role-box mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-3 flex items-center gap-2"><span class="text-2xl">👩‍💻</span> Role 2: Information User (Everyone Else!)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-purple-900">What they do:</p>
+       <p class="text-purple-800">Use information provided by managers to do their jobs and make decisions. Anyone in an organization is an information user.</p>
+      </div>
+      <p class="font-semibold text-gray-800 mb-3">Key Responsibilities:</p>
+      <ul class="space-y-2 text-gray-700">
+       <li class="flex items-start gap-2"><span class="text-green-600 font-bold">▪</span> <span><strong>Retrieve Information:</strong> Find and access data they need</span></li>
+       <li class="flex items-start gap-2"><span class="text-green-600 font-bold">▪</span> <span><strong>Use Data Responsibly:</strong> Only access what they're authorized to see</span></li>
+       <li class="flex items-start gap-2"><span class="text-green-600 font-bold">▪</span> <span><strong>Report Problems:</strong> Tell managers if systems aren't working</span></li>
+       <li class="flex items-start gap-2"><span class="text-green-600 font-bold">▪</span> <span><strong>Create New Data:</strong> Enter information (like completing forms)</span></li>
+       <li class="flex items-start gap-2"><span class="text-green-600 font-bold">▪</span> <span><strong>Protect Privacy:</strong> Keep confidential information secret</span></li>
+      </ul>
+      <p class="font-semibold text-gray-800 mt-4 mb-2">Examples of Information Users:</p>
+      <div class="space-y-2">
+       <div class="org-structure">
+        💰 Sales Rep — uses customer data to make sales calls
+       </div>
+       <div class="org-structure">
+        📋 HR Staff — uses employee information to manage payroll
+       </div>
+       <div class="org-structure">
+        🏥 Doctor — uses patient records to diagnose and treat
+       </div>
+       <div class="org-structure">
+        📚 Teacher — uses student grades to plan lessons
+       </div>
+       <div class="org-structure">
+        👨‍💼 Manager — uses team data to track performance
+       </div>
+      </div>
+     </div><!-- Comparison Table -->
+     <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
+      <p class="font-semibold text-gray-800 mb-4">📊 Information Managers vs. Information Users</p>
+      <div class="overflow-x-auto">
+       <table class="w-full text-sm">
+        <thead>
+         <tr class="border-b-2 border-purple-300">
+          <th class="text-left py-3 px-3 font-bold text-purple-900">Aspect</th>
+          <th class="text-left py-3 px-3 font-bold text-purple-900">Information Manager</th>
+          <th class="text-left py-3 px-3 font-bold text-purple-900">Information User</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr class="border-b border-purple-200">
+          <td class="py-3 px-3 font-semibold">Main Job</td>
+          <td class="py-3 px-3">Build &amp; maintain systems</td>
+          <td class="py-3 px-3">Use information for work</td>
+         </tr>
+         <tr class="border-b border-purple-200">
+          <td class="py-3 px-3 font-semibold">Tools They Use</td>
+          <td class="py-3 px-3">Databases, servers, software</td>
+          <td class="py-3 px-3">Email, apps, dashboards</td>
+         </tr>
+         <tr class="border-b border-purple-200">
+          <td class="py-3 px-3 font-semibold">Main Concern</td>
+          <td class="py-3 px-3">System security &amp; performance</td>
+          <td class="py-3 px-3">Getting the info they need</td>
+         </tr>
+         <tr class="border-b border-purple-200">
+          <td class="py-3 px-3 font-semibold">Key Skill</td>
+          <td class="py-3 px-3">Technical (coding, databases)</td>
+          <td class="py-3 px-3">Analysis &amp; decision-making</td>
+         </tr>
+         <tr>
+          <td class="py-3 px-3 font-semibold">Career Path</td>
+          <td class="py-3 px-3">IT, Technology, Engineering</td>
+          <td class="py-3 px-3">Any field (Sales, HR, etc.)</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Case Study -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center">🏭</span> Real-World Case Study: E-Commerce Company (Online Store)</h2>
+     <div class="real-world-box">
+      <h3 class="font-semibold text-green-900 mb-4">Meet "TechHub" - An Online Electronics Store</h3>
+      <p class="text-green-800 mb-4">TechHub is an online store selling phones, laptops, and accessories. They have 50 employees. Let's see how information flows:</p>
+      <div class="bg-white rounded-lg p-4 mb-4 border border-green-300">
+       <p class="font-semibold text-gray-800 mb-3">📊 WHAT INFORMATION THEY COLLECT:</p>
+       <ul class="list-disc list-inside text-gray-700 space-y-1">
+        <li>Customer data: names, addresses, emails, phone numbers</li>
+        <li>Order data: what was bought, when, how much</li>
+        <li>Inventory data: stock levels, warehouse locations</li>
+        <li>Financial data: revenue, costs, profits</li>
+        <li>Behavioral data: which products customers click, how long they browse</li>
+       </ul>
+      </div>
+      <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 mb-4 border border-blue-300">
+       <p class="font-semibold text-blue-900 mb-4">👥 ROLES IN TECHWORLDHUB:</p>
+       <div class="space-y-4">
+        <div class="bg-white p-3 rounded border-l-4 border-blue-500">
+         <p class="font-bold text-gray-800">💻 IT Manager (Information Manager)</p>
+         <p class="text-sm text-gray-700 mt-2"><strong>What they do:</strong> Maintains the website, secures customer payment data, backs up database daily, fixes system problems</p>
+         <p class="text-sm text-gray-700 mt-2"><strong>Why it matters:</strong> If hackers steal customer data, business is ruined. IT manager prevents this.</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-green-500">
+         <p class="font-bold text-gray-800">📈 Sales Manager (Information User)</p>
+         <p class="text-sm text-gray-700 mt-2"><strong>What they do:</strong> Checks sales reports daily to see which products sold well, which underperformed</p>
+         <p class="text-sm text-gray-700 mt-2"><strong>Why it matters:</strong> Decides what to stock more of and what to promote</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-orange-500">
+         <p class="font-bold text-gray-800">📦 Warehouse Staff (Information User)</p>
+         <p class="text-sm text-gray-700 mt-2"><strong>What they do:</strong> Accesses inventory system to see where items are located, picks orders</p>
+         <p class="text-sm text-gray-700 mt-2"><strong>Why it matters:</strong> Can quickly find and ship correct items to customers</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-purple-500">
+         <p class="font-bold text-gray-800">💡 Marketing Manager (Information User)</p>
+         <p class="text-sm text-gray-700 mt-2"><strong>What they do:</strong> Analyzes customer behavior data - which products attract which age groups, what times they shop</p>
+         <p class="text-sm text-gray-700 mt-2"><strong>Why it matters:</strong> Creates targeted ads that work better - saves marketing budget</p>
+        </div>
+       </div>
+      </div>
+      <div class="bg-yellow-50 rounded-lg p-4 border border-yellow-300">
+       <p class="font-semibold text-yellow-900 mb-3">💡 HOW TECHWORLDHUB USES INFORMATION:</p>
+       <div class="space-y-2 text-yellow-800">
+        <p>✓ <strong>Decision-Making:</strong> "Data shows iPhone 15 sells 3x more than Galaxy. Stock more iPhones."</p>
+        <p>✓ <strong>Efficiency:</strong> "Orders ship 24 hours faster since we optimized warehouse layout using location data."</p>
+        <p>✓ <strong>Competitive Advantage:</strong> "We recommend products based on browsing history. Customers stay 5 min longer on site than competitors."</p>
+        <p>✓ <strong>Compliance:</strong> "We keep customer data encrypted and comply with data privacy laws."</p>
+       </div>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Learning Activities -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center">🎯</span> Class Activities</h2><!-- Activity 1: Case Discussion -->
+     <div class="activity-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold">1</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 1: Case Discussion (15 minutes)</h3>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Objective:</strong> Analyze how a real organization uses information and identify key roles.</p>
+      <div class="bg-red-50 rounded-lg p-4 border border-red-200">
+       <p class="font-semibold text-red-900 mb-3">📖 The Case: Hospital Emergency Room</p>
+       <p class="text-red-800 mb-3">St. Mary's Hospital Emergency Room receives 200 patients daily. Last month, patients complained about long wait times and medical errors.</p>
+       <p class="font-semibold text-red-900 mb-2">The Hospital Decisions:</p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded text-red-800 text-sm">
+         📊 The Hospital Analyzed Their Data and Found:
+        </div>
+        <ul class="list-disc list-inside text-red-800 text-sm space-y-1 ml-2">
+         <li>6-8 PM is busiest (50 patients/hour)</li>
+         <li>Triage (checking severity) takes 10 minutes average</li>
+         <li>Patients with urgent problems wait 2 hours on average</li>
+         <li>Medical errors happened when records were hard to find</li>
+        </ul>
+       </div>
+       <p class="font-semibold text-red-900 mb-2 mt-3">Actions Taken Using Information:</p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded text-red-800 text-sm">
+         ✅ Hired 5 more nurses for 6-8 PM shift
+        </div>
+        <div class="bg-white p-2 rounded text-red-800 text-sm">
+         ✅ Invested in digital patient records system
+        </div>
+        <div class="bg-white p-2 rounded text-red-800 text-sm">
+         ✅ Added self-check-in tablets to speed up triage
+        </div>
+        <div class="bg-white p-2 rounded text-red-800 text-sm">
+         ✅ Created alerts for high-risk patients
+        </div>
+       </div>
+      </div>
+      <div class="mt-6 bg-blue-50 rounded-lg p-4 border border-blue-200">
+       <p class="font-semibold text-blue-900 mb-3">❓ Class Discussion Questions:</p>
+       <div class="space-y-3">
+        <div class="bg-white p-3 rounded border-l-4 border-blue-400">
+         <p class="font-bold text-gray-800 text-sm">Question 1: Decision-Making</p>
+         <p class="text-gray-700 text-sm">How did data help the hospital make better decisions?</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-blue-400">
+         <p class="font-bold text-gray-800 text-sm">Question 2: Roles</p>
+         <p class="text-gray-700 text-sm">Who are the information managers in this hospital? What about information users?</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-blue-400">
+         <p class="font-bold text-gray-800 text-sm">Question 3: Benefits</p>
+         <p class="text-gray-700 text-sm">What benefits did the hospital get from using information? (Think: efficiency, decisions, patient satisfaction)</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Activity 2: Group Brainstorming -->
+     <div class="activity-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">2</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 2: Group Brainstorming - Roles &amp; Uses (20 minutes)</h3>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Objective:</strong> Identify information uses and roles in different organizations.</p>
+      <div class="bg-green-50 rounded-lg p-4 border border-green-200 mb-4">
+       <p class="font-semibold text-green-900 mb-3">📋 Instructions (Groups of 4-5)</p>
+       <p class="text-green-800 text-sm mb-3">Your group is assigned one organization. For that organization:</p>
+       <ol class="list-decimal list-inside text-green-800 text-sm space-y-2">
+        <li>Identify what types of information they collect</li>
+        <li>List 4 ways they use that information</li>
+        <li>Name the information managers (roles that handle data)</li>
+        <li>Name the information users (roles that use data)</li>
+        <li>Prepare a 2-minute presentation</li>
+       </ol>
+      </div>
+      <div class="bg-white rounded-lg p-4 border border-gray-300">
+       <p class="font-semibold text-gray-800 mb-3">🏢 Choose Your Organization:</p>
+       <div class="grid md:grid-cols-2 gap-3">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded border border-blue-300">
+         <p class="font-bold text-blue-900">🏪 Supermarket/Grocery Store</p>
+        </div>
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded border border-purple-300">
+         <p class="font-bold text-purple-900">🎬 Movie Theater Chain</p>
+        </div>
+        <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-3 rounded border border-orange-300">
+         <p class="font-bold text-orange-900">🚗 Car Rental Company</p>
+        </div>
+        <div class="bg-gradient-to-br from-pink-50 to-pink-100 p-3 rounded border border-pink-300">
+         <p class="font-bold text-pink-900">🏨 Hotel Chain</p>
+        </div>
+        <div class="bg-gradient-to-br from-green-50 to-green-100 p-3 rounded border border-green-300">
+         <p class="font-bold text-green-900">👗 Fashion Retail Store</p>
+        </div>
+        <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 p-3 rounded border border-cyan-300">
+         <p class="font-bold text-cyan-900">📱 Mobile Phone Carrier</p>
+        </div>
+       </div>
+      </div>
+      <div class="mt-4 bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+       <p class="font-semibold text-yellow-900 mb-2">📝 Presentation Template:</p>
+       <div class="bg-white p-3 rounded text-sm text-gray-700 font-mono space-y-1">
+        <p>We chose: [Organization Name]</p>
+        <p>Information they collect: [List]</p>
+        <p>4 ways they use it: [1. ] [2. ] [3. ] [4. ]</p>
+        <p>Information Managers: [Roles]</p>
+        <p>Information Users: [Roles]</p>
+       </div>
+      </div>
+     </div><!-- Activity 3: Reflection Assignment -->
+     <div class="activity-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">3</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 3: Individual Reflection Paper (Home Task)</h3>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Objective:</strong> Reflect on information use in an organization you know.</p>
+      <div class="bg-purple-50 rounded-lg p-4 border border-purple-200">
+       <p class="font-semibold text-purple-900 mb-3">📝 Assignment Instructions:</p>
+       <p class="text-purple-800 text-sm mb-4">Write a 500-word reflection paper on a real organization you know (your school, a store you work at, a company a family member works for, etc.)</p>
+       <p class="font-semibold text-purple-900 mb-2">Answer These Questions:</p>
+       <div class="space-y-2">
+        <div class="bg-white p-2 rounded text-purple-800 text-sm border-l-4 border-purple-400">
+         <p><strong>1. What information does this organization collect?</strong> Give 3 specific examples.</p>
+        </div>
+        <div class="bg-white p-2 rounded text-purple-800 text-sm border-l-4 border-purple-400">
+         <p><strong>2. How do they use that information?</strong> List at least 2 of the 4 uses (decision-making, efficiency, competitive advantage, compliance).</p>
+        </div>
+        <div class="bg-white p-2 rounded text-purple-800 text-sm border-l-4 border-purple-400">
+         <p><strong>3. Who are the information managers and users?</strong> Give job titles and what they do.</p>
+        </div>
+        <div class="bg-white p-2 rounded text-purple-800 text-sm border-l-4 border-purple-400">
+         <p><strong>4. If this organization didn't manage information well, what would happen?</strong> Describe a problem that could occur.</p>
+        </div>
+        <div class="bg-white p-2 rounded text-purple-800 text-sm border-l-4 border-purple-400">
+         <p><strong>5. Personal Reflection:</strong> How does this learning apply to your future job/career?</p>
+        </div>
+       </div>
+       <p class="font-semibold text-purple-900 mt-4 mb-2">Grading Rubric (5 points each):</p>
+       <ul class="list-disc list-inside text-purple-800 text-sm space-y-1">
+        <li>Clear organization and writing (5 pts)</li>
+        <li>Specific examples from real organization (5 pts)</li>
+        <li>Correct identification of information uses (5 pts)</li>
+        <li>Accurate role descriptions (5 pts)</li>
+        <li>Thoughtful reflection on importance (5 pts)</li>
+       </ul>
+       <p class="text-purple-800 text-sm mt-2 font-bold">Total: 25 points</p>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Assessment Methods -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-cyan-100 text-cyan-600 rounded-lg flex items-center justify-center">📈</span> How You'll Be Assessed</h2>
+     <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 border border-red-200">
+       <h3 class="font-semibold text-red-900 mb-3 flex items-center gap-2"><span class="text-2xl">🗣️</span> Oral Recitation</h3>
+       <p class="text-red-800 text-sm mb-3">25%</p>
+       <ul class="text-red-800 text-sm space-y-1">
+        <li>✓ Group brainstorming presentation</li>
+        <li>✓ Accuracy of information</li>
+        <li>✓ Communication clarity</li>
+        <li>✓ Team collaboration</li>
+       </ul>
+      </div>
+      <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 border border-yellow-200">
+       <h3 class="font-semibold text-yellow-900 mb-3 flex items-center gap-2"><span class="text-2xl">📝</span> Reflection Paper</h3>
+       <p class="text-yellow-800 text-sm mb-3">50%</p>
+       <ul class="text-yellow-800 text-sm space-y-1">
+        <li>✓ Real organization analysis</li>
+        <li>✓ Specific examples provided</li>
+        <li>✓ Role identification</li>
+        <li>✓ Personal insights</li>
+       </ul>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+       <h3 class="font-semibold text-blue-900 mb-3 flex items-center gap-2"><span class="text-2xl">👥</span> Participation</h3>
+       <p class="text-blue-800 text-sm mb-3">25%</p>
+       <ul class="text-blue-800 text-sm space-y-1">
+        <li>✓ Active in case discussion</li>
+        <li>✓ Group activity engagement</li>
+        <li>✓ Asks thoughtful questions</li>
+        <li>✓ Respects others' ideas</li>
+       </ul>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Key Takeaways -->
+    <section class="mb-8">
+     <div class="gradient-header rounded-xl p-8">
+      <h2 class="font-heading text-2xl font-bold mb-6">🎓 Key Takeaways</h2>
+      <div class="space-y-4">
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Organizations use information for 4 main purposes:</strong> Decision-making, Efficiency, Competitive Advantage, and Compliance</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Information Managers</strong> build and maintain systems that store and protect data</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Information Users</strong> are everyone in the organization who uses information to do their jobs</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Both roles are essential:</strong> Without managers, data is unorganized. Without users, data is useless.</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Every organization needs information management</strong> — from hospitals to shops to schools. It's a job skill for your future!</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Vocabulary -->
+    <section class="mb-12">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-pink-100 text-pink-600 rounded-lg flex items-center justify-center">📚</span> Vocabulary You Learned</h2>
+     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <table class="w-full">
+       <thead class="bg-gray-100 border-b border-gray-200">
+        <tr>
+         <th class="px-6 py-4 text-left font-semibold text-gray-800">Term</th>
+         <th class="px-6 py-4 text-left font-semibold text-gray-800">Simple Definition</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-purple-600">Information Manager</td>
+         <td class="px-6 py-4 text-gray-700">Person responsible for collecting, organizing, protecting, and maintaining information systems</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-purple-600">Information User</td>
+         <td class="px-6 py-4 text-gray-700">Anyone in an organization who uses information provided by managers to do their job</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-purple-600">Decision-Making</td>
+         <td class="px-6 py-4 text-gray-700">Using information to choose the best action or strategy for business</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-purple-600">Efficiency</td>
+         <td class="px-6 py-4 text-gray-700">Working faster, smarter, and with less waste using information</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-purple-600">Competitive Advantage</td>
+         <td class="px-6 py-4 text-gray-700">An edge a company gets over rivals by using information better</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-purple-600">Compliance</td>
+         <td class="px-6 py-4 text-gray-700">Following laws and regulations by keeping proper records</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-purple-600">Database</td>
+         <td class="px-6 py-4 text-gray-700">Organized collection of data stored on computer systems</td>
+        </tr>
+        <tr>
+         <td class="px-6 py-4 font-semibold text-purple-600">Risk Management</td>
+         <td class="px-6 py-4 text-gray-700">Identifying and preventing problems (like security breaches) using information</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section><!-- Footer -->
+    <section class="bg-gradient-to-r from-purple-100 to-purple-50 rounded-xl p-8 mb-8">
+     <p class="text-gray-700 mb-4">💡 <strong>Remember:</strong> Information management isn't a job only for IT people! Every employee benefits from well-managed information. As you move into your career, you'll see how information shapes business decisions every single day.</p>
+     <p class="text-gray-600">📖 <strong>Next Week:</strong> We'll explore the Information Lifecycle — from the moment data is created, through its use, to its disposal.</p>
+    </section>
+   </main><!-- Floating Navigation -->
+   <div class="fixed bottom-6 right-6 flex gap-3 z-40"><button class="w-12 h-12 bg-purple-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-purple-700 transition-all" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"> <span class="text-xl">↑</span> </button>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      week_title: 'Week 2: Information and Organizations',
+      course_code: 'CC105',
+      instructor_name: 'MKDB'
+    };
+
+    let config = { ...defaultConfig };
+
+    async function onConfigChange(newConfig) {
+      if (newConfig.week_title) {
+        document.getElementById('week-title').textContent = newConfig.week_title || defaultConfig.week_title;
+      }
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['week_title', config.week_title || defaultConfig.week_title],
+        ['course_code', config.course_code || defaultConfig.course_code],
+        ['instructor_name', config.instructor_name || defaultConfig.instructor_name]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    function toggleAnswer(button) {
+      button.classList.toggle('active');
+      button.nextElementSibling.classList.toggle('active');
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c7676be632ab492',t:'MTc3MDAwMTQ5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 3 - Information Systems Overview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .font-body {
+      font-family: 'Inter', sans-serif;
+    }
+    .section-divider {
+      border-top: 3px solid #e0e7ff;
+      margin: 2rem 0;
+    }
+    .concept-card {
+      transition: all 0.3s ease;
+      border-left: 4px solid #0ea5e9;
+    }
+    .concept-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+    }
+    .definition-box {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-left: 4px solid #0ea5e9;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .example-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 0.75rem 0;
+      font-size: 0.95rem;
+    }
+    .component-box {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .component-box:hover {
+      border-color: #0ea5e9;
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.1);
+    }
+    .gradient-header {
+      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+      color: white;
+    }
+    .is-type-card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .is-type-card:hover {
+      border-color: #0ea5e9;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(14, 165, 233, 0.15);
+    }
+    .diagram-container {
+      background: linear-gradient(to right, #f0f9ff, #e0f2fe, #f0f9ff);
+      border: 2px solid #bae6fd;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 1rem 0;
+    }
+    .diagram-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 2px solid #0ea5e9;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin: 0.5rem;
+      font-weight: bold;
+      color: #0c4a6e;
+      text-align: center;
+      min-width: 120px;
+    }
+    .diagram-arrow {
+      color: #0ea5e9;
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+    }
+    .collapsible-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1rem;
+      background: #f3f4f6;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .collapsible-btn:hover {
+      background: #e5e7eb;
+    }
+    .collapsible-btn.active {
+      background: #0ea5e9;
+      color: white;
+    }
+    .collapsible-content {
+      display: none;
+      padding: 1rem;
+      background: #f9fafb;
+      border-radius: 0 0 0.5rem 0.5rem;
+    }
+    .collapsible-content.active {
+      display: block;
+    }
+    .layer-diagram {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .layer {
+      background: white;
+      border: 2px solid #0ea5e9;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .layer-1 {
+      background: linear-gradient(135deg, #ecf0f1 0%, #f8f9fa 100%);
+      border-color: #64748b;
+    }
+    .layer-2 {
+      background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+      border-color: #0ea5e9;
+    }
+    .layer-3 {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+      border-color: #6366f1;
+    }
+    .activity-card {
+      transition: all 0.3s ease;
+    }
+    .activity-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    .tab-button {
+      padding: 0.75rem 1.5rem;
+      background: #f3f4f6;
+      border: none;
+      border-radius: 0.5rem 0.5rem 0 0;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      margin-right: 0.5rem;
+    }
+    .tab-button.active {
+      background: #0ea5e9;
+      color: white;
+    }
+    .tab-content {
+      display: none;
+      background: white;
+      border: 2px solid #0ea5e9;
+      border-radius: 0 0.5rem 0.5rem 0.5rem;
+      padding: 1.5rem;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    .feature-list li {
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+    }
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: bold;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body bg-gray-50 text-gray-800">
+  <div class="h-full overflow-auto w-full"><!-- Header -->
+   <header class="gradient-header sticky top-0 z-50 py-6 px-4 md:px-6 shadow-lg w-full">
+    <div class="max-w-5xl mx-auto">
+     <h1 class="font-heading text-2xl md:text-3xl font-bold mb-2" id="week-title">Week 3: Information Systems Overview</h1>
+     <p class="text-cyan-200"><span id="course-code">CC105</span> | Learn about information systems and their components</p>
+    </div>
+   </header>
+   <main class="max-w-5xl mx-auto px-4 md:px-6 py-8 w-full"><!-- Learning Outcomes Section -->
+    <section class="mb-8">
+     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+      <h2 class="font-heading text-2xl font-bold text-gray-800 mb-4 flex items-center gap-3"><span class="w-10 h-10 bg-cyan-100 text-cyan-600 rounded-lg flex items-center justify-center">🎯</span> What You'll Learn Today</h2>
+      <ul class="space-y-3">
+       <li class="flex items-start gap-3"><span class="text-cyan-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Identify types of information systems</strong> — learn the different categories of systems organizations use</span></li>
+       <li class="flex items-start gap-3"><span class="text-cyan-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Explain components of information systems</strong> — understand hardware, software, data, people, and processes</span></li>
+       <li class="flex items-start gap-3"><span class="text-cyan-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Apply knowledge to real organizations</strong> — see how different systems work together</span></li>
+      </ul>
+     </div>
+    </section><!-- Part 1: What is an Information System? -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">💻</span> Part 1: What is an Information System?</h2>
+     <div class="concept-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Definition</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-cyan-900">An Information System (IS) is:</p>
+       <p class="text-cyan-800">A set of integrated tools and processes that collect, process, store, and distribute information to support decision-making and operations in an organization.</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Simple way to think about it:</strong> An information system is like a machine that takes raw data, transforms it into useful information, and delivers it to people who need it.</p>
+      <p class="font-semibold text-gray-800 mb-3">🔍 Real-World Example:</p>
+      <div class="example-box"><strong>Your School's Registration System:</strong> Students enter their data → System processes it → Advisors get schedules → Finance gets tuition info → Registrar generates transcripts. That's an information system working!
+      </div>
+     </div><!-- IS Components Overview -->
+     <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 md:p-8 border border-blue-200 mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-4">5 Key Components of Every Information System</h3>
+      <div class="diagram-container">
+       <div style="text-align: center; width: 100%;">
+        <div class="mb-4 text-sm font-semibold text-gray-700">
+         All 5 Components Working Together:
+        </div>
+        <div class="flex flex-wrap justify-center items-center gap-2 mb-4">
+         <div class="diagram-box">
+          ⚙️ Hardware
+         </div>
+         <div class="diagram-arrow">
+          →
+         </div>
+         <div class="diagram-box">
+          💾 Software
+         </div>
+         <div class="diagram-arrow">
+          →
+         </div>
+         <div class="diagram-box">
+          📊 Data
+         </div>
+        </div>
+        <div class="flex flex-wrap justify-center items-center gap-2">
+         <div class="diagram-box">
+          👥 People
+         </div>
+         <div class="diagram-arrow">
+          ↔
+         </div>
+         <div class="diagram-box">
+          🔄 Processes
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Component 1: Hardware -->
+     <div class="component-box mb-4">
+      <h4 class="font-semibold text-gray-800 text-lg mb-3 flex items-center gap-2"><span class="text-2xl">⚙️</span> Component 1: Hardware</h4>
+      <p class="text-gray-700 mb-3"><strong>What it is:</strong> Physical devices you can touch.</p>
+      <p class="font-semibold text-gray-800 mb-2">Examples:</p>
+      <ul class="space-y-2 text-gray-700 ml-4">
+       <li>🖥️ Computers and servers</li>
+       <li>📱 Smartphones and tablets</li>
+       <li>🖨️ Printers and scanners</li>
+       <li>🌐 Network routers and cables</li>
+       <li>💾 Storage devices (hard drives, USB drives)</li>
+       <li>🎤 Input devices (keyboards, mice, microphones)</li>
+      </ul>
+     </div><!-- Component 2: Software -->
+     <div class="component-box mb-4">
+      <h4 class="font-semibold text-gray-800 text-lg mb-3 flex items-center gap-2"><span class="text-2xl">💾</span> Component 2: Software</h4>
+      <p class="text-gray-700 mb-3"><strong>What it is:</strong> Programs and applications that tell hardware what to do.</p>
+      <p class="font-semibold text-gray-800 mb-2">Types:</p>
+      <ul class="space-y-2 text-gray-700 ml-4">
+       <li>🖥️ <strong>Operating Systems:</strong> Windows, Mac, Linux, iOS, Android</li>
+       <li>📊 <strong>Business Software:</strong> Excel, Salesforce, SAP, Oracle</li>
+       <li>📧 <strong>Communication:</strong> Gmail, Teams, Slack</li>
+       <li>🔒 <strong>Security:</strong> Antivirus, firewalls</li>
+       <li>🎨 <strong>Creative Tools:</strong> Photoshop, Adobe Suite</li>
+       <li>🔧 <strong>Development:</strong> Python, Java, Visual Studio</li>
+      </ul>
+     </div><!-- Component 3: Data -->
+     <div class="component-box mb-4">
+      <h4 class="font-semibold text-gray-800 text-lg mb-3 flex items-center gap-2"><span class="text-2xl">📊</span> Component 3: Data</h4>
+      <p class="text-gray-700 mb-3"><strong>What it is:</strong> The raw facts and figures that the system processes.</p>
+      <p class="font-semibold text-gray-800 mb-2">Examples in Different Organizations:</p>
+      <ul class="space-y-2 text-gray-700 ml-4">
+       <li>🏥 <strong>Hospital:</strong> Patient names, ages, medical histories, test results</li>
+       <li>🏦 <strong>Bank:</strong> Account numbers, balances, transaction history</li>
+       <li>🎓 <strong>School:</strong> Student IDs, grades, attendance records</li>
+       <li>🛒 <strong>E-commerce:</strong> Product prices, inventory, customer orders</li>
+       <li>📱 <strong>Social Media:</strong> User profiles, posts, likes, comments</li>
+      </ul>
+     </div><!-- Component 4: People -->
+     <div class="component-box mb-4">
+      <h4 class="font-semibold text-gray-800 text-lg mb-3 flex items-center gap-2"><span class="text-2xl">👥</span> Component 4: People</h4>
+      <p class="text-gray-700 mb-3"><strong>What it is:</strong> The humans who use, manage, and maintain the system.</p>
+      <p class="font-semibold text-gray-800 mb-2">Different Roles:</p>
+      <ul class="space-y-2 text-gray-700 ml-4">
+       <li>👨‍💼 <strong>IT Managers:</strong> Oversee systems</li>
+       <li>👨‍💻 <strong>Developers:</strong> Create and update software</li>
+       <li>🔒 <strong>Security Officers:</strong> Protect data</li>
+       <li>💼 <strong>End Users:</strong> Use the system daily (salespeople, nurses, teachers)</li>
+       <li>📞 <strong>Support Staff:</strong> Help users with problems</li>
+       <li>📊 <strong>Analysts:</strong> Study data and find insights</li>
+      </ul>
+     </div><!-- Component 5: Processes -->
+     <div class="component-box mb-4">
+      <h4 class="font-semibold text-gray-800 text-lg mb-3 flex items-center gap-2"><span class="text-2xl">🔄</span> Component 5: Processes</h4>
+      <p class="text-gray-700 mb-3"><strong>What it is:</strong> The rules and procedures for how the system operates.</p>
+      <p class="font-semibold text-gray-800 mb-2">Examples:</p>
+      <ul class="space-y-2 text-gray-700 ml-4">
+       <li>📋 How customer orders are received and processed</li>
+       <li>🔐 How to log in securely</li>
+       <li>📝 How to backup data daily</li>
+       <li>✅ How to approve payments</li>
+       <li>🚨 How to handle system failures</li>
+       <li>🔄 How to update software without losing data</li>
+      </ul>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Part 2: Types of Information Systems -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">🏢</span> Part 2: Types of Information Systems</h2>
+     <p class="text-gray-700 mb-6 text-lg">Different organizations use different types of systems based on their needs:</p><!-- IS Type 1: Transaction Processing Systems (TPS) -->
+     <div class="is-type-card mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">1️⃣ Transaction Processing Systems (TPS)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-cyan-900">What it does:</p>
+       <p class="text-cyan-800">Records daily business transactions and updates databases in real-time.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>When it's used:</strong> Every day, for routine operations</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏪 Supermarket:</strong> When you scan items at checkout, the system records sale, updates inventory, processes payment
+      </div>
+      <div class="example-box"><strong>🏦 Bank:</strong> When you withdraw money, the system records transaction and updates your balance
+      </div>
+      <div class="example-box"><strong>✈️ Airline:</strong> When you book a flight, the system records your reservation and reduces available seats
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Key Feature:</strong> Must be fast and accurate because transactions happen continuously</p>
+     </div><!-- IS Type 2: Management Information Systems (MIS) -->
+     <div class="is-type-card mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">2️⃣ Management Information Systems (MIS)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-cyan-900">What it does:</p>
+       <p class="text-cyan-800">Gathers data from TPS systems and presents it to managers in reports and dashboards for decision-making.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>When it's used:</strong> Weekly, monthly, or quarterly for planning and control</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏪 Supermarket Manager:</strong> Gets weekly report showing: Which products sold most? Which sections had highest profits? What inventory is low?
+      </div>
+      <div class="example-box"><strong>🏥 Hospital Administrator:</strong> Gets monthly dashboard showing: Patient count, average stay, staff utilization, revenue
+      </div>
+      <div class="example-box"><strong>🏭 Factory Manager:</strong> Gets daily report on: Units produced, defect rates, equipment downtime, labor costs
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Key Feature:</strong> Turns raw transaction data into meaningful reports for managers</p>
+     </div><!-- IS Type 3: Decision Support Systems (DSS) -->
+     <div class="is-type-card mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">3️⃣ Decision Support Systems (DSS)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-cyan-900">What it does:</p>
+       <p class="text-cyan-800">Helps managers make complex decisions by analyzing data and showing different scenarios ("what if" analysis).</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>When it's used:</strong> For major business decisions that need careful analysis</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>📦 Logistics Company:</strong> "If we add a new warehouse in location X, how much will it cost vs. savings? DSS shows different scenarios to help decide.
+      </div>
+      <div class="example-box"><strong>💼 Finance Director:</strong> "If we increase product price by 10%, will we sell less? DSS models different prices to find optimal strategy."
+      </div>
+      <div class="example-box"><strong>🎓 University:</strong> "Should we open a new campus? DSS analyzes student demand, costs, revenue to support the decision."
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Key Feature:</strong> Provides analysis and scenarios to support complex decisions</p>
+     </div><!-- IS Type 4: Executive Information Systems (EIS) -->
+     <div class="is-type-card mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">4️⃣ Executive Information Systems (EIS)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-cyan-900">What it does:</p>
+       <p class="text-cyan-800">Provides senior executives with high-level dashboards showing company performance and key metrics at a glance.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>When it's used:</strong> Daily or real-time for strategic oversight</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>👔 CEO Dashboard:</strong> Shows total revenue today, profit margins by division, stock price, major alerts (like customer complaints spiking)
+      </div>
+      <div class="example-box"><strong>👔 CFO Dashboard:</strong> Shows cash flow, quarterly projections, budget vs. actual spending, competitor performance
+      </div>
+      <div class="example-box"><strong>👔 COO Dashboard:</strong> Shows operational metrics like efficiency rates, quality metrics, on-time delivery percentages
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Key Feature:</strong> Designed for executives who need quick, high-level overview without technical details</p>
+     </div><!-- IS Type 5: Enterprise Resource Planning (ERP) -->
+     <div class="is-type-card mb-6">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">5️⃣ Enterprise Resource Planning (ERP)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-cyan-900">What it does:</p>
+       <p class="text-cyan-800">A unified system that integrates all business functions (finance, HR, inventory, sales) into one platform.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>When it's used:</strong> Continuously across the entire organization</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏭 Manufacturing Company:</strong> Uses SAP (an ERP) to connect: Production schedule → Inventory tracking → Supply ordering → Invoice generation → Payment processing. Everything in one system!
+      </div>
+      <div class="example-box"><strong>🛍️ Retail Chain:</strong> Uses Oracle ERP to sync: Store inventory → Corporate warehouse → Suppliers → Finance team → Headquarters. Eliminates separate databases.
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Key Feature:</strong> Eliminates data silos by connecting all departments. More efficient but complex to implement.</p>
+     </div><!-- Comparison Table -->
+     <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+      <p class="font-semibold text-gray-800 mb-4">📊 Comparison of Information System Types</p>
+      <table class="w-full text-sm">
+       <thead>
+        <tr class="bg-cyan-50 border-b-2 border-cyan-300">
+         <th class="text-left py-3 px-3 font-bold text-cyan-900">Type</th>
+         <th class="text-left py-3 px-3 font-bold text-cyan-900">Purpose</th>
+         <th class="text-left py-3 px-3 font-bold text-cyan-900">Who Uses It</th>
+         <th class="text-left py-3 px-3 font-bold text-cyan-900">When</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="py-3 px-3 font-semibold text-cyan-600">TPS</td>
+         <td class="py-3 px-3">Record transactions</td>
+         <td class="py-3 px-3">Cashiers, operators</td>
+         <td class="py-3 px-3">Real-time</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="py-3 px-3 font-semibold text-cyan-600">MIS</td>
+         <td class="py-3 px-3">Create reports</td>
+         <td class="py-3 px-3">Middle managers</td>
+         <td class="py-3 px-3">Weekly/Monthly</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="py-3 px-3 font-semibold text-cyan-600">DSS</td>
+         <td class="py-3 px-3">Analyze scenarios</td>
+         <td class="py-3 px-3">Decision makers</td>
+         <td class="py-3 px-3">As needed</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="py-3 px-3 font-semibold text-cyan-600">EIS</td>
+         <td class="py-3 px-3">Executive overview</td>
+         <td class="py-3 px-3">Executives</td>
+         <td class="py-3 px-3">Daily</td>
+        </tr>
+        <tr class="hover:bg-gray-50">
+         <td class="py-3 px-3 font-semibold text-cyan-600">ERP</td>
+         <td class="py-3 px-3">Integrate all</td>
+         <td class="py-3 px-3">All departments</td>
+         <td class="py-3 px-3">Continuous</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Part 3: How Systems Work Together -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center">🔗</span> Part 3: How Information Systems Work Together</h2>
+     <div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 md:p-8 border border-purple-200 mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-4">The Information Flow Pyramid</h3>
+      <div class="layer-diagram">
+       <div class="layer layer-1">
+        <p class="font-bold text-gray-800 mb-2">🏆 EXECUTIVES / STRATEGIC LEVEL</p>
+        <p class="text-sm text-gray-700">Use EIS for long-term strategy (What are we doing well? Where should we expand?)</p>
+       </div>
+       <div class="layer layer-3">
+        <p class="font-bold text-gray-800 mb-2">👔 MANAGERS / TACTICAL LEVEL</p>
+        <p class="text-sm text-gray-700">Use MIS &amp; DSS for decisions (Should we hire? Which product to promote?)</p>
+       </div>
+       <div class="layer layer-2">
+        <p class="font-bold text-gray-800 mb-2">👥 EMPLOYEES / OPERATIONAL LEVEL</p>
+        <p class="text-sm text-gray-700">Use TPS for daily work (Process sales, record data, enter information)</p>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-6 text-sm"><strong>How it works:</strong> TPS captures raw data → MIS turns it into reports → Managers make decisions → DSS analyzes options → Executives see summary in EIS</p>
+     </div><!-- Real Organization Example -->
+     <div class="bg-yellow-50 rounded-xl p-6 md:p-8 border border-yellow-300 mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-4">📦 Real Example: Amazon E-Commerce Platform</h3>
+      <div class="space-y-4">
+       <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+        <p class="font-bold text-gray-800">🏪 TPS (Transaction Processing)</p>
+        <p class="text-sm text-gray-700 mt-2">Customer clicks "Buy" → System records order, updates inventory, processes payment in seconds. Thousands of transactions daily.</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-green-500">
+        <p class="font-bold text-gray-800">📊 MIS (Management Information)</p>
+        <p class="text-sm text-gray-700 mt-2">Category managers get weekly reports: "Electronics sold $2M this week, up 15% from last week. Top product: iPhone 15"</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-purple-500">
+        <p class="font-bold text-gray-800">💡 DSS (Decision Support)</p>
+        <p class="text-sm text-gray-700 mt-2">Merchandising team uses DSS: "If we discount this item 20%, we'll sell 40% more, but profit drops 15%. Should we do it?" System shows scenarios.</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-orange-500">
+        <p class="font-bold text-gray-800">👔 EIS (Executive Information)</p>
+        <p class="text-sm text-gray-700 mt-2">CEO sees dashboard: "Total revenue $500M this month, 12% growth, top category Electronics 35% of sales, customer satisfaction 4.6/5"</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-red-500">
+        <p class="font-bold text-gray-800">🔗 ERP (Enterprise Planning)</p>
+        <p class="text-sm text-gray-700 mt-2">All systems are connected: When TPS records a sale → Inventory updates → Warehouse gets pick list → Finance sees revenue → Supplier auto-orders replacement stock</p>
+       </div>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Learning Activities -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center">🎯</span> Class Activities</h2><!-- Activity 1: Diagram Analysis -->
+     <div class="activity-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold">1</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 1: Diagram Analysis (15 minutes)</h3>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Objective:</strong> Understand system components and how they interact.</p>
+      <div class="bg-red-50 rounded-lg p-4 border border-red-200 mb-4">
+       <p class="font-semibold text-red-900 mb-3">📋 Task: Label the Components</p>
+       <p class="text-red-800 text-sm mb-4">Below is a system diagram. For a hospital patient registration system, identify each component:</p>
+       <div class="bg-white p-6 rounded border-2 border-red-300 mb-4">
+        <div style="text-align: center;">
+         <p class="font-bold text-gray-700 mb-4">Hospital Patient Registration System</p>
+         <div class="flex flex-col gap-4">
+          <div class="bg-gray-100 p-4 rounded border border-gray-300">
+           <p class="font-semibold text-gray-700">❓ What is this?</p>
+           <p class="text-sm text-gray-600">Computers at front desk, server in IT room, laptops in wards</p>
+          </div>
+          <div class="text-gray-400">
+           ↓
+          </div>
+          <div class="bg-gray-100 p-4 rounded border border-gray-300">
+           <p class="font-semibold text-gray-700">❓ What is this?</p>
+           <p class="text-sm text-gray-600">Registration software, patient management app, database</p>
+          </div>
+          <div class="text-gray-400">
+           ↓
+          </div>
+          <div class="bg-gray-100 p-4 rounded border border-gray-300">
+           <p class="font-semibold text-gray-700">❓ What is this?</p>
+           <p class="text-sm text-gray-600">Patient names, addresses, medical history, appointment dates</p>
+          </div>
+          <div class="text-gray-400">
+           ↓
+          </div>
+          <div class="bg-gray-100 p-4 rounded border border-gray-300">
+           <p class="font-semibold text-gray-700">❓ What is this?</p>
+           <p class="text-sm text-gray-600">Nurses, doctors, receptionists, IT staff who use or maintain system</p>
+          </div>
+          <div class="text-gray-400">
+           ↓
+          </div>
+          <div class="bg-gray-100 p-4 rounded border border-gray-300">
+           <p class="font-semibold text-gray-700">❓ What is this?</p>
+           <p class="text-sm text-gray-600">Steps to register patient, how to check medical history, privacy rules</p>
+          </div>
+         </div>
+        </div>
+       </div>
+       <p class="text-red-800 text-sm"><strong>Answer Options:</strong> Hardware | Software | Data | People | Processes</p>
+      </div>
+      <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+       <p class="font-semibold text-blue-900 mb-2">✅ Discussion After:</p>
+       <ul class="list-disc list-inside text-blue-800 text-sm space-y-1">
+        <li>How do all 5 components work together?</li>
+        <li>What happens if one component fails?</li>
+        <li>Why is each component important?</li>
+       </ul>
+      </div>
+     </div><!-- Activity 2: Small Group Activity -->
+     <div class="activity-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">2</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 2: Small Group Activity - Identify IS Types (20 minutes)</h3>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Objective:</strong> Recognize different information system types in real scenarios.</p>
+      <div class="bg-green-50 rounded-lg p-4 border border-green-200 mb-4">
+       <p class="font-semibold text-green-900 mb-3">🏢 Choose Your Organization:</p>
+       <div class="grid md:grid-cols-2 gap-3 mb-4">
+        <div class="bg-white p-3 rounded border-l-4 border-blue-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">🏦 Bank / Financial Institution</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-purple-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">🏥 Hospital / Healthcare</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-green-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">🛒 Retail Store / Supermarket</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-orange-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">✈️ Airline / Transportation</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-pink-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">🏭 Manufacturing Company</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-cyan-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">🎓 School / University</p>
+        </div>
+       </div>
+       <p class="font-semibold text-green-900 mb-3">📋 Group Task (4-5 people):</p>
+       <ol class="list-decimal list-inside text-green-800 text-sm space-y-2">
+        <li>For your assigned organization, identify all 5 types of information systems they would use</li>
+        <li>For each system type, describe: What data? Who uses it? When? What for?</li>
+        <li>Show how the systems connect and share data</li>
+        <li>Prepare a 3-minute presentation with diagram/visual</li>
+       </ol>
+      </div>
+      <div class="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+       <p class="font-semibold text-yellow-900 mb-2">📝 Presentation Format:</p>
+       <div class="bg-white p-3 rounded text-sm text-gray-700 space-y-1">
+        <p><strong>Organization:</strong> [Name]</p>
+        <p><strong>TPS:</strong> [What transactions? When?]</p>
+        <p><strong>MIS:</strong> [What reports? For whom?]</p>
+        <p><strong>DSS:</strong> [What decisions?]</p>
+        <p><strong>EIS:</strong> [What executive metrics?]</p>
+        <p><strong>ERP:</strong> [How integrated?]</p>
+       </div>
+      </div>
+     </div><!-- Activity 3: Interactive Quiz -->
+     <div class="activity-card bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">3</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 3: Interactive Quiz (10 minutes)</h3>
+      </div>
+      <p class="text-gray-700 mb-6"><strong>Objective:</strong> Test your understanding of IS components and types.</p>
+      <div class="space-y-4"><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Question 1: Which component stores patient medical records?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q1" class="w-4 h-4"> <span class="text-gray-700">A) Hardware</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q1" class="w-4 h-4"> <span class="text-gray-700">B) Software</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q1" class="w-4 h-4"> <span class="text-gray-700">C) Data ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q1" class="w-4 h-4"> <span class="text-gray-700">D) People</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct Answer: C) Data</strong> — Medical records are information stored in the system.</p>
+       </div><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Question 2: A supermarket cashier uses which type of system?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q2" class="w-4 h-4"> <span class="text-gray-700">A) TPS ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q2" class="w-4 h-4"> <span class="text-gray-700">B) MIS</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q2" class="w-4 h-4"> <span class="text-gray-700">C) DSS</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q2" class="w-4 h-4"> <span class="text-gray-700">D) ERP</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct Answer: A) TPS</strong> — Cashiers process daily transactions (sales, payments, inventory updates).</p>
+       </div><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Question 3: Which IS helps an executive see company performance at a glance?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q3" class="w-4 h-4"> <span class="text-gray-700">A) TPS</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q3" class="w-4 h-4"> <span class="text-gray-700">B) MIS</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q3" class="w-4 h-4"> <span class="text-gray-700">C) EIS ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q3" class="w-4 h-4"> <span class="text-gray-700">D) DSS</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct Answer: C) EIS</strong> — Executive Information Systems show dashboards with key metrics for executives.</p>
+       </div><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Question 4: What does MIS stand for?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q4" class="w-4 h-4"> <span class="text-gray-700">A) Main Information System</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q4" class="w-4 h-4"> <span class="text-gray-700">B) Management Information System ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q4" class="w-4 h-4"> <span class="text-gray-700">C) Machine Information System</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q4" class="w-4 h-4"> <span class="text-gray-700">D) Mobile Information System</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct Answer: B) Management Information System</strong> — MIS creates reports for managers.</p>
+       </div><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Question 5: ERP systems are best used when...</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q5" class="w-4 h-4"> <span class="text-gray-700">A) Recording individual transactions</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q5" class="w-4 h-4"> <span class="text-gray-700">B) All departments need one integrated system ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q5" class="w-4 h-4"> <span class="text-gray-700">C) Making quick decisions</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="q5" class="w-4 h-4"> <span class="text-gray-700">D) Creating executive dashboards</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct Answer: B) All departments need one integrated system</strong> — ERP connects finance, HR, inventory, sales, and more into one platform.</p>
+       </div>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Assessment -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-cyan-100 text-cyan-600 rounded-lg flex items-center justify-center">📈</span> How You'll Be Assessed</h2>
+     <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+       <h3 class="font-semibold text-blue-900 mb-3 flex items-center gap-2"><span class="text-2xl">✅</span> Quiz</h3>
+       <p class="text-blue-800 text-sm mb-3">30%</p>
+       <ul class="text-blue-800 text-sm space-y-1">
+        <li>✓ Identify IS components</li>
+        <li>✓ Recognize IS types</li>
+        <li>✓ Match scenarios to systems</li>
+        <li>✓ Explain relationships</li>
+       </ul>
+      </div>
+      <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border border-green-200">
+       <h3 class="font-semibold text-green-900 mb-3 flex items-center gap-2"><span class="text-2xl">👥</span> Group Output</h3>
+       <p class="text-green-800 text-sm mb-3">50%</p>
+       <ul class="text-green-800 text-sm space-y-1">
+        <li>✓ Identify all 5 IS types</li>
+        <li>✓ Organization analysis</li>
+        <li>✓ Clear presentation</li>
+        <li>✓ System connections</li>
+       </ul>
+      </div>
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+       <h3 class="font-semibold text-purple-900 mb-3 flex items-center gap-2"><span class="text-2xl">👥</span> Participation</h3>
+       <p class="text-purple-800 text-sm mb-3">20%</p>
+       <ul class="text-purple-800 text-sm space-y-1">
+        <li>✓ Activity engagement</li>
+        <li>✓ Answers questions</li>
+        <li>✓ Asks questions</li>
+        <li>✓ Team collaboration</li>
+       </ul>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Key Takeaways -->
+    <section class="mb-8">
+     <div class="gradient-header rounded-xl p-8">
+      <h2 class="font-heading text-2xl font-bold mb-6">🎓 Key Takeaways</h2>
+      <div class="space-y-4">
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>5 Components of Any IS:</strong> Hardware (physical), Software (programs), Data (information), People (users), Processes (rules)</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>5 Major IS Types:</strong> TPS (daily), MIS (reports), DSS (analysis), EIS (executive), ERP (integrated)</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>They Work Together:</strong> TPS collects data → MIS processes it → DSS analyzes it → EIS shows executives → ERP integrates all</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Different Users, Different Systems:</strong> Cashiers use TPS, managers use MIS/DSS, executives use EIS, everyone benefits from ERP</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Every Organization Needs IS:</strong> From hospitals to shops to banks — understanding systems is a critical career skill</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Vocabulary -->
+    <section class="mb-12">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-pink-100 text-pink-600 rounded-lg flex items-center justify-center">📚</span> Vocabulary You Learned</h2>
+     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <table class="w-full">
+       <thead class="bg-gray-100 border-b border-gray-200">
+        <tr>
+         <th class="px-6 py-4 text-left font-semibold text-gray-800">Term</th>
+         <th class="px-6 py-4 text-left font-semibold text-gray-800">Simple Definition</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-cyan-600">Information System (IS)</td>
+         <td class="px-6 py-4 text-gray-700">Integrated tools and processes that collect, process, and distribute information in an organization</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-cyan-600">Hardware</td>
+         <td class="px-6 py-4 text-gray-700">Physical devices like computers, servers, printers, and networks</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-cyan-600">Software</td>
+         <td class="px-6 py-4 text-gray-700">Programs and applications that run on hardware and tell it what to do</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-cyan-600">Data</td>
+         <td class="px-6 py-4 text-gray-700">Raw facts and figures stored and processed by the system</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-cyan-600">TPS (Transaction Processing System)</td>
+         <td class="px-6 py-4 text-gray-700">Records daily business transactions in real-time (like checkout, bank transfers)</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-cyan-600">MIS (Management Information System)</td>
+         <td class="px-6 py-4 text-gray-700">Creates reports from transaction data to help managers make decisions</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-cyan-600">DSS (Decision Support System)</td>
+         <td class="px-6 py-4 text-gray-700">Analyzes data and shows scenarios to help make complex decisions</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-cyan-600">EIS (Executive Information System)</td>
+         <td class="px-6 py-4 text-gray-700">Dashboard showing high-level company performance metrics for executives</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+         <td class="px-6 py-4 font-semibold text-cyan-600">ERP (Enterprise Resource Planning)</td>
+         <td class="px-6 py-4 text-gray-700">Unified system integrating all business departments and functions</td>
+        </tr>
+        <tr>
+         <td class="px-6 py-4 font-semibold text-cyan-600">Database</td>
+         <td class="px-6 py-4 text-gray-700">Organized collection of data stored on computer systems</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section><!-- Footer -->
+    <section class="bg-gradient-to-r from-cyan-100 to-blue-50 rounded-xl p-8 mb-8">
+     <p class="text-gray-700 mb-4">💡 <strong>Remember:</strong> Information systems are everywhere! Every time you use an app, make a purchase, or attend class, you're interacting with multiple IS working together. Understanding how they work will make you valuable in any career.</p>
+     <p class="text-gray-600">📖 <strong>Next Week:</strong> We'll explore databases in detail — how organizations store and organize massive amounts of data efficiently.</p>
+    </section>
+   </main><!-- Floating Navigation -->
+   <div class="fixed bottom-6 right-6 flex gap-3 z-40"><button class="w-12 h-12 bg-cyan-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-cyan-700 transition-all" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"> <span class="text-xl">↑</span> </button>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      week_title: 'Week 3: Information Systems Overview',
+      course_code: 'CC105'
+    };
+
+    let config = { ...defaultConfig };
+
+    async function onConfigChange(newConfig) {
+      if (newConfig.week_title) {
+        document.getElementById('week-title').textContent = newConfig.week_title || defaultConfig.week_title;
+      }
+      if (newConfig.course_code) {
+        document.getElementById('course-code').textContent = newConfig.course_code || defaultConfig.course_code;
+      }
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['week_title', config.week_title || defaultConfig.week_title],
+        ['course_code', config.course_code || defaultConfig.course_code]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    function toggleAnswer(button) {
+      button.classList.toggle('active');
+      button.nextElementSibling.classList.toggle('active');
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c767b66d26c1fc2',t:'MTc3MDAwMTY4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

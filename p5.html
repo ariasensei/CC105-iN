@@ -1,0 +1,1810 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 5 - Data Collection and Storage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .font-body {
+      font-family: 'Inter', sans-serif;
+    }
+    .section-divider {
+      border-top: 3px solid #e0e7ff;
+      margin: 2rem 0;
+    }
+    .gradient-header {
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      color: white;
+    }
+    .method-card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .method-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+      transform: translateY(-2px);
+    }
+    .method-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      color: white;
+      border-radius: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    .definition-box {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      border-left: 4px solid #3b82f6;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .example-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 0.75rem 0;
+      font-size: 0.95rem;
+    }
+    .pros-box {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border-left: 4px solid #10b981;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 0.5rem 0;
+    }
+    .cons-box {
+      background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+      border-left: 4px solid #ef4444;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 0.5rem 0;
+    }
+    .storage-type {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      transition: all 0.3s ease;
+    }
+    .storage-type:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 8px 16px rgba(59, 130, 246, 0.1);
+    }
+    .storage-type h3 {
+      color: #1e40af;
+      margin-bottom: 1rem;
+    }
+    .comparison-table {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+    .comparison-table table {
+      width: 100%;
+    }
+    .comparison-table th {
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .comparison-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .comparison-table tr:hover {
+      background: #f9fafb;
+    }
+    .demo-form {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 2px solid #0ea5e9;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 1.5rem 0;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: #1e40af;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .form-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    .form-textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    .form-select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #cbd5e1;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .form-select:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .checkbox-item input[type="checkbox"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      cursor: pointer;
+    }
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .radio-item input[type="radio"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      cursor: pointer;
+    }
+    .submit-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    .feature-list li {
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+      color: #374151;
+    }
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #3b82f6;
+      font-weight: bold;
+    }
+    .database-schema {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .database-schema-table {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    .database-schema-table table {
+      width: 100%;
+    }
+    .database-schema-table th {
+      background: #f3f4f6;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: #1f2937;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    .database-schema-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .database-schema-table td:first-child {
+      font-weight: 500;
+      color: #1f2937;
+    }
+    .collapsible-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1rem;
+      background: #f3f4f6;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .collapsible-btn:hover {
+      background: #e5e7eb;
+    }
+    .collapsible-btn.active {
+      background: #3b82f6;
+      color: white;
+    }
+    .collapsible-content {
+      display: none;
+      padding: 1rem;
+      background: #f9fafb;
+      border-radius: 0 0 0.5rem 0.5rem;
+    }
+    .collapsible-content.active {
+      display: block;
+    }
+    .activity-card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .activity-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    .key-term {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .key-term strong {
+      color: #1e40af;
+    }
+    .data-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem;
+      background: linear-gradient(to right, #f0f9ff, #e0f2fe, #f0f9ff);
+      border: 2px solid #7dd3fc;
+      border-radius: 1rem;
+      margin: 1.5rem 0;
+    }
+    .flow-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 2px solid #3b82f6;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      min-width: 120px;
+      text-align: center;
+      font-weight: 500;
+      color: #1e40af;
+    }
+    .flow-arrow {
+      color: #3b82f6;
+      font-size: 2rem;
+      margin: 0 0.5rem;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body bg-gray-50 text-gray-800">
+  <div class="h-full overflow-auto w-full"><!-- Header -->
+   <header class="gradient-header sticky top-0 z-50 py-6 px-4 md:px-6 shadow-lg w-full">
+    <div class="max-w-5xl mx-auto">
+     <h1 class="font-heading text-2xl md:text-3xl font-bold mb-2" id="week-title">Week 5: Data Collection and Storage</h1>
+     <p class="text-blue-200"><span id="course-code">CC105</span> | Master techniques for gathering data and storing it effectively</p>
+    </div>
+   </header>
+   <main class="max-w-5xl mx-auto px-4 md:px-6 py-8 w-full"><!-- Learning Outcomes Section -->
+    <section class="mb-8">
+     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+      <h2 class="font-heading text-2xl font-bold text-gray-800 mb-4 flex items-center gap-3"><span class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">🎯</span> Learning Outcomes</h2>
+      <ul class="space-y-3">
+       <li class="flex items-start gap-3"><span class="text-blue-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Identify data collection methods</strong> — surveys, sensors, transactions, observations, APIs</span></li>
+       <li class="flex items-start gap-3"><span class="text-blue-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Compare collection approaches</strong> — pros, cons, and when to use each method</span></li>
+       <li class="flex items-start gap-3"><span class="text-blue-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Explain data storage techniques</strong> — relational databases, NoSQL, data warehouses, cloud storage</span></li>
+       <li class="flex items-start gap-3"><span class="text-blue-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Design database schemas</strong> — organize data with tables, fields, and relationships</span></li>
+       <li class="flex items-start gap-3"><span class="text-blue-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Evaluate storage options</strong> — cost, speed, scalability, and security considerations</span></li>
+      </ul>
+     </div>
+    </section><!-- Part 1: Data Collection Methods -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">📊</span> Part 1: Data Collection Methods</h2>
+     <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 md:p-8 border border-blue-200 mb-6">
+      <p class="text-gray-700 mb-4 text-lg">Every organization needs data. But how do you get it? There are many methods, each with different strengths and weaknesses.</p>
+      <div class="data-flow">
+       <div class="flow-box">
+        📝 Manual Entry
+       </div>
+       <div class="flow-arrow">
+        |
+       </div>
+       <div class="flow-box">
+        📱 Sensors
+       </div>
+       <div class="flow-arrow">
+        |
+       </div>
+       <div class="flow-box">
+        💳 Transactions
+       </div>
+       <div class="flow-arrow">
+        |
+       </div>
+       <div class="flow-box">
+        👁️ Observation
+       </div>
+       <div class="flow-arrow">
+        |
+       </div>
+       <div class="flow-box">
+        🔌 APIs
+       </div>
+      </div>
+      <p class="text-gray-700 text-sm mt-4 text-center text-gray-600">Five Main Data Collection Methods</p>
+     </div><!-- Method 1: Manual Data Entry -->
+     <div class="method-card mb-6">
+      <div class="method-icon">
+       📝
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Method 1: Manual Data Entry</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">People actively enter data by typing into forms, questionnaires, or surveys.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>How it works:</strong></p>
+      <ul class="feature-list">
+       <li>User fills out a form with information</li>
+       <li>Data submitted to system (online or on paper)</li>
+       <li>Data entered into database</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏥 Hospital:</strong> Patient fills out intake form with medical history, allergies, current medications
+      </div>
+      <div class="example-box"><strong>📝 School:</strong> Student fills out online registration form with name, address, phone, email
+      </div>
+      <div class="example-box"><strong>🛍️ Retail:</strong> Customer enters credit card info, shipping address at checkout
+      </div>
+      <div class="example-box"><strong>📋 Survey:</strong> Market researcher sends survey asking 50 questions about product preferences
+      </div>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         <p>Flexible — can ask complex questions</p>
+        </div>
+        <div class="pros-box">
+         <p>Detailed — get rich, nuanced responses</p>
+        </div>
+        <div class="pros-box">
+         <p>Customizable — adapt questions per user</p>
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         <p>Slow — people take time to fill out</p>
+        </div>
+        <div class="cons-box">
+         <p>Error-prone — typos, wrong values</p>
+        </div>
+        <div class="cons-box">
+         <p>Low response rate — many skip surveys</p>
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best for:</strong> Detailed information, customer preferences, feedback, custom data that varies per person</p>
+     </div><!-- Method 2: Sensors & IoT -->
+     <div class="method-card mb-6">
+      <div class="method-icon">
+       📱
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Method 2: Sensors &amp; IoT Devices</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">Automated devices measure physical conditions and transmit data automatically (no human intervention needed).</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>How it works:</strong></p>
+      <ul class="feature-list">
+       <li>Sensors continuously measure (temperature, motion, location, etc.)</li>
+       <li>Data transmitted automatically to system</li>
+       <li>No manual entry required</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🌡️ Weather Station:</strong> Thermometers measure temperature every 5 seconds, data sent to weather service automatically
+      </div>
+      <div class="example-box"><strong>⌚ Fitness Tracker:</strong> Wearable watch counts steps, measures heart rate, records sleep automatically throughout day
+      </div>
+      <div class="example-box"><strong>🏭 Factory:</strong> Sensors on machinery measure temperature, vibration, speed; alert engineers if problems detected
+      </div>
+      <div class="example-box"><strong>🚗 Smart City:</strong> Traffic cameras count vehicles, air quality sensors measure pollution levels
+      </div>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         <p>Automatic — no human effort needed</p>
+        </div>
+        <div class="pros-box">
+         <p>Fast — continuous real-time data</p>
+        </div>
+        <div class="pros-box">
+         <p>Accurate — machines don't make typos</p>
+        </div>
+        <div class="pros-box">
+         <p>Volume — can collect millions per second</p>
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         <p>Expensive — hardware costs high</p>
+        </div>
+        <div class="cons-box">
+         <p>Limited — only measures what sensor measures</p>
+        </div>
+        <div class="cons-box">
+         <p>Requires maintenance — devices fail, need replacement</p>
+        </div>
+        <div class="cons-box">
+         <p>Privacy concerns — constant tracking</p>
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best for:</strong> Physical measurements, continuous monitoring, real-time alerts, large volumes of consistent data</p>
+     </div><!-- Method 3: Transaction Data -->
+     <div class="method-card mb-6">
+      <div class="method-icon">
+       💳
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Method 3: Transaction Data</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">Data automatically captured when customers make purchases, payments, or use services.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>How it works:</strong></p>
+      <ul class="feature-list">
+       <li>Customer makes transaction (purchase, withdrawal, etc.)</li>
+       <li>System automatically records all details</li>
+       <li>Data includes who, what, when, where, how much</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🛒 E-commerce:</strong> Every purchase automatically records: customer ID, items bought, price, date/time, shipping address, payment method
+      </div>
+      <div class="example-box"><strong>🏦 ATM:</strong> Every withdrawal records: account number, amount, location, timestamp, remaining balance
+      </div>
+      <div class="example-box"><strong>📱 Phone Company:</strong> Every call/text automatically logs: from number, to number, duration, timestamp, cost
+      </div>
+      <div class="example-box"><strong>🎬 Streaming:</strong> Every video watched records: user ID, title, duration watched, device, timestamp
+      </div>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         <p>Automatic byproduct of business</p>
+        </div>
+        <div class="pros-box">
+         <p>Complete — every transaction captured</p>
+        </div>
+        <div class="pros-box">
+         <p>Real behavior — not self-reported</p>
+        </div>
+        <div class="pros-box">
+         <p>Timestamps — know exactly when</p>
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         <p>Limited to existing customers</p>
+        </div>
+        <div class="cons-box">
+         <p>Don't know why they bought</p>
+        </div>
+        <div class="cons-box">
+         <p>Miss non-customers</p>
+        </div>
+        <div class="cons-box">
+         <p>Privacy concerns — tracking behavior</p>
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best for:</strong> Understanding actual customer behavior, revenue tracking, fraud detection, predictive analytics</p>
+     </div><!-- Method 4: Observation & Tracking -->
+     <div class="method-card mb-6">
+      <div class="method-icon">
+       👁️
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Method 4: Observation &amp; Tracking</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">Systematically watching and recording behavior or events without people knowing or being directly involved.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>How it works:</strong></p>
+      <ul class="feature-list">
+       <li>Researcher observes and takes notes</li>
+       <li>Camera/tracker records movements or events</li>
+       <li>Clicks/interactions tracked digitally</li>
+       <li>Behavior patterns documented</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🛍️ Retail Store:</strong> Store cameras track which items customers look at longest, which aisles get traffic, where people spend time
+      </div>
+      <div class="example-box"><strong>🌐 Website Analytics:</strong> Google Analytics tracks which pages users visit, how long they stay, where they click, where they drop off
+      </div>
+      <div class="example-box"><strong>📍 GPS Tracking:</strong> Uber/Lyft track driver location, route taken, speed, time of day
+      </div>
+      <div class="example-box"><strong>🎓 Education:</strong> Learning management system tracks which students accessed materials, how long they studied, when they logged in
+      </div>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         <p>Natural behavior — people not influenced</p>
+        </div>
+        <div class="pros-box">
+         <p>Detailed — capture everything happened</p>
+        </div>
+        <div class="pros-box">
+         <p>No respondent burden — people don't have to answer</p>
+        </div>
+        <div class="pros-box">
+         <p>Real patterns — actual behavior</p>
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         <p>Privacy concerns — tracking without consent</p>
+        </div>
+        <div class="cons-box">
+         <p>Don't know motivation — why they did it</p>
+        </div>
+        <div class="cons-box">
+         <p>Ethical issues — surveillance concerns</p>
+        </div>
+        <div class="cons-box">
+         <p>Legal restrictions — GDPR, privacy laws</p>
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best for:</strong> Understanding real behavior patterns, UX optimization, fraud detection, location intelligence</p>
+     </div><!-- Method 5: APIs & External Data -->
+     <div class="method-card mb-6">
+      <div class="method-icon">
+       🔌
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Method 5: APIs &amp; External Data Sources</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">Connecting to external services/databases to access data from other organizations automatically.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>How it works:</strong></p>
+      <ul class="feature-list">
+       <li>Organization grants permission to access their API</li>
+       <li>Your system requests data programmatically</li>
+       <li>Data flows automatically to your database</li>
+       <li>May happen in real-time or batches</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🗺️ Uber:</strong> Uses Google Maps API for location data, traffic patterns, directions
+      </div>
+      <div class="example-box"><strong>🏦 Banking:</strong> Banks use credit reporting agencies' APIs to get credit scores, financial history
+      </div>
+      <div class="example-box"><strong>📊 Analytics:</strong> Companies fetch social media data (via Twitter, Instagram APIs) for sentiment analysis
+      </div>
+      <div class="example-box"><strong>🌤️ Weather Apps:</strong> Pull weather data from national meteorological services via APIs
+      </div>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         <p>Don't collect yourself — save time/cost</p>
+        </div>
+        <div class="pros-box">
+         <p>Always current — real-time data</p>
+        </div>
+        <div class="pros-box">
+         <p>Authorized — data source gives permission</p>
+        </div>
+        <div class="pros-box">
+         <p>Reliable — professional sources</p>
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         <p>Dependent on external service availability</p>
+        </div>
+        <div class="cons-box">
+         <p>May have cost/usage limits</p>
+        </div>
+        <div class="cons-box">
+         <p>Limited control — can't customize what you get</p>
+        </div>
+        <div class="cons-box">
+         <p>Service changes API — you must adapt</p>
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best for:</strong> Reference data (weather, location), third-party integrations, enriching internal data with external sources</p>
+     </div><!-- Comparison Table -->
+     <div class="comparison-table">
+      <table>
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th>Data Source</th>
+         <th>Speed</th>
+         <th>Accuracy</th>
+         <th>Volume</th>
+         <th>Best For</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td><strong>📝 Manual Entry</strong></td>
+         <td>People typing</td>
+         <td>Slow</td>
+         <td>Low (typos)</td>
+         <td>Low</td>
+         <td>Detailed info</td>
+        </tr>
+        <tr>
+         <td><strong>📱 Sensors</strong></td>
+         <td>Devices measuring</td>
+         <td>Real-time</td>
+         <td>Very High</td>
+         <td>Massive</td>
+         <td>Physical data</td>
+        </tr>
+        <tr>
+         <td><strong>💳 Transactions</strong></td>
+         <td>Business activity</td>
+         <td>Instant</td>
+         <td>High</td>
+         <td>High</td>
+         <td>Behavior data</td>
+        </tr>
+        <tr>
+         <td><strong>👁️ Observation</strong></td>
+         <td>Tracking behavior</td>
+         <td>Real-time</td>
+         <td>Medium</td>
+         <td>Medium-High</td>
+         <td>Patterns/trends</td>
+        </tr>
+        <tr>
+         <td><strong>🔌 APIs</strong></td>
+         <td>External sources</td>
+         <td>Varies</td>
+         <td>High</td>
+         <td>Medium</td>
+         <td>Reference data</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Part 2: Data Storage Techniques -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center">💾</span> Part 2: Data Storage Techniques</h2>
+     <p class="text-gray-700 mb-6 text-lg">Once you've collected data, you need to store it effectively. Different situations require different storage approaches.</p><!-- Storage Overview -->
+     <div class="bg-purple-50 rounded-xl p-6 md:p-8 border border-purple-200 mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-4">🎯 Storage Decision Factors</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+       <div class="bg-white p-4 rounded border-l-4 border-purple-500">
+        <p class="font-semibold text-purple-900 mb-2">Data Structure</p>
+        <p class="text-gray-700 text-sm">Structured (tables) vs Unstructured (images, documents, videos)</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+        <p class="font-semibold text-blue-900 mb-2">Query Speed</p>
+        <p class="text-gray-700 text-sm">Need instant answers (milliseconds) or batch processing (hours) acceptable?</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-green-900 mb-2">Volume</p>
+        <p class="text-gray-700 text-sm">Gigabytes (small), Terabytes (medium), Petabytes (massive)?</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-orange-500">
+        <p class="font-semibold text-orange-900 mb-2">Cost</p>
+        <p class="text-gray-700 text-sm">Budget for hardware, cloud services, maintenance?</p>
+       </div>
+      </div>
+     </div><!-- Storage Type 1: Relational Databases -->
+     <div class="storage-type">
+      <h3 class="font-heading text-xl font-bold">📊 1. Relational Databases (SQL)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">Organized data in tables with rows and columns, linked by relationships. Uses SQL queries to retrieve data.</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Popular Systems:</strong> MySQL, PostgreSQL, Oracle, Microsoft SQL Server</p>
+      <p class="font-semibold text-gray-800 mb-3">How it works:</p>
+      <ul class="feature-list">
+       <li>Data organized into tables (like Excel spreadsheets)</li>
+       <li>Each row is a record (e.g., one customer)</li>
+       <li>Each column is a field (e.g., customer name, email, phone)</li>
+       <li>Tables linked through keys (relationships)</li>
+       <li>SQL queries retrieve specific data</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">📋 Example: Customer Database</p>
+      <div class="database-schema-table">
+       <table>
+        <thead>
+         <tr>
+          <th>CustomerID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>SignupDate</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>1001</td>
+          <td>John Smith</td>
+          <td>john@example.com</td>
+          <td>555-1234</td>
+          <td>2024-01-15</td>
+         </tr>
+         <tr>
+          <td>1002</td>
+          <td>Sarah Jones</td>
+          <td>sarah@example.com</td>
+          <td>555-5678</td>
+          <td>2024-02-20</td>
+         </tr>
+         <tr>
+          <td>1003</td>
+          <td>Mike Brown</td>
+          <td>mike@example.com</td>
+          <td>555-9012</td>
+          <td>2024-03-10</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <p class="text-gray-700 mb-2"><strong>Sample SQL Query:</strong></p>
+      <div class="database-schema">
+       SELECT Name, Email FROM Customers WHERE SignupDate &gt; '2024-01-01';
+      </div>
+      <p class="text-gray-600 text-sm">This query finds all customers who signed up after January 1st, 2024.</p>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         Data integrity — enforces rules, prevents errors
+        </div>
+        <div class="pros-box">
+         ACID compliant — transactions safe
+        </div>
+        <div class="pros-box">
+         Relationships — link data across tables
+        </div>
+        <div class="pros-box">
+         Query flexibility — ask complex questions
+        </div>
+        <div class="pros-box">
+         Proven — used 50+ years
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         Schema rigid — must define structure upfront
+        </div>
+        <div class="cons-box">
+         Scaling difficult — hard to handle petabyte scales
+        </div>
+        <div class="cons-box">
+         Unstructured data — not good for images, videos
+        </div>
+        <div class="cons-box">
+         Setup complex — requires DBA management
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best For:</strong> Business applications (accounting, CRM, HR), structured data, transactional systems, where accuracy critical</p>
+     </div><!-- Storage Type 2: NoSQL Databases -->
+     <div class="storage-type">
+      <h3 class="font-heading text-xl font-bold">🗂️ 2. NoSQL Databases (Non-Relational)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">Flexible storage for unstructured or semi-structured data. No rigid schema required.</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Popular Systems:</strong> MongoDB, Cassandra, Firebase, DynamoDB, Redis</p>
+      <p class="font-semibold text-gray-800 mb-3">Types of NoSQL:</p>
+      <ul class="feature-list">
+       <li><strong>Document Stores:</strong> Store data as JSON documents (MongoDB)</li>
+       <li><strong>Key-Value Stores:</strong> Simple key→value pairs (Redis)</li>
+       <li><strong>Column Stores:</strong> Optimized for analytics (HBase)</li>
+       <li><strong>Graph Stores:</strong> Store relationships between data (Neo4j)</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">📋 Example: Document-Based NoSQL</p>
+      <div class="database-schema">
+       { "customer_id": "1001", "name": "John Smith", "email": "john@example.com", "orders": [ { "order_id": "ORD-1", "items": ["iPhone 15", "AirPods"], "total": 1200, "date": "2024-01-15" }, { "order_id": "ORD-2", "items": ["MacBook Pro"], "total": 2500, "date": "2024-02-20" } ], "preferences": { "newsletter": true, "language": "English" } }
+      </div>
+      <p class="text-gray-600 text-sm">Note: Different documents can have different fields. Flexible structure!</p>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         Flexible schema — add fields anytime
+        </div>
+        <div class="pros-box">
+         Scalable — handles massive volumes easily
+        </div>
+        <div class="pros-box">
+         Fast writes — optimized for speed
+        </div>
+        <div class="pros-box">
+         Unstructured data — great for images, docs, JSON
+        </div>
+        <div class="pros-box">
+         Cloud-friendly — built for distribution
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         Less strict — data validation not enforced
+        </div>
+        <div class="cons-box">
+         Complex queries — harder to join data
+        </div>
+        <div class="cons-box">
+         Duplicates possible — same data stored multiple times
+        </div>
+        <div class="cons-box">
+         Learning curve — different query language
+        </div>
+        <div class="cons-box">
+         Consistency issues — eventual consistency
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best For:</strong> Real-time apps (chat, gaming), social media, IoT sensor data, mobile apps, massive scale systems</p>
+     </div><!-- Storage Type 3: Data Warehouses -->
+     <div class="storage-type">
+      <h3 class="font-heading text-xl font-bold">🏗️ 3. Data Warehouses</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">Centralized storage combining data from multiple sources for analysis and reporting (not transactional use).</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Popular Systems:</strong> Snowflake, BigQuery, Redshift, Azure Synapse</p>
+      <p class="font-semibold text-gray-800 mb-3">How it works:</p>
+      <ul class="feature-list">
+       <li>Data from multiple sources (sales systems, CRM, accounting) loaded</li>
+       <li>Historical data kept (years of history)</li>
+       <li>Optimized for complex analysis queries</li>
+       <li>Separate from production systems (doesn't slow down operations)</li>
+       <li>Used by analysts and executives, not customers</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">📊 Example: What a Warehouse Contains</p>
+      <div class="example-box"><strong>Tables in a Sales Warehouse:</strong>
+       <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+        <li>Customers — all customers ever</li>
+        <li>Products — all products offered</li>
+        <li>Sales — every transaction ever</li>
+        <li>Returns — every return ever</li>
+        <li>Marketing — campaign data</li>
+        <li>Inventory — stock history</li>
+       </ul>
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Typical Warehouse Queries:</strong></p>
+      <ul class="feature-list">
+       <li>"What was total revenue last year by region?"</li>
+       <li>"Which products had highest profit margin?"</li>
+       <li>"How many customers churned vs retained?"</li>
+       <li>"What's the trend in customer spending?"</li>
+      </ul>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         Centralized — all data in one place
+        </div>
+        <div class="pros-box">
+         Historical — keep years of data
+        </div>
+        <div class="pros-box">
+         Analyzed easily — SQL queries get answers
+        </div>
+        <div class="pros-box">
+         Doesn't slow operations — separate system
+        </div>
+        <div class="pros-box">
+         Multiple views — organize for different teams
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         High cost — expensive to build/maintain
+        </div>
+        <div class="cons-box">
+         Complex — many moving parts
+        </div>
+        <div class="cons-box">
+         Slow setup — takes months to implement
+        </div>
+        <div class="cons-box">
+         Data quality — only as good as source data
+        </div>
+        <div class="cons-box">
+         Not real-time — data loaded periodically
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best For:</strong> Business intelligence, executive reporting, historical analysis, trend identification, strategic planning</p>
+     </div><!-- Storage Type 4: Data Lakes -->
+     <div class="storage-type">
+      <h3 class="font-heading text-xl font-bold">🌊 4. Data Lakes (Cloud Storage)</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">Massive, cheap storage for raw data in any format (structured, unstructured, mixed). Data not organized upfront.</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Popular Systems:</strong> AWS S3, Azure Data Lake, Google Cloud Storage, Hadoop</p>
+      <p class="font-semibold text-gray-800 mb-3">How it works:</p>
+      <ul class="feature-list">
+       <li>Store everything — photos, videos, logs, files, databases</li>
+       <li>No schema needed — dump data as-is</li>
+       <li>Organize later — process when needed</li>
+       <li>Massive scale — petabytes affordable</li>
+       <li>Process with various tools — SQL, Spark, Python, etc.</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">📋 Example: What a Data Lake Stores</p>
+      <div class="example-box"><strong>Everything from daily operations:</strong>
+       <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+        <li>📊 Transaction logs (structured)</li>
+        <li>📸 Customer photos (unstructured)</li>
+        <li>📹 Security camera feeds (unstructured)</li>
+        <li>📄 PDF documents (unstructured)</li>
+        <li>📱 Mobile app events (semi-structured)</li>
+        <li>🔊 Audio recordings (unstructured)</li>
+        <li>💬 Chat messages (text)</li>
+       </ul>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         Cheap — very low storage cost
+        </div>
+        <div class="pros-box">
+         Scalable — handles unlimited data
+        </div>
+        <div class="pros-box">
+         Flexible — any format accepted
+        </div>
+        <div class="pros-box">
+         Fast writes — load data quickly
+        </div>
+        <div class="pros-box">
+         Flexible analysis — use any tool
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         Messy — "data swamp" if unmanaged
+        </div>
+        <div class="cons-box">
+         Quality unknown — bad data goes in
+        </div>
+        <div class="cons-box">
+         Hard to find data — poor organization
+        </div>
+        <div class="cons-box">
+         Complex querying — not like databases
+        </div>
+        <div class="cons-box">
+         Security risks — everything exposed
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best For:</strong> Machine learning, research, long-term archival, experimental analysis, multi-modal data</p>
+     </div><!-- Storage Type 5: File Systems -->
+     <div class="storage-type">
+      <h3 class="font-heading text-xl font-bold">📁 5. File Systems &amp; Cloud Storage</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-blue-900">What it is:</p>
+       <p class="text-blue-800">Simple folder/file storage for documents, media, and backups (like OneDrive, Dropbox, Google Drive).</p>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Popular Systems:</strong> Google Drive, OneDrive, Dropbox, AWS S3, iCloud</p>
+      <p class="font-semibold text-gray-800 mb-3">How it works:</p>
+      <ul class="feature-list">
+       <li>Organize files in folders/directories</li>
+       <li>Upload, download, share files easily</li>
+       <li>Version control — keep file history</li>
+       <li>Access control — share with specific people</li>
+       <li>Backup — automatic copies</li>
+      </ul>
+      <p class="font-semibold text-gray-800 mb-2">📊 Typical Organization</p>
+      <div class="database-schema">
+       📦 My Drive ├── 📁 Projects │ ├── 📁 Website Redesign │ │ ├── 📄 design.psd │ │ ├── 📄 spec.docx │ │ └── 📹 demo.mp4 │ └── 📁 Marketing Campaign │ └── 📊 Q1_Results.xlsx ├── 📁 Reports │ ├── 📄 Annual_Report_2024.pdf │ └── 📊 Monthly_Metrics.xlsx └── 📁 Archive └── 📁 2023
+      </div>
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">✅ Advantages:</p>
+        <div class="pros-box">
+         Simple — everyone knows how to use
+        </div>
+        <div class="pros-box">
+         Accessible — works on any device
+        </div>
+        <div class="pros-box">
+         Shareable — easy collaboration
+        </div>
+        <div class="pros-box">
+         Backup — automatic protection
+        </div>
+        <div class="pros-box">
+         Cheap — affordable cloud plans
+        </div>
+       </div>
+       <div>
+        <p class="font-semibold text-gray-800 mb-2">❌ Disadvantages:</p>
+        <div class="cons-box">
+         Not queryable — can't search data inside files
+        </div>
+        <div class="cons-box">
+         Organization chaos — hard to find files
+        </div>
+        <div class="cons-box">
+         No relationships — files isolated
+        </div>
+        <div class="cons-box">
+         Permission management — complex at scale
+        </div>
+        <div class="cons-box">
+         Doesn't work for operational data
+        </div>
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Best For:</strong> Document storage, team collaboration, media archival, backups, personal files</p>
+     </div><!-- Storage Comparison -->
+     <div class="comparison-table">
+      <table>
+       <thead>
+        <tr>
+         <th>Storage Type</th>
+         <th>Best For</th>
+         <th>Query Speed</th>
+         <th>Scalability</th>
+         <th>Cost</th>
+         <th>Complexity</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td><strong>📊 Relational DB</strong></td>
+         <td>Business apps</td>
+         <td>Very Fast</td>
+         <td>Limited</td>
+         <td>Medium</td>
+         <td>Medium</td>
+        </tr>
+        <tr>
+         <td><strong>🗂️ NoSQL</strong></td>
+         <td>Real-time apps</td>
+         <td>Fast</td>
+         <td>Excellent</td>
+         <td>Low-Medium</td>
+         <td>Medium-High</td>
+        </tr>
+        <tr>
+         <td><strong>🏗️ Data Warehouse</strong></td>
+         <td>Analytics/BI</td>
+         <td>Very Fast</td>
+         <td>Very High</td>
+         <td>High</td>
+         <td>High</td>
+        </tr>
+        <tr>
+         <td><strong>🌊 Data Lake</strong></td>
+         <td>Raw data storage</td>
+         <td>Slow</td>
+         <td>Unlimited</td>
+         <td>Very Low</td>
+         <td>High</td>
+        </tr>
+        <tr>
+         <td><strong>📁 File Storage</strong></td>
+         <td>Documents</td>
+         <td>N/A</td>
+         <td>High</td>
+         <td>Low</td>
+         <td>Very Low</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Part 3: Database Design -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">🗂️</span> Part 3: Designing Databases (Schema Design)</h2>
+     <p class="text-gray-700 mb-6 text-lg">Designing a good database is crucial. A poor design leads to errors, slowness, and data corruption. A good design makes everything work smoothly.</p><!-- Schema Design Principles -->
+     <div class="bg-green-50 rounded-xl p-6 md:p-8 border border-green-200 mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-4">📐 Key Design Principles</h3>
+      <div class="space-y-3">
+       <div class="bg-white p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-green-900 mb-1">Organize Related Data</p>
+        <p class="text-gray-700 text-sm">Group similar information in tables (Customers table has customers, Orders table has orders)</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-green-900 mb-1">Eliminate Redundancy</p>
+        <p class="text-gray-700 text-sm">Don't duplicate data across tables (store customer email once, reference with ID in other tables)</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-green-900 mb-1">Maintain Data Integrity</p>
+        <p class="text-gray-700 text-sm">Enforce rules (customer must exist before creating order, price must be positive)</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-green-900 mb-1">Ensure Query Performance</p>
+        <p class="text-gray-700 text-sm">Structure for fast access (indexes on common search fields like CustomerID)</p>
+       </div>
+      </div>
+     </div><!-- Example: E-commerce Database -->
+     <div class="activity-card">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-4">📦 Example: E-Commerce Database Schema</h3>
+      <p class="text-gray-700 mb-4"><strong>Scenario:</strong> Design database for online store. What tables do we need?</p>
+      <p class="font-semibold text-gray-800 mb-3">Table 1: Customers</p>
+      <div class="database-schema-table">
+       <table>
+        <thead>
+         <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>CustomerID</td>
+          <td>Integer</td>
+          <td>Primary Key (unique)</td>
+          <td>1001</td>
+         </tr>
+         <tr>
+          <td>Name</td>
+          <td>Text</td>
+          <td>Customer full name</td>
+          <td>John Smith</td>
+         </tr>
+         <tr>
+          <td>Email</td>
+          <td>Text</td>
+          <td>Email address</td>
+          <td>john@example.com</td>
+         </tr>
+         <tr>
+          <td>Phone</td>
+          <td>Text</td>
+          <td>Phone number</td>
+          <td>555-1234</td>
+         </tr>
+         <tr>
+          <td>Address</td>
+          <td>Text</td>
+          <td>Mailing address</td>
+          <td>123 Main St</td>
+         </tr>
+         <tr>
+          <td>SignupDate</td>
+          <td>Date</td>
+          <td>When they joined</td>
+          <td>2024-01-15</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <p class="font-semibold text-gray-800 mb-3 mt-4">Table 2: Products</p>
+      <div class="database-schema-table">
+       <table>
+        <thead>
+         <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>ProductID</td>
+          <td>Integer</td>
+          <td>Primary Key</td>
+          <td>2001</td>
+         </tr>
+         <tr>
+          <td>ProductName</td>
+          <td>Text</td>
+          <td>Product name</td>
+          <td>iPhone 15</td>
+         </tr>
+         <tr>
+          <td>Category</td>
+          <td>Text</td>
+          <td>Product category</td>
+          <td>Electronics</td>
+         </tr>
+         <tr>
+          <td>Price</td>
+          <td>Decimal</td>
+          <td>Unit price</td>
+          <td>999.99</td>
+         </tr>
+         <tr>
+          <td>StockQuantity</td>
+          <td>Integer</td>
+          <td>Units available</td>
+          <td>150</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <p class="font-semibold text-gray-800 mb-3 mt-4">Table 3: Orders (Links Customers &amp; Products)</p>
+      <div class="database-schema-table">
+       <table>
+        <thead>
+         <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>OrderID</td>
+          <td>Integer</td>
+          <td>Primary Key</td>
+          <td>5001</td>
+         </tr>
+         <tr>
+          <td>CustomerID</td>
+          <td>Integer</td>
+          <td>Foreign Key (links to Customers)</td>
+          <td>1001</td>
+         </tr>
+         <tr>
+          <td>OrderDate</td>
+          <td>Date</td>
+          <td>When order placed</td>
+          <td>2024-03-20</td>
+         </tr>
+         <tr>
+          <td>TotalAmount</td>
+          <td>Decimal</td>
+          <td>Total price</td>
+          <td>1199.98</td>
+         </tr>
+         <tr>
+          <td>Status</td>
+          <td>Text</td>
+          <td>Pending/Shipped/Delivered</td>
+          <td>Shipped</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <p class="font-semibold text-gray-800 mb-3 mt-4">Table 4: OrderItems (Which Products in Each Order)</p>
+      <div class="database-schema-table">
+       <table>
+        <thead>
+         <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>OrderItemID</td>
+          <td>Integer</td>
+          <td>Primary Key</td>
+          <td>10001</td>
+         </tr>
+         <tr>
+          <td>OrderID</td>
+          <td>Integer</td>
+          <td>Foreign Key (links to Orders)</td>
+          <td>5001</td>
+         </tr>
+         <tr>
+          <td>ProductID</td>
+          <td>Integer</td>
+          <td>Foreign Key (links to Products)</td>
+          <td>2001</td>
+         </tr>
+         <tr>
+          <td>Quantity</td>
+          <td>Integer</td>
+          <td>How many units</td>
+          <td>1</td>
+         </tr>
+         <tr>
+          <td>UnitPrice</td>
+          <td>Decimal</td>
+          <td>Price at time of order</td>
+          <td>999.99</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>How the Relationships Work:</strong></p>
+      <div class="data-flow">
+       <div class="flow-box">
+        Customer 1001
+       </div>
+       <div class="flow-arrow">
+        →
+       </div>
+       <div class="flow-box">
+        Order 5001
+       </div>
+       <div class="flow-arrow">
+        →
+       </div>
+       <div class="flow-box">
+        Product 2001
+       </div>
+      </div>
+      <p class="text-gray-700 mt-4"><strong>Sample Query: "Who bought iPhone 15 and for how much?"</strong></p>
+      <div class="database-schema">
+       SELECT c.Name, oi.Quantity, oi.UnitPrice FROM Customers c JOIN Orders o ON c.CustomerID = o.CustomerID JOIN OrderItems oi ON o.OrderID = oi.OrderID JOIN Products p ON oi.ProductID = p.ProductID WHERE p.ProductName = 'iPhone 15';
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Interactive Demo: Sample Form -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center">🎯</span> Interactive Demo: Customer Registration Form</h2>
+     <p class="text-gray-700 mb-6">Here's a real example of how data collection works. Fill out this form to see how manual data entry becomes database records.</p>
+     <div class="demo-form">
+      <h3 class="font-heading text-lg font-bold text-blue-900 mb-6">📝 Create New Customer Account</h3>
+      <form id="customerForm" onsubmit="handleFormSubmit(event)">
+       <div class="grid md:grid-cols-2 gap-6">
+        <div class="form-group"><label class="form-label" for="firstName">First Name *</label> <input class="form-input" type="text" id="firstName" name="firstName" required placeholder="John">
+        </div>
+        <div class="form-group"><label class="form-label" for="lastName">Last Name *</label> <input class="form-input" type="text" id="lastName" name="lastName" required placeholder="Smith">
+        </div>
+        <div class="form-group"><label class="form-label" for="email">Email Address *</label> <input class="form-input" type="email" id="email" name="email" required placeholder="john@example.com">
+        </div>
+        <div class="form-group"><label class="form-label" for="phone">Phone Number</label> <input class="form-input" type="tel" id="phone" name="phone" placeholder="555-1234">
+        </div>
+        <div class="form-group"><label class="form-label" for="address">Street Address *</label> <input class="form-input" type="text" id="address" name="address" required placeholder="123 Main St">
+        </div>
+        <div class="form-group"><label class="form-label" for="city">City *</label> <input class="form-input" type="text" id="city" name="city" required placeholder="New York">
+        </div>
+        <div class="form-group"><label class="form-label" for="state">State/Province</label> <input class="form-input" type="text" id="state" name="state" placeholder="NY">
+        </div>
+        <div class="form-group"><label class="form-label" for="zipcode">ZIP/Postal Code</label> <input class="form-input" type="text" id="zipcode" name="zipcode" placeholder="10001">
+        </div>
+        <div class="form-group"><label class="form-label" for="country">Country *</label> <select class="form-select" id="country" name="country" required> <option value="">Select a country</option> <option value="USA">United States</option> <option value="Canada">Canada</option> <option value="Mexico">Mexico</option> <option value="UK">United Kingdom</option> <option value="Other">Other</option> </select>
+        </div>
+        <div class="form-group"><label class="form-label" for="dob">Date of Birth</label> <input class="form-input" type="date" id="dob" name="dob">
+        </div>
+       </div>
+       <div class="form-group mt-6"><label class="form-label">Interests (select all that apply)</label>
+        <div class="checkbox-group">
+         <div class="checkbox-item"><input type="checkbox" id="electronics" name="interests" value="Electronics"> <label for="electronics" style="margin: 0; cursor: pointer;">Electronics &amp; Tech</label>
+         </div>
+         <div class="checkbox-item"><input type="checkbox" id="fashion" name="interests" value="Fashion"> <label for="fashion" style="margin: 0; cursor: pointer;">Fashion &amp; Apparel</label>
+         </div>
+         <div class="checkbox-item"><input type="checkbox" id="books" name="interests" value="Books"> <label for="books" style="margin: 0; cursor: pointer;">Books &amp; Media</label>
+         </div>
+         <div class="checkbox-item"><input type="checkbox" id="home" name="interests" value="Home"> <label for="home" style="margin: 0; cursor: pointer;">Home &amp; Garden</label>
+         </div>
+        </div>
+       </div>
+       <div class="form-group mt-6"><label class="form-label">How did you hear about us?</label>
+        <div class="radio-group">
+         <div class="radio-item"><input type="radio" id="search" name="source" value="Search Engine"> <label for="search" style="margin: 0; cursor: pointer;">Search Engine</label>
+         </div>
+         <div class="radio-item"><input type="radio" id="social" name="source" value="Social Media"> <label for="social" style="margin: 0; cursor: pointer;">Social Media</label>
+         </div>
+         <div class="radio-item"><input type="radio" id="friend" name="source" value="Friend"> <label for="friend" style="margin: 0; cursor: pointer;">Friend Referral</label>
+         </div>
+         <div class="radio-item"><input type="radio" id="ad" name="source" value="Advertisement"> <label for="ad" style="margin: 0; cursor: pointer;">Advertisement</label>
+         </div>
+        </div>
+       </div>
+       <div class="form-group mt-6"><label class="form-label" for="comments">Comments/Notes</label> <textarea class="form-textarea" id="comments" name="comments" placeholder="Tell us anything else we should know..."></textarea>
+       </div>
+       <div class="checkbox-item mt-6"><input type="checkbox" id="agree" name="agree" required> <label for="agree" style="margin: 0; cursor: pointer; font-weight: 500;">I agree to the Terms of Service and Privacy Policy *</label>
+       </div><button type="submit" class="submit-btn mt-6 w-full">Create Account</button>
+      </form>
+      <div id="successMessage" style="display: none; margin-top: 1.5rem; padding: 1rem; background: #d1fae5; border: 2px solid #10b981; border-radius: 0.5rem; color: #065f46;">
+       <p class="font-semibold mb-2">✅ Account Created Successfully!</p>
+       <p class="text-sm mb-3">Your data has been stored in our database. Here's what we collected:</p>
+       <div id="submittedData" style="background: white; padding: 1rem; border-radius: 0.5rem; font-size: 0.9rem; font-family: monospace; max-height: 300px; overflow-y: auto;"></div>
+      </div>
+     </div>
+     <div class="bg-blue-50 rounded-xl p-6 md:p-8 border border-blue-200 mt-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-4">📊 What Just Happened?</h3>
+      <ol class="space-y-3">
+       <li class="flex gap-3"><span class="font-bold text-blue-600 min-w-6">1.</span> <span class="text-gray-700"><strong>Collection:</strong> You manually entered data into a form</span></li>
+       <li class="flex gap-3"><span class="font-bold text-blue-600 min-w-6">2.</span> <span class="text-gray-700"><strong>Validation:</strong> System checked that required fields were filled and formats correct</span></li>
+       <li class="flex gap-3"><span class="font-bold text-blue-600 min-w-6">3.</span> <span class="text-gray-700"><strong>Storage:</strong> Data converted to JSON and stored in database</span></li>
+       <li class="flex gap-3"><span class="font-bold text-blue-600 min-w-6">4.</span> <span class="text-gray-700"><strong>Display:</strong> Submitted data shown back to you (like confirmation email)</span></li>
+      </ol>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Learning Activities -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center">🎯</span> Class Activities</h2><!-- Activity 1: Worksheet -->
+     <div class="activity-card mb-6">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">1</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 1: Data Collection Methods Worksheet</h3>
+      </div>
+      <p class="text-gray-700 mb-6"><strong>Objective:</strong> Analyze different scenarios and choose the best data collection method.</p>
+      <div class="space-y-6">
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-blue-500">
+        <p class="font-semibold text-gray-800 mb-3">Scenario 1: Movie Theater</p>
+        <p class="text-gray-700 mb-3">A movie theater wants to understand audience preferences. They need to know: What genres do people like? What times are most popular? Do people prefer morning or evening shows?</p>
+        <div class="space-y-2">
+         <p class="text-sm text-gray-600"><strong>Best collection method:</strong> _________________</p>
+         <p class="text-sm text-gray-600"><strong>Why:</strong> _________________</p>
+        </div>
+       </div>
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-gray-800 mb-3">Scenario 2: Weather Forecast Service</p>
+        <p class="text-gray-700 mb-3">A weather service needs to know temperature, humidity, wind speed, and rain at thousands of locations every hour (24/7).</p>
+        <div class="space-y-2">
+         <p class="text-sm text-gray-600"><strong>Best collection method:</strong> _________________</p>
+         <p class="text-sm text-gray-600"><strong>Why:</strong> _________________</p>
+        </div>
+       </div>
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-purple-500">
+        <p class="font-semibold text-gray-800 mb-3">Scenario 3: Hospital Records</p>
+        <p class="text-gray-700 mb-3">When a patient visits a hospital, doctors need their complete medical history, current medications, allergies, and test results.</p>
+        <div class="space-y-2">
+         <p class="text-sm text-gray-600"><strong>Best collection method:</strong> _________________</p>
+         <p class="text-sm text-gray-600"><strong>Why:</strong> _________________</p>
+        </div>
+       </div>
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-orange-500">
+        <p class="font-semibold text-gray-800 mb-3">Scenario 4: Website Analytics</p>
+        <p class="text-gray-700 mb-3">An e-commerce company wants to understand user behavior: Which pages do they visit? How long do they stay? Where do they click? Which items do they look at?</p>
+        <div class="space-y-2">
+         <p class="text-sm text-gray-600"><strong>Best collection method:</strong> _________________</p>
+         <p class="text-sm text-gray-600"><strong>Why:</strong> _________________</p>
+        </div>
+       </div>
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-pink-500">
+        <p class="font-semibold text-gray-800 mb-3">Scenario 5: Market Research Company</p>
+        <p class="text-gray-700 mb-3">Need to survey 10,000 people about their opinions on a new product. Need detailed feedback about what they like/dislike and why.</p>
+        <div class="space-y-2">
+         <p class="text-sm text-gray-600"><strong>Best collection method:</strong> _________________</p>
+         <p class="text-sm text-gray-600"><strong>Why:</strong> _________________</p>
+        </div>
+       </div>
+      </div>
+      <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 mt-6">
+       <p class="font-semibold text-blue-900 mb-2">💡 Hint: Methods are: Manual Entry, Sensors, Transaction Data, Observation, or APIs</p>
+      </div>
+     </div><!-- Activity 2: Database Design -->
+     <div class="activity-card mb-6">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">2</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 2: Design a Database Schema</h3>
+      </div>
+      <p class="text-gray-700 mb-6"><strong>Objective:</strong> Design tables and fields for a social media platform (like Instagram).</p>
+      <p class="text-gray-700 mb-4"><strong>Scenario:</strong> Create a database for an Instagram-like social media app. What data must you store?</p>
+      <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 mb-6">
+       <p class="font-semibold text-blue-900 mb-3">Think about:</p>
+       <ul class="space-y-2">
+        <li class="text-gray-700">👤 User profiles — what info about each user?</li>
+        <li class="text-gray-700">📸 Posts — what goes in each post?</li>
+        <li class="text-gray-700">❤️ Likes — how do we track who liked what?</li>
+        <li class="text-gray-700">💬 Comments — what's needed for comments?</li>
+        <li class="text-gray-700">👥 Followers — how do we track who follows who?</li>
+       </ul>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Your Task:</strong> Create at least 3 tables and define fields for each:</p>
+      <div class="space-y-4">
+       <div class="bg-white p-4 rounded border border-gray-300">
+        <p class="font-semibold text-gray-800 mb-3">Table 1: Users</p>
+        <div style="background: #f3f4f6; padding: 1rem; border-radius: 0.5rem; font-family: monospace; text-align: left; color: #1f2937;">
+         <p>UserID (Integer) — Primary Key</p>
+         <p>________________ — ________________</p>
+         <p>________________ — ________________</p>
+         <p>________________ — ________________</p>
+        </div>
+       </div>
+       <div class="bg-white p-4 rounded border border-gray-300">
+        <p class="font-semibold text-gray-800 mb-3">Table 2: Posts</p>
+        <div style="background: #f3f4f6; padding: 1rem; border-radius: 0.5rem; font-family: monospace; text-align: left; color: #1f2937;">
+         <p>PostID (Integer) — Primary Key</p>
+         <p>________________ — ________________</p>
+         <p>________________ — ________________</p>
+         <p>________________ — ________________</p>
+        </div>
+       </div>
+       <div class="bg-white p-4 rounded border border-gray-300">
+        <p class="font-semibold text-gray-800 mb-3">Table 3: Comments</p>
+        <div style="background: #f3f4f6; padding: 1rem; border-radius: 0.5rem; font-family: monospace; text-align: left; color: #1f2937;">
+         <p>CommentID (Integer) — Primary Key</p>
+         <p>________________ — ________________</p>
+         <p>________________ — ________________</p>
+         <p>________________ — ________________</p>
+        </div>
+       </div>
+      </div>
+      <div class="bg-green-50 rounded-lg p-4 border border-green-200 mt-6">
+       <p class="font-semibold text-green-900 mb-2">💡 Tips:</p>
+       <ul class="text-green-800 text-sm space-y-1">
+        <li>• Each table needs a Primary Key (unique identifier)</li>
+        <li>• Foreign Keys link tables (e.g., Posts table has UserID to link to Users)</li>
+        <li>• Think about what information is essential to store</li>
+       </ul>
+      </div>
+     </div><!-- Activity 3: Recitation/Quiz -->
+     <div class="activity-card">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">3</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 3: Recitation Questions</h3>
+      </div>
+      <p class="text-gray-700 mb-6"><strong>Objective:</strong> Test your understanding with quick recitations. Be ready to explain your answers!</p>
+      <div class="space-y-4"><button class="collapsible-btn" onclick="toggleRecitation(this)"> <span>❓ Q1: What are the 5 main data collection methods?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <p class="text-gray-700 mb-3">Be prepared to name and briefly describe each method. Think: Manual Entry, Sensors, Transactions, Observation, APIs</p>
+        <p class="text-sm text-gray-600 border-t border-gray-300 pt-3">Sample answer: "The five methods are: 1) Manual data entry (people type data into forms), 2) Sensors (automated devices measure), 3) Transaction data (captured automatically during purchases), 4) Observation/tracking (watching behavior), and 5) APIs (connecting to external data sources)."</p>
+       </div><button class="collapsible-btn" onclick="toggleRecitation(this)"> <span>❓ Q2: Why would a company choose NoSQL instead of a relational database?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <p class="text-gray-700 mb-3">Think about flexibility, scaling, and data types they handle differently.</p>
+        <p class="text-sm text-gray-600 border-t border-gray-300 pt-3">Sample answer: "NoSQL is chosen when you need flexibility (schema-less), massive scalability (terabytes+), or handle diverse data types (images, videos, unstructured). Relational databases are rigid and harder to scale."</p>
+       </div><button class="collapsible-btn" onclick="toggleRecitation(this)"> <span>❓ Q3: Explain the difference between a Data Warehouse and a Data Lake.</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <p class="text-gray-700 mb-3">Consider structure, organization, speed, and use cases.</p>
+        <p class="text-sm text-gray-600 border-t border-gray-300 pt-3">Sample answer: "Data Warehouse: organized, expensive, for analytics/reports, structured data, fast queries. Data Lake: raw storage, cheap, any format, harder to query, requires organization before use. Think: warehouse = organized store, lake = dump of raw water."</p>
+       </div><button class="collapsible-btn" onclick="toggleRecitation(this)"> <span>❓ Q4: What is a Foreign Key and why do we use it?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <p class="text-gray-700 mb-3">Think about relationships between tables.</p>
+        <p class="text-sm text-gray-600 border-t border-gray-300 pt-3">Sample answer: "A Foreign Key is a field in one table that references the Primary Key of another table. We use it to create relationships between tables and avoid duplicating data. Example: Orders table has CustomerID (foreign key) that links to Customers table."</p>
+       </div><button class="collapsible-btn" onclick="toggleRecitation(this)"> <span>❓ Q5: Give an example of when you would use Sensors for data collection.</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <p class="text-gray-700 mb-3">Think of scenarios where automatic, continuous measurement is needed.</p>
+        <p class="text-sm text-gray-600 border-t border-gray-300 pt-3">Sample answers: "Weather monitoring (temperature hourly), fitness trackers (heart rate continuously), traffic cameras (vehicle counts), smart home sensors (motion detection), factory equipment (temperature and vibration)."</p>
+       </div><button class="collapsible-btn" onclick="toggleRecitation(this)"> <span>❓ Q6: What are advantages and disadvantages of manual data entry?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <p class="text-gray-700 mb-3">Consider flexibility, speed, accuracy, and effort.</p>
+        <p class="text-sm text-gray-600 border-t border-gray-300 pt-3">Sample answer: "Advantages: flexible (can ask complex questions), detailed responses. Disadvantages: slow (people take time), error-prone (typos), low response rates (many skip surveys), expensive (labor cost)."</p>
+       </div>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Key Concepts -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6">📚 Key Concepts Reference</h2>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="key-term"><strong>Primary Key:</strong> A unique identifier for each record in a table. No two records can have the same primary key.
+      </div>
+      <div class="key-term"><strong>Foreign Key:</strong> A field that references a primary key in another table, creating relationships between tables.
+      </div>
+      <div class="key-term"><strong>Schema:</strong> The structure of a database — the tables, fields, data types, and relationships defined.
+      </div>
+      <div class="key-term"><strong>SQL Query:</strong> A command to retrieve or manipulate data in a relational database (SELECT, INSERT, UPDATE, DELETE).
+      </div>
+      <div class="key-term"><strong>Data Warehouse:</strong> Centralized storage combining data from multiple sources for analysis and business intelligence.
+      </div>
+      <div class="key-term"><strong>Data Lake:</strong> Massive, flexible storage for raw data in any format (structured, unstructured, or mixed).
+      </div>
+      <div class="key-term"><strong>ACID Properties:</strong> Atomicity, Consistency, Isolation, Durability — ensures database transactions are reliable and safe.
+      </div>
+      <div class="key-term"><strong>Relational Database:</strong> Organizes data in tables with rows and columns, linked through keys (SQL databases).
+      </div>
+      <div class="key-term"><strong>NoSQL Database:</strong> Non-relational database flexible with schema, handles massive scale and unstructured data.
+      </div>
+      <div class="key-term"><strong>API (Application Programming Interface):</strong> Connection allowing systems to automatically share data with each other.
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Assessment -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">📈</span> How You'll Be Assessed</h2>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+       <h3 class="font-semibold text-blue-900 mb-3 flex items-center gap-2"><span class="text-2xl">📋</span> Worksheet</h3>
+       <p class="text-blue-800 text-sm mb-3">50%</p>
+       <ul class="text-blue-800 text-sm space-y-1">
+        <li>✓ Correct method choices for scenarios</li>
+        <li>✓ Sound reasoning for selections</li>
+        <li>✓ Database schema design</li>
+        <li>✓ Table structure and relationships</li>
+       </ul>
+      </div>
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+       <h3 class="font-semibold text-purple-900 mb-3 flex items-center gap-2"><span class="text-2xl">🗣️</span> Recitation</h3>
+       <p class="text-purple-800 text-sm mb-3">50%</p>
+       <ul class="text-purple-800 text-sm space-y-1">
+        <li>✓ Clear explanations of concepts</li>
+        <li>✓ Understanding of methods</li>
+        <li>✓ Comparison of storage types</li>
+        <li>✓ Real-world application examples</li>
+       </ul>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Key Takeaways -->
+    <section class="mb-8">
+     <div class="gradient-header rounded-xl p-8">
+      <h2 class="font-heading text-2xl font-bold mb-6">🎓 Key Takeaways</h2>
+      <div class="space-y-4">
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Five Collection Methods:</strong> Manual Entry (detailed), Sensors (automatic), Transactions (business activity), Observation (behavior), APIs (external).</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Choose the Right Method:</strong> Each has pros/cons. Consider speed, accuracy, volume, cost, and what data you need.</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Five Storage Types:</strong> Relational (business apps), NoSQL (scalable), Warehouse (analytics), Data Lake (raw storage), File Systems (documents).</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Good Database Design:</strong> Eliminate redundancy, maintain integrity, organize logically, perform efficiently.</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Collection + Storage = Success:</strong> Right collection methods → quality data. Right storage → accessible, usable data. Both matter!</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Footer -->
+    <section class="bg-gradient-to-r from-blue-100 to-cyan-50 rounded-xl p-8 mb-8">
+     <p class="text-gray-700 mb-4">💡 <strong>Remember:</strong> Data collection and storage are foundational skills. Choose the right method and structure for your needs, and everything flows from there — analysis, reporting, decisions all become easier.</p>
+     <p class="text-gray-600">📖 <strong>Next Week:</strong> We'll explore databases in detail — SQL queries, indexes, and advanced database operations to extract insights from your stored data.</p>
+    </section>
+   </main><!-- Floating Navigation -->
+   <div class="fixed bottom-6 right-6 flex gap-3 z-40"><button class="w-12 h-12 bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 transition-all" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"> <span class="text-xl">↑</span> </button>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      week_title: 'Week 5: Data Collection and Storage',
+      course_code: 'CC105'
+    };
+
+    let config = { ...defaultConfig };
+
+    async function onConfigChange(newConfig) {
+      if (newConfig.week_title) {
+        document.getElementById('week-title').textContent = newConfig.week_title || defaultConfig.week_title;
+      }
+      if (newConfig.course_code) {
+        document.getElementById('course-code').textContent = newConfig.course_code || defaultConfig.course_code;
+      }
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['week_title', config.week_title || defaultConfig.week_title],
+        ['course_code', config.course_code || defaultConfig.course_code]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    function toggleRecitation(button) {
+      button.classList.toggle('active');
+      button.nextElementSibling.classList.toggle('active');
+    }
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+
+      const formData = new FormData(document.getElementById('customerForm'));
+      const data = {};
+      
+      for (let [key, value] of formData.entries()) {
+        if (key === 'interests') {
+          if (!data.interests) data.interests = [];
+          data.interests.push(value);
+        } else if (key === 'source') {
+          data.source = value;
+        } else {
+          data[key] = value;
+        }
+      }
+
+      // Format the data for display
+      const formatted = JSON.stringify(data, null, 2);
+      document.getElementById('submittedData').innerHTML = `<pre>${formatted}</pre>`;
+      document.getElementById('successMessage').style.display = 'block';
+
+      // Reset form
+      document.getElementById('customerForm').reset();
+
+      // Scroll to message
+      setTimeout(() => {
+        document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c76949b35f16e8a',t:'MTc3MDAwMjcxOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

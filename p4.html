@@ -1,0 +1,1119 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 4 - Data and Information Lifecycle</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .font-body {
+      font-family: 'Inter', sans-serif;
+    }
+    .section-divider {
+      border-top: 3px solid #e0e7ff;
+      margin: 2rem 0;
+    }
+    .gradient-header {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+    }
+    .lifecycle-stage {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .lifecycle-stage:hover {
+      border-color: #10b981;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+      transform: translateY(-2px);
+    }
+    .stage-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border-radius: 50%;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .definition-box {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border-left: 4px solid #10b981;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .example-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 0.75rem 0;
+      font-size: 0.95rem;
+    }
+    .flow-diagram {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      padding: 2rem;
+      background: linear-gradient(to right, #f0fdf4, #dcfce7, #f0fdf4);
+      border: 2px solid #bbf7d0;
+      border-radius: 1rem;
+    }
+    .flow-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 2px solid #10b981;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      min-width: 120px;
+      text-align: center;
+      font-weight: 500;
+      color: #065f46;
+    }
+    .flow-arrow {
+      color: #10b981;
+      font-size: 2rem;
+      margin: 0 0.5rem;
+    }
+    .collapsible-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1rem;
+      background: #f3f4f6;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .collapsible-btn:hover {
+      background: #e5e7eb;
+    }
+    .collapsible-btn.active {
+      background: #10b981;
+      color: white;
+    }
+    .collapsible-content {
+      display: none;
+      padding: 1rem;
+      background: #f9fafb;
+      border-radius: 0 0 0.5rem 0.5rem;
+    }
+    .collapsible-content.active {
+      display: block;
+    }
+    .process-map {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 1.5rem 0;
+    }
+    .process-step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .step-number {
+      min-width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+    .step-content {
+      flex: 1;
+    }
+    .step-content h4 {
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+    .step-content p {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 25px;
+      top: 50px;
+      width: 2px;
+      height: 60px;
+      background: #d1fae5;
+    }
+    .comparison-table {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .comparison-table table {
+      width: 100%;
+    }
+    .comparison-table th {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .comparison-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .comparison-table tr:hover {
+      background: #f9fafb;
+    }
+    .activity-card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .activity-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    .key-term {
+      background: #f0fdf4;
+      border-left: 4px solid #10b981;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .key-term strong {
+      color: #065f46;
+    }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    .feature-list li {
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+      color: #374151;
+    }
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: bold;
+    }
+    .challenge-box {
+      background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+      border-left: 4px solid #ef4444;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .challenge-box strong {
+      color: #991b1b;
+    }
+    .solution-box {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border-left: 4px solid #10b981;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .solution-box strong {
+      color: #065f46;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body bg-gray-50 text-gray-800">
+  <div class="h-full overflow-auto w-full"><!-- Header -->
+   <header class="gradient-header sticky top-0 z-50 py-6 px-4 md:px-6 shadow-lg w-full">
+    <div class="max-w-5xl mx-auto">
+     <h1 class="font-heading text-2xl md:text-3xl font-bold mb-2" id="week-title">Week 4: Data and Information Lifecycle</h1>
+     <p class="text-emerald-200"><span id="course-code">CC105</span> | Understand how data flows through organizations from creation to disposal</p>
+    </div>
+   </header>
+   <main class="max-w-5xl mx-auto px-4 md:px-6 py-8 w-full"><!-- Learning Outcomes Section -->
+    <section class="mb-8">
+     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+      <h2 class="font-heading text-2xl font-bold text-gray-800 mb-4 flex items-center gap-3"><span class="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">🎯</span> What You'll Learn Today</h2>
+      <ul class="space-y-3">
+       <li class="flex items-start gap-3"><span class="text-green-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Explain stages of the information lifecycle</strong> — from creation to archival and disposal</span></li>
+       <li class="flex items-start gap-3"><span class="text-green-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Illustrate data flow within organizations</strong> — see how information moves between systems and people</span></li>
+       <li class="flex items-start gap-3"><span class="text-green-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Map real business processes</strong> — understand data movement in practical scenarios</span></li>
+       <li class="flex items-start gap-3"><span class="text-green-600 font-bold mt-1">✓</span> <span class="text-gray-700"><strong>Identify lifecycle challenges</strong> — data quality, security, and compliance issues</span></li>
+      </ul>
+     </div>
+    </section><!-- Part 1: Information Lifecycle -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center">🔄</span> Part 1: The Information Lifecycle</h2>
+     <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 md:p-8 border border-green-200 mb-6">
+      <p class="text-gray-700 mb-4 text-lg">Just like plants grow, mature, and decay, information goes through distinct stages from creation to disposal. Understanding this lifecycle helps organizations manage data effectively.</p>
+      <div class="flow-diagram">
+       <div class="flow-box">
+        📝 Creation
+       </div>
+       <div class="flow-arrow">
+        →
+       </div>
+       <div class="flow-box">
+        📊 Processing
+       </div>
+       <div class="flow-arrow">
+        →
+       </div>
+       <div class="flow-box">
+        💾 Storage
+       </div>
+       <div class="flow-arrow">
+        →
+       </div>
+       <div class="flow-box">
+        🔄 Usage
+       </div>
+       <div class="flow-arrow">
+        →
+       </div>
+       <div class="flow-box">
+        📤 Archival
+       </div>
+       <div class="flow-arrow">
+        →
+       </div>
+       <div class="flow-box">
+        🗑️ Disposal
+       </div>
+      </div>
+      <p class="text-gray-700 text-sm mt-4 text-center text-gray-600">The 6 Stages of the Information Lifecycle</p>
+     </div><!-- Stage 1: Creation -->
+     <div class="lifecycle-stage mb-6">
+      <div class="stage-number">
+       1
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Stage 1: Creation</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-green-900">What it is:</p>
+       <p class="text-green-800">The moment data is first generated or entered into a system.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>When it happens:</strong> At the very beginning of any business transaction or event</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏥 Hospital:</strong> Nurse enters patient's temperature, blood pressure, and symptoms into medical record system
+      </div>
+      <div class="example-box"><strong>🛒 E-commerce:</strong> Customer clicks "Buy Now" — system creates order with name, address, items, payment info
+      </div>
+      <div class="example-box"><strong>🏦 Bank:</strong> Teller receives withdrawal request — creates transaction record with amount, account, timestamp
+      </div>
+      <div class="example-box"><strong>📱 Social Media:</strong> User posts a photo — system creates post record with timestamp, location, likes, comments
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Key Points:</strong></p>
+      <ul class="feature-list">
+       <li>Data quality starts here — errors at creation are hard to fix later</li>
+       <li>Different sources create data: manual entry, sensors, automated systems</li>
+       <li>Metadata is created too (who, when, where)</li>
+      </ul>
+     </div><!-- Stage 2: Processing -->
+     <div class="lifecycle-stage mb-6">
+      <div class="stage-number">
+       2
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Stage 2: Processing</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-green-900">What it is:</p>
+       <p class="text-green-800">Data is cleaned, validated, organized, and transformed into useful formats.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>Why it matters:</strong> Raw data is messy — processing makes it useful</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏥 Hospital:</strong> System validates vitals (is temp realistic? Is blood pressure in normal range?), converts units (F to C), flags abnormalities
+      </div>
+      <div class="example-box"><strong>🛒 E-commerce:</strong> System verifies payment, checks inventory, calculates shipping, applies discounts, generates invoice
+      </div>
+      <div class="example-box"><strong>🏦 Bank:</strong> System checks for fraud, verifies account balance, rounds numbers, calculates interest
+      </div>
+      <div class="example-box"><strong>📊 Sales Team:</strong> System consolidates sales from all stores, removes duplicates, categorizes by region and product type
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Processing Tasks Include:</strong></p>
+      <ul class="feature-list">
+       <li>Validation (is this data correct?)</li>
+       <li>Cleaning (remove errors, fix formats)</li>
+       <li>Transformation (convert units, calculations)</li>
+       <li>Consolidation (combine from multiple sources)</li>
+       <li>Categorization (organize into groups)</li>
+      </ul>
+     </div><!-- Stage 3: Storage -->
+     <div class="lifecycle-stage mb-6">
+      <div class="stage-number">
+       3
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Stage 3: Storage</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-green-900">What it is:</p>
+       <p class="text-green-800">Processed data is saved in databases, files, or cloud systems for future access.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>When it happens:</strong> Continuously — storage is ongoing as new data arrives</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏥 Hospital:</strong> Patient record stored in electronic health record (EHR) database, accessible by doctors anytime
+      </div>
+      <div class="example-box"><strong>🛒 E-commerce:</strong> Order stored in company database and cloud backup, customer can view order history anytime
+      </div>
+      <div class="example-box"><strong>🏦 Bank:</strong> Transaction recorded in main database, plus backup in secondary location for security
+      </div>
+      <div class="example-box"><strong>☁️ Cloud Services:</strong> Google Drive stores your files, Facebook stores your photos, Netflix stores your viewing history
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Storage Considerations:</strong></p>
+      <ul class="feature-list">
+       <li>Redundancy (keep backups in case of failure)</li>
+       <li>Accessibility (quick retrieval when needed)</li>
+       <li>Security (protect sensitive data)</li>
+       <li>Cost (storage space has expenses)</li>
+       <li>Compliance (follow legal requirements)</li>
+      </ul>
+     </div><!-- Stage 4: Usage -->
+     <div class="lifecycle-stage mb-6">
+      <div class="stage-number">
+       4
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Stage 4: Usage/Maintenance</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-green-900">What it is:</p>
+       <p class="text-green-800">Data is actively used for decision-making, analysis, and generating reports. The system is updated and maintained.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>When it happens:</strong> Throughout the entire lifecycle while data is relevant and valuable</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏥 Hospital:</strong> Doctor retrieves patient record to make treatment decisions, nurse updates medications, admin generates occupancy reports
+      </div>
+      <div class="example-box"><strong>🛒 E-commerce:</strong> Marketing analyzes purchase patterns, inventory manager checks stock levels, finance reviews revenue trends
+      </div>
+      <div class="example-box"><strong>🏦 Bank:</strong> Manager checks daily transaction volumes, analysts model risk, compliance reviews transaction flags
+      </div>
+      <div class="example-box"><strong>📊 Executive:</strong> CEO sees dashboard of all metrics, adjusts strategy based on data insights, makes major decisions
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Usage Activities Include:</strong></p>
+      <ul class="feature-list">
+       <li>Querying (searching for specific data)</li>
+       <li>Analyzing (finding patterns and trends)</li>
+       <li>Reporting (creating summaries for management)</li>
+       <li>Updating (adding new information)</li>
+       <li>Sharing (distributing data to those who need it)</li>
+      </ul>
+     </div><!-- Stage 5: Archival -->
+     <div class="lifecycle-stage mb-6">
+      <div class="stage-number">
+       5
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Stage 5: Archival</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-green-900">What it is:</p>
+       <p class="text-green-800">Data is no longer actively used but is kept for legal, historical, or compliance reasons in separate storage.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>Why it matters:</strong> Many regulations require keeping records for 3-7+ years even if not actively used</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏥 Hospital:</strong> Old patient records moved to archive storage; doctor can still retrieve if patient returns years later
+      </div>
+      <div class="example-box"><strong>🛒 E-commerce:</strong> Order data from 5 years ago archived; kept for warranty claims, returns, legal disputes
+      </div>
+      <div class="example-box"><strong>🏦 Bank:</strong> Transactions from 2015 archived in compliance vault; kept for regulatory audits and investigation if needed
+      </div>
+      <div class="example-box"><strong>⚖️ Government:</strong> Tax records kept for 7 years in archive storage
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Archival Considerations:</strong></p>
+      <ul class="feature-list">
+       <li>Slower access (not needed frequently, so slower retrieval acceptable)</li>
+       <li>Lower cost storage (cheaper than active storage)</li>
+       <li>Legal compliance (many laws require retention)</li>
+       <li>Retrievable if needed (can restore if dispute arises)</li>
+      </ul>
+     </div><!-- Stage 6: Disposal -->
+     <div class="lifecycle-stage mb-6">
+      <div class="stage-number">
+       6
+      </div>
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-3">Stage 6: Disposal</h3>
+      <div class="definition-box">
+       <p class="font-semibold text-green-900">What it is:</p>
+       <p class="text-green-800">Data is permanently deleted or destroyed following legal requirements and security protocols.</p>
+      </div>
+      <p class="text-gray-700 mb-3"><strong>Why important:</strong> Reduces privacy risks, frees storage space, reduces costs, ensures compliance</p>
+      <p class="font-semibold text-gray-800 mb-2">🔍 Real-World Examples:</p>
+      <div class="example-box"><strong>🏥 Hospital:</strong> Patient who moved requests all data deleted (right to be forgotten); hospital securely wipes all medical records
+      </div>
+      <div class="example-box"><strong>🛒 E-commerce:</strong> After 7 years, old customer data securely deleted; reduces risk if company is hacked
+      </div>
+      <div class="example-box"><strong>🏦 Bank:</strong> After retention period, transaction records shredded (literally for paper) or cryptographically destroyed (digital)
+      </div>
+      <div class="example-box"><strong>📱 Social Media:</strong> When account deleted, all posts, photos, messages permanently removed after delay period
+      </div>
+      <p class="text-gray-700 mt-3"><strong>Disposal Methods:</strong></p>
+      <ul class="feature-list">
+       <li>Secure deletion (software overwrites data multiple times)</li>
+       <li>Physical destruction (hard drives shredded/incinerated)</li>
+       <li>Encryption key destruction (data unreadable without key)</li>
+       <li>Certification (proof of destruction for compliance)</li>
+      </ul>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Part 2: Data Flow in Organizations -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">🔀</span> Part 2: Data Flow Within Organizations</h2>
+     <p class="text-gray-700 mb-6 text-lg">Data doesn't just stay in one place — it flows between systems, departments, and people. Understanding these flows is critical for business efficiency.</p><!-- Flow Principles -->
+     <div class="bg-blue-50 rounded-xl p-6 md:p-8 border border-blue-200 mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-4">📋 Key Principles of Data Flow</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+       <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+        <p class="font-semibold text-blue-900 mb-2">Data Moves Between Systems</p>
+        <p class="text-gray-700 text-sm">Information from one department's system feeds into another's. Sales data goes to Finance, Customer data goes to Marketing.</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-green-900 mb-2">Different Users Have Different Views</p>
+        <p class="text-gray-700 text-sm">Cashiers see transaction screen, Managers see reports, Executives see dashboards — all from same underlying data.</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-purple-500">
+        <p class="font-semibold text-purple-900 mb-2">Data Gets Transformed at Each Step</p>
+        <p class="text-gray-700 text-sm">Raw transaction → Grouped by category → Summarized for report → Visualized on dashboard — each step adds value.</p>
+       </div>
+       <div class="bg-white p-4 rounded border-l-4 border-orange-500">
+        <p class="font-semibold text-orange-900 mb-2">Speed and Quality Matter</p>
+        <p class="text-gray-700 text-sm">Data must flow quickly enough to be useful, but be accurate enough to trust. Balance is critical.</p>
+       </div>
+      </div>
+     </div><!-- Data Flow Example: Hospital -->
+     <div class="process-map">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-6">📊 Example: Patient Admission Data Flow in Hospital</h3>
+      <div class="process-step">
+       <div class="step-number">
+        1
+       </div>
+       <div class="step-content">
+        <h4>Patient Arrives at Reception</h4>
+        <p>Receptionist enters patient name, age, insurance, emergency contact into <strong>Patient Registration System</strong></p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        2
+       </div>
+       <div class="step-content">
+        <h4>Nurse Gets Patient Info</h4>
+        <p>Nurse retrieves patient record from registration system, adds vital signs (temperature, blood pressure) to <strong>Electronic Health Record (EHR)</strong></p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        3
+       </div>
+       <div class="step-content">
+        <h4>Doctor Makes Diagnosis</h4>
+        <p>Doctor views full EHR (symptoms + vitals), makes diagnosis, prescribes treatment. Record updated in <strong>Medical Records System</strong></p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        4
+       </div>
+       <div class="step-content">
+        <h4>Pharmacy Gets Order</h4>
+        <p>Prescription data flows from Medical Records to <strong>Pharmacy System</strong>. Pharmacist prepares medications, confirms with patient</p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        5
+       </div>
+       <div class="step-content">
+        <h4>Finance Gets Billing Info</h4>
+        <p>Services provided (consultation, tests, meds) flow to <strong>Billing System</strong>. Finance creates invoice based on insurance and services</p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        6
+       </div>
+       <div class="step-content">
+        <h4>Admin Gets Reports</h4>
+        <p>All data flows to <strong>Reporting Dashboard</strong>. Administrator sees: Patients seen today, Revenue generated, Bed occupancy, Staff hours</p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        7
+       </div>
+       <div class="step-content">
+        <h4>Executive Gets Metrics</h4>
+        <p>Executive dashboard shows KPIs: Patient satisfaction scores, Average wait time, Revenue trends, Cost per patient</p>
+       </div>
+      </div>
+     </div><!-- Data Flow Diagram: Simple View -->
+     <div class="bg-white rounded-xl border border-gray-200 p-6 md:p-8 mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-4">Data Flow Visualization</h3>
+      <div style="text-align: center; background: linear-gradient(to right, #f0fdf4, #dcfce7, #f0fdf4); padding: 2rem; border-radius: 0.75rem; border: 2px solid #bbf7d0;">
+       <div style="margin-bottom: 1rem;">
+        <p class="text-sm font-semibold text-gray-700 mb-3">From One System to Another:</p>
+       </div>
+       <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem;">
+        <div style="background: white; border: 2px solid #10b981; border-radius: 0.5rem; padding: 0.75rem; min-width: 100px; font-weight: 500; color: #065f46;">
+         Patient Registration
+        </div>
+        <div style="color: #10b981; font-size: 1.5rem;">
+         →
+        </div>
+        <div style="background: white; border: 2px solid #10b981; border-radius: 0.5rem; padding: 0.75rem; min-width: 100px; font-weight: 500; color: #065f46;">
+         Electronic Health Record
+        </div>
+        <div style="color: #10b981; font-size: 1.5rem;">
+         →
+        </div>
+        <div style="background: white; border: 2px solid #10b981; border-radius: 0.5rem; padding: 0.75rem; min-width: 100px; font-weight: 500; color: #065f46;">
+         Pharmacy System
+        </div>
+       </div>
+       <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 1rem;">
+        <div style="background: white; border: 2px solid #10b981; border-radius: 0.5rem; padding: 0.75rem; min-width: 100px; font-weight: 500; color: #065f46;">
+         Billing System
+        </div>
+        <div style="color: #10b981; font-size: 1.5rem;">
+         ←
+        </div>
+        <div style="background: white; border: 2px solid #10b981; border-radius: 0.5rem; padding: 0.75rem; min-width: 100px; font-weight: 500; color: #065f46;">
+         Reports
+        </div>
+        <div style="color: #10b981; font-size: 1.5rem;">
+         →
+        </div>
+        <div style="background: white; border: 2px solid #10b981; border-radius: 0.5rem; padding: 0.75rem; min-width: 100px; font-weight: 500; color: #065f46;">
+         Dashboard
+        </div>
+       </div>
+      </div>
+     </div><!-- Data Flow Example: Retail -->
+     <div class="process-map">
+      <h3 class="font-heading text-xl font-bold text-gray-800 mb-6">🛒 Example: Customer Purchase Data Flow in Retail</h3>
+      <div class="process-step">
+       <div class="step-number">
+        1
+       </div>
+       <div class="step-content">
+        <h4>Customer Scans Product</h4>
+        <p>Product barcode scanned at point-of-sale. System records item, price, timestamp in <strong>Transaction Processing System</strong></p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        2
+       </div>
+       <div class="step-content">
+        <h4>Inventory Updated</h4>
+        <p>Sales data flows to <strong>Inventory Management System</strong>. Stock decreased by 1. If low, system auto-sends order to supplier</p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        3
+       </div>
+       <div class="step-content">
+        <h4>Customer Profile Updated</h4>
+        <p>Purchase recorded in <strong>Customer Relationship Management (CRM)</strong>. System notes: customer bought electronics at 3pm on Tuesday</p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        4
+       </div>
+       <div class="step-content">
+        <h4>Revenue Tracked</h4>
+        <p>Sale amount flows to <strong>Financial Management System</strong>. Today's revenue updated, profit calculated after costs</p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        5
+       </div>
+       <div class="step-content">
+        <h4>Manager Gets Reports</h4>
+        <p>End-of-shift report shows: Total sales $5,000, Top items sold, Store traffic by hour, Staff performance</p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        6
+       </div>
+       <div class="step-content">
+        <h4>Marketing Gets Insights</h4>
+        <p>Weekly data shows customer preferences. Marketing uses this to decide: Which items to promote? Which customers to target?</p>
+       </div>
+      </div>
+      <div class="process-step">
+       <div class="step-number">
+        7
+       </div>
+       <div class="step-content">
+        <h4>Personalized Offers Sent</h4>
+        <p>Customer receives email: "We noticed you bought a phone. Here's 20% off phone cases!" (triggered by data flow)</p>
+       </div>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Part 3: Data Lifecycle Challenges -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center">⚠️</span> Part 3: Challenges in Data Lifecycle Management</h2>
+     <p class="text-gray-700 mb-6 text-lg">Managing data through its entire lifecycle isn't simple. Organizations face real challenges at each stage.</p><!-- Challenge 1: Data Quality -->
+     <div class="lifecycle-stage mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-3">🔴 Challenge 1: Data Quality</h3>
+      <div class="challenge-box"><strong>The Problem:</strong>
+       <p class="mt-2">Data entered by humans contains errors (typos, wrong values), comes from unreliable sources, or is incomplete.</p>
+      </div>
+      <p class="font-semibold text-gray-800 mb-2">Examples of Bad Data:</p>
+      <div class="example-box"><strong>🏥 Hospital:</strong> Doctor types wrong patient ID (1234 vs 1243), medication given to wrong patient — critical safety issue!
+      </div>
+      <div class="example-box"><strong>💼 Company:</strong> Customers enter phone numbers with missing digits, wrong addresses, duplicate email accounts create confusion
+      </div>
+      <div class="example-box"><strong>📊 Finance:</strong> Data from different regional offices use different formats (5/15/2024 vs 2024-05-15), calculations fail
+      </div>
+      <div class="solution-box"><strong>Solutions Organizations Use:</strong>
+       <ul class="feature-list">
+        <li>Data validation (system checks if values are realistic before accepting)</li>
+        <li>Standardization (enforce consistent formats across all data)</li>
+        <li>Duplicate detection (find and merge duplicate records)</li>
+        <li>Regular audits (review data quality quarterly)</li>
+        <li>Training (teach staff to enter data correctly)</li>
+       </ul>
+      </div>
+     </div><!-- Challenge 2: Data Security -->
+     <div class="lifecycle-stage mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-3">🔴 Challenge 2: Data Security &amp; Privacy</h3>
+      <div class="challenge-box"><strong>The Problem:</strong>
+       <p class="mt-2">Sensitive data (passwords, credit cards, medical records, personal info) must be protected from theft, leaks, and misuse.</p>
+      </div>
+      <p class="font-semibold text-gray-800 mb-2">Real Security Threats:</p>
+      <div class="example-box"><strong>🔒 Hacking:</strong> Criminals break into databases and steal millions of customer records (Target, Facebook, Yahoo breaches)
+      </div>
+      <div class="example-box"><strong>👨‍💼 Insider Threat:</strong> Employee with access sells customer data to competitors, leaks confidential information
+      </div>
+      <div class="example-box"><strong>📧 Phishing:</strong> Attacker sends fake email to employees to trick them into revealing passwords or clicking malicious links
+      </div>
+      <div class="example-box"><strong>⚡ System Failure:</strong> Hardware crashes without backups — critical data lost forever
+      </div>
+      <div class="solution-box"><strong>Solutions Organizations Use:</strong>
+       <ul class="feature-list">
+        <li>Encryption (scramble data so only authorized users can read it)</li>
+        <li>Access control (only authorized people can see sensitive data)</li>
+        <li>Backups (keep copies in separate locations)</li>
+        <li>Firewalls (block unauthorized access attempts)</li>
+        <li>Compliance (follow GDPR, HIPAA laws protecting user privacy)</li>
+        <li>Staff training (teach employees to recognize phishing)</li>
+       </ul>
+      </div>
+     </div><!-- Challenge 3: Data Integration -->
+     <div class="lifecycle-stage mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-3">🔴 Challenge 3: Data Integration Across Systems</h3>
+      <div class="challenge-box"><strong>The Problem:</strong>
+       <p class="mt-2">Large organizations have many separate systems that don't talk to each other, creating data silos and inconsistencies.</p>
+      </div>
+      <p class="font-semibold text-gray-800 mb-2">Real-World Problems:</p>
+      <div class="example-box"><strong>🏢 Large Company:</strong> Sales system has customer "John Smith", but Finance system has "J. Smith" — are they same person? Data doesn't match!
+      </div>
+      <div class="example-box"><strong>🏦 Bank:</strong> Customer's checking account in one system, savings in another. Customer withdraws from checking, savings system doesn't know balance is now lower
+      </div>
+      <div class="example-box"><strong>🛒 Retail Chain:</strong> Inventory system says item is in stock, but sales system isn't connected — oversells to customers
+      </div>
+      <div class="solution-box"><strong>Solutions Organizations Use:</strong>
+       <ul class="feature-list">
+        <li>Data warehouses (central database combining data from all systems)</li>
+        <li>APIs (connections allowing systems to share data automatically)</li>
+        <li>Master data management (single source of truth for key data like customers)</li>
+        <li>ETL tools (Extract, Transform, Load — move data between systems)</li>
+        <li>Cloud integration (use cloud platforms to connect everything)</li>
+       </ul>
+      </div>
+     </div><!-- Challenge 4: Data Governance -->
+     <div class="lifecycle-stage mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-3">🔴 Challenge 4: Data Governance &amp; Compliance</h3>
+      <div class="challenge-box"><strong>The Problem:</strong>
+       <p class="mt-2">Laws require organizations to protect data, keep records for specific periods, and let users delete their information. Non-compliance means fines.</p>
+      </div>
+      <p class="font-semibold text-gray-800 mb-2">Real Compliance Requirements:</p>
+      <div class="example-box"><strong>🏥 HIPAA (Healthcare):</strong> US law requires patient medical data encrypted and accessible only to authorized staff. Breach = up to $100,000 fine per violation
+      </div>
+      <div class="example-box"><strong>🇪🇺 GDPR (Europe):</strong> Users have "right to be forgotten" — can demand all their data deleted. Non-compliance = 4% of company revenue fine!
+      </div>
+      <div class="example-box"><strong>⚖️ SOX (Finance):</strong> US law requires publicly traded companies keep records 7 years and document who accessed what
+      </div>
+      <div class="solution-box"><strong>Solutions Organizations Use:</strong>
+       <ul class="feature-list">
+        <li>Privacy policies (document how data is used and protected)</li>
+        <li>Data classification (label data by sensitivity level)</li>
+        <li>Audit trails (track who accessed what data and when)</li>
+        <li>Retention schedules (schedule automatic deletion after legal period)</li>
+        <li>Compliance officers (dedicated staff ensuring legal requirements met)</li>
+        <li>Regular audits (hire external firms to check compliance)</li>
+       </ul>
+      </div>
+     </div><!-- Challenge 5: Data Volume -->
+     <div class="lifecycle-stage mb-6">
+      <h3 class="font-heading text-lg font-bold text-gray-800 mb-3">🔴 Challenge 5: Managing Massive Data Volume (Big Data)</h3>
+      <div class="challenge-box"><strong>The Problem:</strong>
+       <p class="mt-2">Modern organizations generate terabytes of data daily. Traditional systems can't handle it, leading to performance problems and storage costs.</p>
+      </div>
+      <p class="font-semibold text-gray-800 mb-2">Big Data Challenges:</p>
+      <div class="example-box"><strong>📱 Facebook:</strong> 500 million photos uploaded daily, 4.5+ billion Likes per day, must process instantly while keeping platform fast
+      </div>
+      <div class="example-box"><strong>🏦 Stock Exchange:</strong> Trillions of transactions per second worldwide, system must process all in milliseconds or traders lose money
+      </div>
+      <div class="example-box"><strong>🏥 Healthcare System:</strong> Every test generates images (millions of pixels). Hospital with 5 locations = petabytes of data yearly
+      </div>
+      <div class="solution-box"><strong>Solutions Organizations Use:</strong>
+       <ul class="feature-list">
+        <li>Cloud storage (scale up or down as needed, pay only for what you use)</li>
+        <li>Data compression (reduce file sizes without losing information)</li>
+        <li>Tiered storage (hot data in fast storage, cold data in cheaper storage)</li>
+        <li>Distributed databases (spread data across multiple computers)</li>
+        <li>Machine learning (automatic patterns detection without human review)</li>
+        <li>Data archival (move old data to cheaper storage)</li>
+       </ul>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Learning Activities -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center">🎯</span> Class Activities</h2><!-- Activity 1: Lifecycle Matching -->
+     <div class="activity-card mb-6">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">1</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 1: Lifecycle Stage Matching (10 minutes)</h3>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Objective:</strong> Identify which lifecycle stage each scenario represents.</p>
+      <div class="space-y-3 mb-6">
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-gray-800 mb-2">Scenario A:</p>
+        <p class="text-gray-700">Customer receives email: "Your purchase history shows you like electronics. Here's 15% off our new laptops."</p>
+        <p class="text-sm text-gray-600 mt-2">Which stage? <span class="font-bold text-green-600">__________</span></p>
+       </div>
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-gray-800 mb-2">Scenario B:</p>
+        <p class="text-gray-700">Company deletes employee records from 2010 because retention period has ended and they take up too much storage space.</p>
+        <p class="text-sm text-gray-600 mt-2">Which stage? <span class="font-bold text-green-600">__________</span></p>
+       </div>
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-gray-800 mb-2">Scenario C:</p>
+        <p class="text-gray-700">System validates that patient weight is between 40-150 kg, converts from lbs to kg if needed, checks for outliers.</p>
+        <p class="text-sm text-gray-600 mt-2">Which stage? <span class="font-bold text-green-600">__________</span></p>
+       </div>
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-gray-800 mb-2">Scenario D:</p>
+        <p class="text-gray-700">Hospital patient records from 2015 moved from main database to archive server (still accessible but not used daily).</p>
+        <p class="text-sm text-gray-600 mt-2">Which stage? <span class="font-bold text-green-600">__________</span></p>
+       </div>
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-gray-800 mb-2">Scenario E:</p>
+        <p class="text-gray-700">Customer purchases item at checkout. System records order number, items, price, timestamp, and payment method.</p>
+        <p class="text-sm text-gray-600 mt-2">Which stage? <span class="font-bold text-green-600">__________</span></p>
+       </div>
+       <div class="bg-gray-50 p-4 rounded border-l-4 border-green-500">
+        <p class="font-semibold text-gray-800 mb-2">Scenario F:</p>
+        <p class="text-gray-700">Customer order data saved in database for future reference. Accessible to any authorized staff member 24/7.</p>
+        <p class="text-sm text-gray-600 mt-2">Which stage? <span class="font-bold text-green-600">__________</span></p>
+       </div>
+      </div>
+      <div class="bg-green-50 rounded-lg p-4 border border-green-200">
+       <p class="font-semibold text-green-900 mb-2">Answer Choices:</p>
+       <p class="text-green-800 text-sm">Creation | Processing | Storage | Usage | Archival | Disposal</p>
+      </div>
+     </div><!-- Activity 2: Process Mapping -->
+     <div class="activity-card mb-6">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">2</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 2: Process Mapping Activity (20 minutes)</h3>
+      </div>
+      <p class="text-gray-700 mb-4"><strong>Objective:</strong> Map data flow for a real business process in your assigned organization.</p>
+      <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 mb-4">
+       <p class="font-semibold text-blue-900 mb-3">📋 Choose Your Organization:</p>
+       <div class="grid md:grid-cols-2 gap-3 mb-4">
+        <div class="bg-white p-3 rounded border-l-4 border-blue-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">🏥 Hospital Patient Admission</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-purple-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">🛒 Online Shopping Order</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-green-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">🏦 Bank Money Withdrawal</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-orange-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">🎓 Student Grade Processing</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-pink-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">✈️ Airline Ticket Booking</p>
+        </div>
+        <div class="bg-white p-3 rounded border-l-4 border-cyan-500 cursor-pointer hover:shadow-md transition">
+         <p class="font-bold text-gray-800">📱 Social Media Post Sharing</p>
+        </div>
+       </div>
+       <p class="font-semibold text-blue-900 mb-3">🗺️ Your Task:</p>
+       <ol class="list-decimal list-inside text-blue-800 text-sm space-y-2">
+        <li>Map at least 7 steps showing how data flows through the organization</li>
+        <li>Identify systems involved at each step (what IT systems?)</li>
+        <li>Show what people are involved and their roles</li>
+        <li>Identify one data flow challenge this organization faces</li>
+        <li>Suggest how to solve that challenge</li>
+        <li>Create a visual diagram or flowchart</li>
+       </ol>
+      </div>
+      <div class="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+       <p class="font-semibold text-yellow-900 mb-2">📝 Format to Use:</p>
+       <div class="bg-white p-3 rounded text-sm text-gray-700 space-y-2 font-mono">
+        <p>Step 1: [Action]</p>
+        <p>├─ System: [What system?]</p>
+        <p>├─ People: [Who's involved?]</p>
+        <p>├─ Data: [What data flows?]</p>
+        <p>└─ To: [Where does it go next?]</p>
+        <p></p>
+        <p>Step 2: [Next action]...</p>
+       </div>
+      </div>
+     </div><!-- Activity 3: Challenge Identification -->
+     <div class="activity-card">
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold">3</span>
+       <h3 class="font-heading text-xl font-bold text-gray-800">Activity 3: Challenge Quiz (10 minutes)</h3>
+      </div>
+      <p class="text-gray-700 mb-6"><strong>Objective:</strong> Test your understanding of data lifecycle challenges.</p>
+      <div class="space-y-4"><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Q1: Which of these is a data quality problem?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch1" class="w-4 h-4"> <span class="text-gray-700">A) Hard drive crashes and data is lost</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch1" class="w-4 h-4"> <span class="text-gray-700">B) Customer enters wrong zip code (typo) ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch1" class="w-4 h-4"> <span class="text-gray-700">C) Hacker steals customer passwords</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch1" class="w-4 h-4"> <span class="text-gray-700">D) Too much data to process</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct: B</strong> — Data quality issues are when data itself is wrong, incomplete, or inaccurate.</p>
+       </div><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Q2: GDPR's "right to be forgotten" means...</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch2" class="w-4 h-4"> <span class="text-gray-700">A) Users can ignore their passwords</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch2" class="w-4 h-4"> <span class="text-gray-700">B) Users can request all their data deleted ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch2" class="w-4 h-4"> <span class="text-gray-700">C) Companies can forget about security</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch2" class="w-4 h-4"> <span class="text-gray-700">D) Data doesn't need to be archived</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct: B</strong> — GDPR gives users privacy rights, including requesting deletion of personal data (a data governance challenge).</p>
+       </div><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Q3: A data silo problem occurs when...</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch3" class="w-4 h-4"> <span class="text-gray-700">A) Different departments have separate systems that don't communicate ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch3" class="w-4 h-4"> <span class="text-gray-700">B) Employees get too much training</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch3" class="w-4 h-4"> <span class="text-gray-700">C) Customer data is encrypted</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch3" class="w-4 h-4"> <span class="text-gray-700">D) Data is stored in archive</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct: A</strong> — Data silos happen when systems don't integrate, preventing data sharing and causing inconsistencies (integration challenge).</p>
+       </div><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Q4: What does encryption do?</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch4" class="w-4 h-4"> <span class="text-gray-700">A) Deletes sensitive data permanently</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch4" class="w-4 h-4"> <span class="text-gray-700">B) Scrambles data so only authorized users can read it ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch4" class="w-4 h-4"> <span class="text-gray-700">C) Slows down data processing</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch4" class="w-4 h-4"> <span class="text-gray-700">D) Combines data from multiple sources</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct: B</strong> — Encryption is a security solution that protects data by making it unreadable without proper authorization.</p>
+       </div><button class="collapsible-btn" onclick="toggleAnswer(this)"> <span>❓ Q5: Big data challenges occur because...</span> <span>▼</span> </button>
+       <div class="collapsible-content">
+        <div class="space-y-2 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch5" class="w-4 h-4"> <span class="text-gray-700">A) There are too many employees</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch5" class="w-4 h-4"> <span class="text-gray-700">B) Modern organizations generate terabytes of data that traditional systems can't handle ✓</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch5" class="w-4 h-4"> <span class="text-gray-700">C) Data is stored in archives</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="ch5" class="w-4 h-4"> <span class="text-gray-700">D) GDPR requires keeping records</span> </label>
+        </div>
+        <p class="text-sm text-green-700 border-t border-gray-200 pt-3"><strong>✅ Correct: B</strong> — Big Data is volume challenge: companies generate massive amounts daily (Facebook: 500M photos/day, Twitter: billions of tweets).</p>
+       </div>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Key Concepts Table -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6">📊 Lifecycle Stages at a Glance</h2>
+     <div class="comparison-table">
+      <table>
+       <thead>
+        <tr>
+         <th>Stage</th>
+         <th>What Happens</th>
+         <th>Why It Matters</th>
+         <th>Key Challenge</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td><strong>🔴 Creation</strong></td>
+         <td>Data first generated</td>
+         <td>Quality foundation set here</td>
+         <td>Human error, incomplete data</td>
+        </tr>
+        <tr>
+         <td><strong>🟠 Processing</strong></td>
+         <td>Data cleaned &amp; validated</td>
+         <td>Transforms raw → useful</td>
+         <td>Time-consuming for large volumes</td>
+        </tr>
+        <tr>
+         <td><strong>🟡 Storage</strong></td>
+         <td>Data saved for future use</td>
+         <td>Must be accessible &amp; secure</td>
+         <td>Cost, security, redundancy</td>
+        </tr>
+        <tr>
+         <td><strong>🟢 Usage</strong></td>
+         <td>Data used for decisions</td>
+         <td>Creates business value</td>
+         <td>Data silos, slow retrieval</td>
+        </tr>
+        <tr>
+         <td><strong>🔵 Archival</strong></td>
+         <td>Old data moved to archive</td>
+         <td>Legal compliance, space saving</td>
+         <td>Slower access, retrieval costs</td>
+        </tr>
+        <tr>
+         <td><strong>⚫ Disposal</strong></td>
+         <td>Data permanently deleted</td>
+         <td>Privacy protection, cost savings</td>
+         <td>Proving secure deletion, verification</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Assessment -->
+    <section class="mb-8">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">📈</span> How You'll Be Assessed</h2>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border border-green-200">
+       <h3 class="font-semibold text-green-900 mb-3 flex items-center gap-2"><span class="text-2xl">📋</span> Activity Output</h3>
+       <p class="text-green-800 text-sm mb-3">60%</p>
+       <ul class="text-green-800 text-sm space-y-1">
+        <li>✓ Accurate process mapping</li>
+        <li>✓ Correct data flow identification</li>
+        <li>✓ Systems and people identified</li>
+        <li>✓ Challenge analysis</li>
+        <li>✓ Realistic solutions proposed</li>
+       </ul>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+       <h3 class="font-semibold text-blue-900 mb-3 flex items-center gap-2"><span class="text-2xl">✅</span> Short Quiz</h3>
+       <p class="text-blue-800 text-sm mb-3">40%</p>
+       <ul class="text-blue-800 text-sm space-y-1">
+        <li>✓ Lifecycle stages identification</li>
+        <li>✓ Challenge recognition</li>
+        <li>✓ Solution understanding</li>
+        <li>✓ Data flow comprehension</li>
+       </ul>
+      </div>
+     </div>
+    </section>
+    <div class="section-divider"></div><!-- Key Takeaways -->
+    <section class="mb-8">
+     <div class="gradient-header rounded-xl p-8">
+      <h2 class="font-heading text-2xl font-bold mb-6">🎓 Key Takeaways</h2>
+      <div class="space-y-4">
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>6 Stages of Data Lifecycle:</strong> Creation → Processing → Storage → Usage → Archival → Disposal. Each stage has specific purposes and challenges.</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Data Flows Everywhere:</strong> Information moves between systems, departments, and people. Mapping this flow reveals where problems occur.</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>5 Major Challenges:</strong> Quality issues, security risks, integration problems, compliance requirements, and managing massive volumes.</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Quality Starts Early:</strong> Data errors at creation are expensive to fix later. Validation and standardization are critical.</p>
+       </div>
+       <div class="flex items-start gap-3"><span class="text-2xl">📌</span>
+        <p class="text-white"><strong>Security is Continuous:</strong> Data must be protected through encryption, access controls, and backups at every lifecycle stage.</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Learning Resources -->
+    <section class="mb-12">
+     <h2 class="font-heading text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center">📚</span> Key Concepts Reference</h2>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="key-term"><strong>Data Lifecycle:</strong> The journey data takes from creation through disposal, passing through processing, storage, usage, and archival stages.
+      </div>
+      <div class="key-term"><strong>Data Flow:</strong> The movement of information between systems, departments, and users within an organization.
+      </div>
+      <div class="key-term"><strong>Data Quality:</strong> The accuracy, completeness, and consistency of data. Poor quality leads to bad decisions.
+      </div>
+      <div class="key-term"><strong>Data Silo:</strong> Separate systems or departments unable to share data, creating inconsistencies and inefficiencies.
+      </div>
+      <div class="key-term"><strong>Encryption:</strong> Scrambling data so only authorized users can read it, protecting sensitive information from theft.
+      </div>
+      <div class="key-term"><strong>Data Retention:</strong> How long data must be kept based on legal requirements (typically 3-7 years).
+      </div>
+      <div class="key-term"><strong>Metadata:</strong> Data about data (who created it, when, where, why) that helps track data lineage.
+      </div>
+      <div class="key-term"><strong>ETL:</strong> Extract (get data from source), Transform (clean it), Load (move to destination) — common data process.
+      </div>
+     </div>
+    </section><!-- Footer -->
+    <section class="bg-gradient-to-r from-green-100 to-emerald-50 rounded-xl p-8 mb-8">
+     <p class="text-gray-700 mb-4">💡 <strong>Remember:</strong> Every piece of data an organization has went through all 6 lifecycle stages (or will). Understanding this journey helps you manage data better, spot problems earlier, and make better decisions using accurate information.</p>
+     <p class="text-gray-600">📖 <strong>Next Week:</strong> We'll explore databases in detail — how organizations structure and query massive amounts of data using specialized systems.</p>
+    </section>
+   </main><!-- Floating Navigation -->
+   <div class="fixed bottom-6 right-6 flex gap-3 z-40"><button class="w-12 h-12 bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition-all" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"> <span class="text-xl">↑</span> </button>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      week_title: 'Week 4: Data and Information Lifecycle',
+      course_code: 'CC105'
+    };
+
+    let config = { ...defaultConfig };
+
+    async function onConfigChange(newConfig) {
+      if (newConfig.week_title) {
+        document.getElementById('week-title').textContent = newConfig.week_title || defaultConfig.week_title;
+      }
+      if (newConfig.course_code) {
+        document.getElementById('course-code').textContent = newConfig.course_code || defaultConfig.course_code;
+      }
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['week_title', config.week_title || defaultConfig.week_title],
+        ['course_code', config.course_code || defaultConfig.course_code]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    function toggleAnswer(button) {
+      button.classList.toggle('active');
+      button.nextElementSibling.classList.toggle('active');
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c768c9511dfb492',t:'MTc3MDAwMjM4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
