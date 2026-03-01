@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CC105 Midterm Week 4 - Data Privacy, Ethics, and Legal Issues</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .font-body {
+      font-family: 'Inter', sans-serif;
+    }
+    .week-link {
+      transition: all 0.2s ease;
+    }
+    .week-link:hover {
+      transform: translateX(4px);
+    }
+    .section-card {
+      transition: all 0.3s ease;
+    }
+    .section-card:hover {
+      transform: translateY(-2px);
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+    }
+    .objective-item {
+      animation: fadeIn 0.5s ease forwards;
+      opacity: 0;
+    }
+    .objective-item:nth-child(1) { animation-delay: 0.1s; }
+    .objective-item:nth-child(2) { animation-delay: 0.2s; }
+    .objective-item:nth-child(3) { animation-delay: 0.3s; }
+    .objective-item:nth-child(4) { animation-delay: 0.4s; }
+    .objective-item:nth-child(5) { animation-delay: 0.5s; }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .tab-button {
+      transition: all 0.3s ease;
+    }
+    .tab-button.active {
+      background-color: #3b82f6;
+      color: white;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .threat-card {
+      transition: all 0.3s ease;
+    }
+    .threat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .principle-card {
+      transition: all 0.3s ease;
+    }
+    .principle-card:hover {
+      transform: translateY(-4px);
+    }
+    .quiz-option {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .quiz-option:hover {
+      background-color: #f3f4f6;
+    }
+    .quiz-option.selected {
+      background-color: #dbeafe;
+      border-color: #3b82f6;
+    }
+    .quiz-option.correct {
+      background-color: #dcfce7;
+      border-color: #22c55e;
+    }
+    .quiz-option.incorrect {
+      background-color: #fee2e2;
+      border-color: #ef4444;
+    }
+    .progress-bar {
+      transition: width 0.3s ease;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body bg-slate-50 text-slate-800">
+  <div class="h-full overflow-auto">
+   <div class="min-h-full w-full">
+    <!-- Header -->
+    <header class="gradient-border text-white py-8 px-6">
+     <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-3 mb-2">
+       <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+       </div>
+       <div>
+        <p class="text-cyan-200 text-sm font-medium tracking-wide" id="week-number">Midterm Week 4</p>
+        <h1 class="font-heading text-2xl md:text-3xl font-bold" id="lesson-title">DATA PRIVACY, ETHICS, AND LEGAL ISSUES</h1>
+       </div>
+      </div>
+      <p class="text-slate-200 mt-4 flex items-center gap-2">
+       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+       </svg><span>Instructor: <strong id="instructor-name">MKDB</strong></span></p>
+      <p class="text-slate-200 mt-2 flex items-center gap-2">
+       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747S17.5 6.253 12 6.253z" />
+       </svg><span>CC105 - Information Management</span></p>
+     </div>
+    </header>
+    <main class="max-w-6xl mx-auto px-6 py-8">
+     <!-- Learning Outcomes -->
+     <section class="mb-10">
+      <h2 class="font-heading text-xl font-semibold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg></span> Learning Outcomes</h2>
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+       <p class="text-slate-500 mb-4 text-sm font-semibold">By the end of this lesson you will be able to:</p>
+       <ul class="space-y-3">
+        <li class="objective-item flex items-start gap-3"><span class="w-6 h-6 bg-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">1</span> <span class="text-slate-600">Discuss ethical and legal concerns in information management</span></li>
+        <li class="objective-item flex items-start gap-3"><span class="w-6 h-6 bg-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">2</span> <span class="text-slate-600">Explain data privacy principles and best practices</span></li>
+       </ul>
+      </div>
+     </section><!-- Tab Navigation -->
+     <div class="flex flex-wrap gap-2 mb-8 border-b border-slate-200"><button class="tab-button active px-6 py-3 font-semibold text-slate-700 hover:text-blue-600 transition-colors" onclick="switchTab('content')">📚 Content</button> <button class="tab-button px-6 py-3 font-semibold text-slate-700 hover:text-blue-600 transition-colors" onclick="switchTab('activities')">✍️ Activities</button> <button class="tab-button px-6 py-3 font-semibold text-slate-700 hover:text-blue-600 transition-colors" onclick="switchTab('quiz')">🧪 Quiz</button>
+     </div><!-- CONTENT TAB -->
+     <div id="content" class="tab-content active space-y-8"><!-- Data Privacy Principles -->
+      <section>
+       <h2 class="font-heading text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">🔐</span> Data Privacy Principles</h2>
+       <div class="grid md:grid-cols-2 gap-6 mb-8"><!-- GDPR -->
+        <div class="principle-card bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-500">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">🌍 GDPR</h3>
+         <p class="text-slate-600 mb-3"><strong>General Data Protection Regulation</strong></p>
+         <ul class="space-y-2 text-sm text-slate-600">
+          <li class="flex gap-2"><span class="text-blue-500">✓</span> Lawful basis for processing</li>
+          <li class="flex gap-2"><span class="text-blue-500">✓</span> Right to be forgotten</li>
+          <li class="flex gap-2"><span class="text-blue-500">✓</span> Data portability</li>
+          <li class="flex gap-2"><span class="text-blue-500">✓</span> Privacy by design</li>
+          <li class="flex gap-2"><span class="text-blue-500">✓</span> Data breach notification (72 hours)</li>
+         </ul>
+         <p class="text-xs text-slate-500 mt-4 italic">Applies to: EU citizens and residents</p>
+        </div><!-- CCPA -->
+        <div class="principle-card bg-white rounded-xl p-6 shadow-sm border-l-4 border-orange-500">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">🇺🇸 CCPA</h3>
+         <p class="text-slate-600 mb-3"><strong>California Consumer Privacy Act</strong></p>
+         <ul class="space-y-2 text-sm text-slate-600">
+          <li class="flex gap-2"><span class="text-orange-500">✓</span> Right to know what data is collected</li>
+          <li class="flex gap-2"><span class="text-orange-500">✓</span> Right to delete personal data</li>
+          <li class="flex gap-2"><span class="text-orange-500">✓</span> Right to opt-out of data sales</li>
+          <li class="flex gap-2"><span class="text-orange-500">✓</span> Right to non-discrimination</li>
+          <li class="flex gap-2"><span class="text-orange-500">✓</span> Consumer rights for minors (13-16)</li>
+         </ul>
+         <p class="text-xs text-slate-500 mt-4 italic">Applies to: California residents</p>
+        </div><!-- PIPEDA -->
+        <div class="principle-card bg-white rounded-xl p-6 shadow-sm border-l-4 border-red-500">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">🍁 PIPEDA</h3>
+         <p class="text-slate-600 mb-3"><strong>Personal Information Protection and Electronic Documents Act</strong></p>
+         <ul class="space-y-2 text-sm text-slate-600">
+          <li class="flex gap-2"><span class="text-red-500">✓</span> Accountability principle</li>
+          <li class="flex gap-2"><span class="text-red-500">✓</span> Identifying purposes clearly</li>
+          <li class="flex gap-2"><span class="text-red-500">✓</span> Consent requirements</li>
+          <li class="flex gap-2"><span class="text-red-500">✓</span> Limited data collection</li>
+          <li class="flex gap-2"><span class="text-red-500">✓</span> Accuracy and security</li>
+         </ul>
+         <p class="text-xs text-slate-500 mt-4 italic">Applies to: Canadian individuals</p>
+        </div><!-- Data Minimization -->
+        <div class="principle-card bg-white rounded-xl p-6 shadow-sm border-l-4 border-emerald-500">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">✂️ Data Minimization</h3>
+         <p class="text-slate-600 mb-3"><strong>Collect Only What You Need</strong></p>
+         <ul class="space-y-2 text-sm text-slate-600">
+          <li class="flex gap-2"><span class="text-emerald-500">✓</span> Limit data to purpose</li>
+          <li class="flex gap-2"><span class="text-emerald-500">✓</span> Reduce storage duration</li>
+          <li class="flex gap-2"><span class="text-emerald-500">✓</span> Regular data audits</li>
+          <li class="flex gap-2"><span class="text-emerald-500">✓</span> Anonymization techniques</li>
+          <li class="flex gap-2"><span class="text-emerald-500">✓</span> Delete obsolete data</li>
+         </ul>
+         <p class="text-xs text-slate-500 mt-4 italic">Best practice: Privacy by design</p>
+        </div>
+       </div>
+      </section><!-- Ethical Concerns -->
+      <section>
+       <h2 class="font-heading text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center">⚖️</span> Ethical Concerns in Information Management</h2>
+       <div class="grid md:grid-cols-2 gap-6">
+        <div class="threat-card bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">👁️ Surveillance &amp; Monitoring</h3>
+         <p class="text-slate-600 text-sm mb-3">Ethical Issue: Tracking user behavior without consent</p>
+         <div class="bg-purple-50 rounded-lg p-4 text-sm text-slate-600"><strong>Concern:</strong> Employees monitored excessively • Users tracked online • Location data collected • Behavioral profiling without awareness
+         </div>
+        </div>
+        <div class="threat-card bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">🎯 Targeted Discrimination</h3>
+         <p class="text-slate-600 text-sm mb-3">Ethical Issue: Using data to discriminate or manipulate</p>
+         <div class="bg-purple-50 rounded-lg p-4 text-sm text-slate-600"><strong>Concern:</strong> Algorithmic bias • Predatory targeting • Pricing discrimination • Denial of services based on profiles
+         </div>
+        </div>
+        <div class="threat-card bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">📊 Data Exploitation</h3>
+         <p class="text-slate-600 text-sm mb-3">Ethical Issue: Selling or misusing personal data</p>
+         <div class="bg-purple-50 rounded-lg p-4 text-sm text-slate-600"><strong>Concern:</strong> Third-party data sales • Hidden data monetization • Lack of transparency • Data brokers
+         </div>
+        </div>
+        <div class="threat-card bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">🤖 Algorithmic Decision Making</h3>
+         <p class="text-slate-600 text-sm mb-3">Ethical Issue: Lack of transparency in AI decisions</p>
+         <div class="bg-purple-50 rounded-lg p-4 text-sm text-slate-600"><strong>Concern:</strong> Black-box algorithms • No explainability • Biased outcomes • Appeal rights missing
+         </div>
+        </div>
+        <div class="threat-card bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">👶 Children's Data Protection</h3>
+         <p class="text-slate-600 text-sm mb-3">Ethical Issue: Inadequate protection for minors</p>
+         <div class="bg-purple-50 rounded-lg p-4 text-sm text-slate-600"><strong>Concern:</strong> Collection from children without parental consent • Educational data misuse • Long-term digital footprint
+         </div>
+        </div>
+        <div class="threat-card bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">⚠️ Information Asymmetry</h3>
+         <p class="text-slate-600 text-sm mb-3">Ethical Issue: Users unaware of data practices</p>
+         <div class="bg-purple-50 rounded-lg p-4 text-sm text-slate-600"><strong>Concern:</strong> Complex privacy policies • Hidden data practices • Uninformed consent • Power imbalance
+         </div>
+        </div>
+       </div>
+      </section><!-- Legal Framework -->
+      <section>
+       <h2 class="font-heading text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center">⚖️</span> Legal Framework &amp; Compliance</h2>
+       <div class="space-y-4">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-amber-200">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">📋 Key Legal Obligations</h3>
+         <ul class="space-y-3 text-slate-600">
+          <li class="flex gap-3"><span class="text-amber-600 font-bold">1.</span> <span><strong>Transparency:</strong> Disclose how data is collected and used</span></li>
+          <li class="flex gap-3"><span class="text-amber-600 font-bold">2.</span> <span><strong>Consent:</strong> Obtain explicit permission before collection</span></li>
+          <li class="flex gap-3"><span class="text-amber-600 font-bold">3.</span> <span><strong>Security:</strong> Protect data from unauthorized access</span></li>
+          <li class="flex gap-3"><span class="text-amber-600 font-bold">4.</span> <span><strong>Accountability:</strong> Maintain records of processing activities</span></li>
+          <li class="flex gap-3"><span class="text-amber-600 font-bold">5.</span> <span><strong>User Rights:</strong> Allow access, correction, and deletion requests</span></li>
+          <li class="flex gap-3"><span class="text-amber-600 font-bold">6.</span> <span><strong>Breach Notification:</strong> Report data breaches to authorities and affected individuals</span></li>
+         </ul>
+        </div>
+        <div class="bg-amber-50 rounded-xl p-6 border-l-4 border-amber-600">
+         <h3 class="font-heading text-lg font-semibold text-slate-800 mb-3">⚠️ Penalties for Non-Compliance</h3>
+         <div class="grid md:grid-cols-2 gap-4">
+          <div>
+           <strong class="text-amber-700">GDPR:</strong> Up to €20M or 4% of annual revenue
+          </div>
+          <div>
+           <strong class="text-amber-700">CCPA:</strong> Up to $7,500 per violation
+          </div>
+          <div>
+           <strong class="text-amber-700">PIPEDA:</strong> Fines + court orders
+          </div>
+          <div>
+           <strong class="text-amber-700">HIPAA:</strong> Up to $1.5M per violation
+          </div>
+         </div>
+        </div>
+       </div>
+      </section><!-- Privacy Best Practices -->
+      <section>
+       <h2 class="font-heading text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center">✅</span> Privacy Best Practices</h2>
+       <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-emerald-200">
+         <h3 class="font-heading font-semibold text-slate-800 mb-4">🛡️ Technical Controls</h3>
+         <ul class="space-y-3 text-slate-600 text-sm">
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> End-to-end encryption</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Data anonymization</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Secure access controls</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Regular security audits</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Intrusion detection systems</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Data backup procedures</li>
+         </ul>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-emerald-200">
+         <h3 class="font-heading font-semibold text-slate-800 mb-4">📋 Administrative Controls</h3>
+         <ul class="space-y-3 text-slate-600 text-sm">
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Privacy policies &amp; notices</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Data processing agreements</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Privacy impact assessments</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Staff training &amp; awareness</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Incident response plans</li>
+          <li class="flex gap-2"><span class="text-emerald-600">✓</span> Data retention policies</li>
+         </ul>
+        </div>
+       </div>
+      </section>
+     </div><!-- ACTIVITIES TAB -->
+     <div id="activities" class="tab-content space-y-8"><!-- Individual Activity -->
+      <section>
+       <h2 class="font-heading text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">👤</span> Individual Activity (20 minutes)</h2>
+       <div class="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-500">
+        <h3 class="font-heading text-lg font-semibold text-slate-800 mb-4">📱 Scenario: Social Media Data Breach</h3>
+        <p class="text-slate-700 mb-4 leading-relaxed"><strong>Situation:</strong> A popular social media platform stores user data including names, emails, phone numbers, location, and browsing history. A security breach exposes the personal information of 50 million users. The company delayed notifying users for 3 weeks.</p>
+        <div class="bg-white rounded-lg p-4 mb-6 border border-blue-200">
+         <p class="font-semibold text-slate-800 mb-4">Answer the following questions:</p>
+         <ol class="space-y-4 text-slate-700 list-decimal list-inside">
+          <li><strong>Identify violations:</strong> Which privacy regulations (GDPR, CCPA, PIPEDA) were violated? Explain why.</li>
+          <li><strong>Ethical concerns:</strong> What ethical issues are involved in this breach?</li>
+          <li><strong>Legal consequences:</strong> What penalties could the company face?</li>
+          <li><strong>Affected rights:</strong> What user rights were violated?</li>
+          <li><strong>Remediation:</strong> Propose 5 corrective actions the company should take immediately and long-term.</li>
+         </ol>
+        </div>
+        <div class="bg-white rounded-lg p-4 border border-blue-200">
+         <p class="font-semibold text-slate-800 mb-2">✏️ Deliverables:</p>
+         <ul class="space-y-2 text-sm text-slate-600">
+          <li>• 2-3 page written analysis</li>
+          <li>• Identification of at least 3 specific legal violations</li>
+          <li>• List of immediate and long-term actions</li>
+          <li>• Reference to relevant regulations</li>
+         </ul>
+        </div>
+       </div>
+      </section><!-- Group Activity -->
+      <section>
+       <h2 class="font-heading text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center">👥</span> Group Activity (45 minutes)</h2>
+       <div class="bg-emerald-50 rounded-xl p-6 border-l-4 border-emerald-500">
+        <h3 class="font-heading text-lg font-semibold text-slate-800 mb-4">🏥 Scenario: Healthcare Organization Privacy Framework</h3>
+        <p class="text-slate-700 mb-4 leading-relaxed"><strong>Situation:</strong> You are a privacy team at a regional hospital network collecting and managing patient health records (PHI). The organization needs to develop a comprehensive data privacy and ethics framework compliant with HIPAA, GDPR (for international patients), and industry best practices.</p>
+        <div class="bg-white rounded-lg p-4 mb-6 border border-emerald-200">
+         <p class="font-semibold text-slate-800 mb-4">Group Deliverables (Divide work among team members):</p>
+         <ol class="space-y-4 text-slate-700 list-decimal list-inside">
+          <li><strong>Privacy Policy &amp; Legal Framework</strong>
+           <ul class="ml-6 mt-2 space-y-2 text-sm text-slate-600">
+            <li>• Draft key sections of privacy policy</li>
+            <li>• Map regulatory requirements (HIPAA, GDPR)</li>
+            <li>• Define consent mechanisms</li>
+            <li>• Outline breach notification procedures</li>
+           </ul></li>
+          <li><strong>Ethical Guidelines</strong>
+           <ul class="ml-6 mt-2 space-y-2 text-sm text-slate-600">
+            <li>• Develop code of conduct for data handling</li>
+            <li>• Address ethical concerns in patient monitoring</li>
+            <li>• Define appropriate data use boundaries</li>
+            <li>• Create fairness principles for AI in diagnosis</li>
+           </ul></li>
+          <li><strong>Technical &amp; Administrative Controls</strong>
+           <ul class="ml-6 mt-2 space-y-2 text-sm text-slate-600">
+            <li>• Design encryption and access controls</li>
+            <li>• Create data retention schedule</li>
+            <li>• Develop incident response plan</li>
+            <li>• Define audit and monitoring procedures</li>
+           </ul></li>
+          <li><strong>Implementation Roadmap</strong>
+           <ul class="ml-6 mt-2 space-y-2 text-sm text-slate-600">
+            <li>• Timeline for compliance</li>
+            <li>• Staff training schedule</li>
+            <li>• Compliance verification process</li>
+            <li>• Cost-benefit analysis</li>
+           </ul></li>
+         </ol>
+        </div>
+        <div class="bg-white rounded-lg p-4 border border-emerald-200">
+         <p class="font-semibold text-slate-800 mb-3">📊 Presentation Requirements:</p>
+         <ul class="space-y-2 text-sm text-slate-600">
+          <li>• 15-20 minute presentation</li>
+          <li>• Visual slides with key frameworks</li>
+          <li>• Q&amp;A session (5-10 minutes)</li>
+          <li>• Written report (5-8 pages)</li>
+          <li>• Appendix with sample documents</li>
+         </ul>
+        </div>
+       </div>
+      </section>
+     </div><!-- QUIZ TAB -->
+     <div id="quiz" class="tab-content">
+      <section>
+       <h2 class="font-heading text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center">🧪</span> Review Quiz (10 Questions)</h2>
+       <div class="mb-6">
+        <div class="flex justify-between items-center mb-4"><span class="font-semibold text-slate-700">Progress: <span id="quiz-progress">0</span>/10</span> <button onclick="resetQuiz()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors">Reset Quiz</button>
+        </div>
+        <div class="w-full bg-slate-200 rounded-full h-2">
+         <div id="progress-bar" class="progress-bar bg-blue-600 h-2 rounded-full" style="width: 0%"></div>
+        </div>
+       </div>
+       <div id="quiz-container" class="space-y-6"></div>
+       <div id="quiz-results" class="hidden mt-8">
+        <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-blue-500">
+         <h3 class="font-heading text-2xl font-bold text-slate-800 mb-4">Quiz Complete! 🎉</h3>
+         <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <div class="bg-emerald-50 rounded-lg p-6 border border-emerald-200">
+           <p class="text-slate-600 text-sm">Your Score</p>
+           <p class="font-heading text-4xl font-bold text-emerald-600" id="final-score">0%</p>
+          </div>
+          <div class="bg-blue-50 rounded-lg p-6 border border-blue-200">
+           <p class="text-slate-600 text-sm">Questions Correct</p>
+           <p class="font-heading text-4xl font-bold text-blue-600"><span id="correct-count">0</span>/10</p>
+          </div>
+         </div><button onclick="resetQuiz()" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold">Retake Quiz</button>
+        </div>
+       </div>
+      </section>
+     </div>
+    </main><!-- Footer -->
+    <footer class="bg-slate-800 text-slate-300 py-6 px-6 mt-12">
+     <div class="max-w-6xl mx-auto text-center">
+      <p class="flex items-center justify-center gap-2 text-sm">
+       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+       </svg> BSIS - Lyceum de San Pablo</p>
+      <p class="text-slate-400 text-xs mt-2">© 2026 All Rights Reserved</p>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      lesson_title: 'DATA PRIVACY, ETHICS, AND LEGAL ISSUES',
+      week_number: 'Midterm Week 4',
+      instructor_name: 'MKDB'
+    };
+
+    let config = { ...defaultConfig };
+
+    // Quiz Questions Database
+    const quizQuestions = [
+      {
+        question: "Which regulation requires organizations to notify data subjects within 72 hours of a data breach?",
+        options: ["CCPA", "GDPR", "PIPEDA", "HIPAA"],
+        correct: 1,
+        explanation: "GDPR (General Data Protection Regulation) mandates breach notification to authorities and affected individuals within 72 hours. CCPA, PIPEDA, and HIPAA have different notification timelines."
+      },
+      {
+        question: "What does the 'right to be forgotten' mean under GDPR?",
+        options: [
+          "Users can forget about their password",
+          "Users can request deletion of their personal data",
+          "Organizations can delete user data after 1 year",
+          "Users can hide their identity online"
+        ],
+        correct: 1,
+        explanation: "The 'right to be forgotten' allows individuals to request erasure of their personal data under certain conditions, giving them control over their digital footprint."
+      },
+      {
+        question: "Which of the following is NOT an ethical concern in information management?",
+        options: [
+          "Surveillance and monitoring without consent",
+          "Algorithmic bias in decision-making",
+          "Using standardized data encryption",
+          "Data exploitation and selling without disclosure"
+        ],
+        correct: 2,
+        explanation: "Using standardized data encryption is a BEST PRACTICE, not an ethical concern. The other three are significant ethical issues that organizations must address."
+      },
+      {
+        question: "What is the maximum fine under GDPR for serious violations?",
+        options: ["€5 million", "€10 million", "€20 million or 4% of annual revenue", "€50 million"],
+        correct: 2,
+        explanation: "GDPR can impose fines up to €20 million or 4% of annual global revenue (whichever is higher). This makes compliance critical for organizations handling EU resident data."
+      },
+      {
+        question: "Which principle states that organizations should only collect data necessary for their stated purpose?",
+        options: ["Data minimization", "Privacy by design", "Data portability", "Consent principle"],
+        correct: 0,
+        explanation: "Data minimization is the principle of collecting only the minimum data necessary. It reduces privacy risks and storage costs while respecting user privacy."
+      },
+      {
+        question: "What is an example of information asymmetry in data privacy?",
+        options: [
+          "Two employees sharing data equally",
+          "Organizations knowing users' data practices better than users know them",
+          "Symmetrical data distribution across servers",
+          "Equal access to personal information"
+        ],
+        correct: 1,
+        explanation: "Information asymmetry occurs when organizations understand their data practices better than users do. This power imbalance can lead to uninformed consent and exploitation."
+      },
+      {
+        question: "Which Canadian privacy law is similar to GDPR?",
+        options: ["CCPA", "HIPAA", "PIPEDA", "SOX"],
+        correct: 2,
+        explanation: "PIPEDA (Personal Information Protection and Electronic Documents Act) is Canada's primary privacy law, applying accountability, consent, and data protection principles similar to GDPR."
+      },
+      {
+        question: "What is 'Privacy by Design'?",
+        options: [
+          "Adding privacy features after a breach",
+          "Integrating privacy protections into system design from the beginning",
+          "Making privacy policies more visible",
+          "Training employees about privacy once per year"
+        ],
+        correct: 1,
+        explanation: "Privacy by Design means incorporating privacy protections into products and services during the initial design phase, not as an afterthought. It's now a GDPR requirement."
+      },
+      {
+        question: "Which ethical concern involves making decisions about individuals using algorithms they don't understand?",
+        options: [
+          "Surveillance and monitoring",
+          "Data exploitation",
+          "Algorithmic decision-making",
+          "Children's data protection"
+        ],
+        correct: 2,
+        explanation: "Algorithmic decision-making raises concerns about transparency, explainability, bias, and individuals' rights to understand and appeal automated decisions affecting them."
+      },
+      {
+        question: "What should organizations do if a data breach is discovered?",
+        options: [
+          "Keep it confidential and handle internally only",
+          "Notify users and authorities within required timeframes and conduct investigations",
+          "Wait until users complain before notifying them",
+          "Publish a generic statement without specific details"
+        ],
+        correct: 1,
+        explanation: "Organizations must follow legal notification requirements (72 hours for GDPR), conduct incident investigations, document findings, and communicate transparently with affected parties."
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+
+    // Tab Switching
+    function switchTab(tabName) {
+      // Hide all tabs
+      document.getElementById('content').classList.remove('active');
+      document.getElementById('activities').classList.remove('active');
+      document.getElementById('quiz').classList.remove('active');
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      
+      // Show selected tab
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+
+      // Load quiz if switching to quiz tab
+      if (tabName === 'quiz' && document.getElementById('quiz-container').innerHTML === '') {
+        loadQuiz();
+      }
+    }
+
+    // Load Quiz
+    function loadQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+      currentQuestionIndex = 0;
+      userAnswers = [];
+      displayQuestion();
+    }
+
+    // Display Current Question
+    function displayQuestion() {
+      const container = document.getElementById('quiz-container');
+      const question = quizQuestions[currentQuestionIndex];
+
+      let html = `
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 mb-6">
+          <div class="mb-6">
+            <h3 class="font-heading text-lg font-semibold text-slate-800 mb-4">
+              Question ${currentQuestionIndex + 1} of ${quizQuestions.length}
+            </h3>
+            <p class="text-slate-700 text-lg font-medium mb-6">${question.question}</p>
+          </div>
+          
+          <div class="space-y-3 mb-6">
+      `;
+
+      question.options.forEach((option, index) => {
+        const isSelected = userAnswers[currentQuestionIndex] === index;
+        html += `
+          <button onclick="selectAnswer(${index})" class="quiz-option w-full text-left p-4 border-2 border-slate-200 rounded-lg ${isSelected ? 'selected' : ''} transition-all">
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 border-2 border-slate-400 rounded-full flex items-center justify-center ${isSelected ? 'bg-blue-600 border-blue-600' : ''}">
+                ${isSelected ? '<span class="text-white text-sm">✓</span>' : ''}
+              </div>
+              <span class="text-slate-700">${option}</span>
+            </div>
+          </button>
+        `;
+      });
+
+      html += `
+          </div>
+          
+          <div class="flex gap-3">
+            ${currentQuestionIndex > 0 ? `<button onclick="previousQuestion()" class="px-6 py-3 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors font-semibold">← Previous</button>` : ''}
+            ${currentQuestionIndex < quizQuestions.length - 1 ? `<button onclick="nextQuestion()" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold" ${userAnswers[currentQuestionIndex] === undefined ? 'disabled opacity-50' : ''}>Next →</button>` : `<button onclick="submitQuiz()" class="flex-1 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold" ${userAnswers[currentQuestionIndex] === undefined ? 'disabled opacity-50' : ''}>Submit Quiz</button>`}
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = html;
+      updateProgress();
+    }
+
+    function selectAnswer(index) {
+      userAnswers[currentQuestionIndex] = index;
+      displayQuestion();
+    }
+
+    function nextQuestion() {
+      if (userAnswers[currentQuestionIndex] !== undefined) {
+        currentQuestionIndex++;
+        displayQuestion();
+      }
+    }
+
+    function previousQuestion() {
+      currentQuestionIndex--;
+      displayQuestion();
+    }
+
+    function updateProgress() {
+      const progress = userAnswers.filter(a => a !== undefined).length;
+      document.getElementById('quiz-progress').textContent = progress;
+      document.getElementById('progress-bar').style.width = (progress / quizQuestions.length * 100) + '%';
+    }
+
+    function submitQuiz() {
+      let correct = 0;
+      let resultHTML = '<div class="space-y-6">';
+
+      quizQuestions.forEach((question, index) => {
+        const userAnswer = userAnswers[index];
+        const isCorrect = userAnswer === question.correct;
+        if (isCorrect) correct++;
+
+        resultHTML += `
+          <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 ${isCorrect ? 'border-l-emerald-500' : 'border-l-red-500'}">
+            <h4 class="font-semibold text-slate-800 mb-3">Q${index + 1}: ${question.question}</h4>
+            <p class="text-sm mb-3">
+              <span class="inline-block px-3 py-1 rounded ${isCorrect ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}">
+                ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
+              </span>
+            </p>
+            <p class="text-slate-600 text-sm mb-2"><strong>Your answer:</strong> ${question.options[userAnswer]}</p>
+            ${!isCorrect ? `<p class="text-slate-600 text-sm mb-2"><strong>Correct answer:</strong> ${question.options[question.correct]}</p>` : ''}
+            <p class="text-slate-600 text-sm italic bg-slate-50 p-3 rounded">${question.explanation}</p>
+          </div>
+        `;
+      });
+
+      resultHTML += '</div>';
+
+      const score = Math.round((correct / quizQuestions.length) * 100);
+      document.getElementById('final-score').textContent = score + '%';
+      document.getElementById('correct-count').textContent = correct;
+      document.getElementById('quiz-container').innerHTML = resultHTML;
+      document.getElementById('quiz-results').classList.remove('hidden');
+    }
+
+    function resetQuiz() {
+      currentQuestionIndex = 0;
+      userAnswers = [];
+      document.getElementById('quiz-results').classList.add('hidden');
+      loadQuiz();
+    }
+
+    async function onConfigChange(newConfig) {
+      document.getElementById('week-number').textContent = newConfig.week_number || defaultConfig.week_number;
+      document.getElementById('lesson-title').textContent = newConfig.lesson_title || defaultConfig.lesson_title;
+      document.getElementById('instructor-name').textContent = newConfig.instructor_name || defaultConfig.instructor_name;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['lesson_title', config.lesson_title || defaultConfig.lesson_title],
+        ['week_number', config.week_number || defaultConfig.week_number],
+        ['instructor_name', config.instructor_name || defaultConfig.instructor_name]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d1ec722c3b585a0',t:'MTc3MTc2NjM5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

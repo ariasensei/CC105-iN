@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Information Quality &amp; Data Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; }
+    .font-heading { font-family: 'Poppins', sans-serif; }
+    .font-code { font-family: 'JetBrains Mono', monospace; }
+    .tab-button { transition: all 0.3s ease; }
+    .tab-button.active { background-color: #0f766e; color: white; }
+    .tab-button:not(.active) { background-color: #f1f5f9; color: #64748b; }
+    .tab-button:hover:not(.active) { background-color: #e2e8f0; }
+    .tab-content { display: none; animation: fadeIn 0.3s ease; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+    .threat-icon { font-size: 2rem; }
+    .principle-item { border-left: 4px solid #0f766e; padding-left: 1rem; }
+    .gradient-header { background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%); }
+    .risk-level-critical { background-color: #fee2e2; border-left: 4px solid #dc2626; }
+    .risk-level-high { background-color: #fed7aa; border-left: 4px solid #ea580c; }
+    .risk-level-medium { background-color: #fef08a; border-left: 4px solid #eab308; }
+    .risk-level-low { background-color: #dcfce7; border-left: 4px solid #16a34a; }
+    .quiz-option { transition: all 0.2s ease; cursor: pointer; }
+    .quiz-option:hover { transform: translateX(4px); }
+    .quiz-option.selected { background-color: #cffafe; border-left-color: #0891b2; }
+    .quiz-option.correct { background-color: #dcfce7; border-left-color: #16a34a; }
+    .quiz-option.incorrect { background-color: #fee2e2; border-left-color: #dc2626; }
+    .score-badge { display: inline-block; background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%); color: white; padding: 0.5rem 1rem; border-radius: 9999px; font-weight: 600; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gradient-to-br from-slate-50 to-cyan-50 text-slate-800">
+  <div class="h-full overflow-auto">
+   <div class="min-h-full w-full"><!-- Header -->
+    <header class="gradient-header text-white py-8 px-6 shadow-lg">
+     <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-4 mb-3">
+       <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm"><span class="text-2xl">🔐</span>
+       </div>
+       <div>
+        <p class="text-cyan-100 text-sm font-semibold tracking-wider" id="week_number">Midterm Week 2</p>
+        <h1 class="font-heading text-3xl md:text-4xl font-bold" id="lesson_title">Information Quality &amp; Data Management</h1>
+       </div>
+      </div>
+      <p class="text-teal-100 flex items-center gap-2 ml-18">
+       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+       </svg> Instructor: <strong id="instructor_name">MKDB</strong></p>
+     </div>
+    </header>
+    <main class="max-w-6xl mx-auto px-6 py-8"><!-- Tab Navigation -->
+     <div class="flex flex-wrap gap-2 mb-8 bg-white p-2 rounded-xl shadow-sm border border-slate-200"><button class="tab-button active px-6 py-2 rounded-lg font-medium" onclick="switchTab('content')">📚 Content</button> <button class="tab-button px-6 py-2 rounded-lg font-medium" onclick="switchTab('security')">🛡️ Security Principles</button> <button class="tab-button px-6 py-2 rounded-lg font-medium" onclick="switchTab('threats')">⚠️ Threats &amp; Risks</button> <button class="tab-button px-6 py-2 rounded-lg font-medium" onclick="switchTab('activities')">✏️ Activities</button> <button class="tab-button px-6 py-2 rounded-lg font-medium" onclick="switchTab('quiz')">🧪 Quiz</button>
+     </div><!-- Content Tab -->
+     <div id="content" class="tab-content active space-y-6"><!-- Information Quality -->
+      <section class="bg-white rounded-xl p-8 shadow-md border border-slate-200">
+       <h2 class="font-heading text-2xl font-bold text-teal-700 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">✨</span> What is Information Quality?</h2>
+       <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="principle-item">
+         <h3 class="font-semibold text-slate-800 mb-3">Definition</h3>
+         <p class="text-slate-600 leading-relaxed">Information Quality refers to the degree to which information meets the requirements of its intended use. It ensures that data is accurate, complete, consistent, timely, and relevant for decision-making and business operations.</p>
+        </div>
+        <div class="principle-item">
+         <h3 class="font-semibold text-slate-800 mb-3">Importance</h3>
+         <p class="text-slate-600 leading-relaxed">High-quality information reduces errors, improves decision-making, enhances customer satisfaction, ensures regulatory compliance, and supports organizational efficiency and competitive advantage.</p>
+        </div>
+       </div><!-- Quality Dimensions -->
+       <h3 class="font-semibold text-lg text-slate-800 mb-4">📊 6 Key Dimensions of Information Quality:</h3>
+       <div class="grid md:grid-cols-3 gap-4">
+        <div class="card-hover bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg border border-blue-200">
+         <div class="text-3xl mb-3">
+          📍
+         </div>
+         <h4 class="font-semibold text-slate-800 mb-2">Accuracy</h4>
+         <p class="text-sm text-slate-700">Data correctly represents the real-world entity it describes with minimal errors.</p>
+        </div>
+        <div class="card-hover bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-lg border border-green-200">
+         <div class="text-3xl mb-3">
+          📦
+         </div>
+         <h4 class="font-semibold text-slate-800 mb-2">Completeness</h4>
+         <p class="text-sm text-slate-700">All necessary data is present; no missing required attributes or records.</p>
+        </div>
+        <div class="card-hover bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-lg border border-purple-200">
+         <div class="text-3xl mb-3">
+          🔄
+         </div>
+         <h4 class="font-semibold text-slate-800 mb-2">Consistency</h4>
+         <p class="text-sm text-slate-700">Data maintains uniformity across all systems; same information has same value everywhere.</p>
+        </div>
+        <div class="card-hover bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-lg border border-yellow-200">
+         <div class="text-3xl mb-3">
+          ⏰
+         </div>
+         <h4 class="font-semibold text-slate-800 mb-2">Timeliness</h4>
+         <p class="text-sm text-slate-700">Data is available when needed; information currency matches decision requirements.</p>
+        </div>
+        <div class="card-hover bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-lg border border-red-200">
+         <div class="text-3xl mb-3">
+          🎯
+         </div>
+         <h4 class="font-semibold text-slate-800 mb-2">Relevance</h4>
+         <p class="text-sm text-slate-700">Information is applicable and pertinent to the specific business context and decisions.</p>
+        </div>
+        <div class="card-hover bg-gradient-to-br from-cyan-50 to-cyan-100 p-5 rounded-lg border border-cyan-200">
+         <div class="text-3xl mb-3">
+          💯
+         </div>
+         <h4 class="font-semibold text-slate-800 mb-2">Validity</h4>
+         <p class="text-sm text-slate-700">Data conforms to required format, type, range, and business rules.</p>
+        </div>
+       </div>
+      </section><!-- Data Quality Issues -->
+      <section class="bg-white rounded-xl p-8 shadow-md border border-slate-200">
+       <h2 class="font-heading text-2xl font-bold text-red-700 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">❌</span> Common Data Quality Issues</h2>
+       <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-red-50 p-5 rounded-lg border-l-4 border-red-500">
+         <h4 class="font-semibold text-red-800 mb-2">Duplicate Records</h4>
+         <p class="text-sm text-slate-700">Same entity stored multiple times leading to inconsistencies and redundancy. Example: Same customer with multiple IDs.</p>
+        </div>
+        <div class="bg-orange-50 p-5 rounded-lg border-l-4 border-orange-500">
+         <h4 class="font-semibold text-orange-800 mb-2">Missing Values</h4>
+         <p class="text-sm text-slate-700">Incomplete records with NULL or blank fields. Impact: Skewed analysis, wrong decisions.</p>
+        </div>
+        <div class="bg-yellow-50 p-5 rounded-lg border-l-4 border-yellow-500">
+         <h4 class="font-semibold text-yellow-800 mb-2">Inconsistent Formatting</h4>
+         <p class="text-sm text-slate-700">Data stored in different formats (Date: 01/15/2024 vs 15-01-2024). Causes: System incompatibility, errors.</p>
+        </div>
+        <div class="bg-green-50 p-5 rounded-lg border-l-4 border-green-500">
+         <h4 class="font-semibold text-green-800 mb-2">Outdated Information</h4>
+         <p class="text-sm text-slate-700">Data not updated timely. Example: Customer moved but old address still in system.</p>
+        </div>
+        <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+         <h4 class="font-semibold text-blue-800 mb-2">Invalid Values</h4>
+         <p class="text-sm text-slate-700">Data violates business rules. Example: Age = -5, Email without @, Phone with letters.</p>
+        </div>
+        <div class="bg-purple-50 p-5 rounded-lg border-l-4 border-purple-500">
+         <h4 class="font-semibold text-purple-800 mb-2">Inaccurate Data Entry</h4>
+         <p class="text-sm text-slate-700">Human errors during manual input. Example: Typos, transposed numbers, wrong data source.</p>
+        </div>
+       </div>
+      </section>
+     </div><!-- Security Principles Tab -->
+     <div id="security" class="tab-content space-y-6">
+      <section class="bg-white rounded-xl p-8 shadow-md border border-slate-200">
+       <h2 class="font-heading text-2xl font-bold text-teal-700 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">🛡️</span> Information Security Principles (CIA Triad)</h2>
+       <div class="bg-gradient-to-r from-teal-50 to-cyan-50 p-6 rounded-lg mb-8 border border-teal-200">
+        <p class="text-slate-700 mb-4">The CIA Triad is the foundational model of information security, comprising three core principles that must be maintained to protect information:</p>
+       </div>
+       <div class="grid md:grid-cols-3 gap-6 mb-8"><!-- Confidentiality -->
+        <div class="card-hover bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border-2 border-blue-300">
+         <div class="w-14 h-14 bg-blue-500 text-white rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+          🔒
+         </div>
+         <h3 class="font-heading text-xl font-bold text-blue-700 text-center mb-4">Confidentiality</h3>
+         <div class="space-y-3">
+          <p class="text-slate-700 font-semibold">Ensure only authorized persons access information</p>
+          <p class="text-sm text-slate-600">Only individuals with proper permissions should view or access sensitive data.</p>
+          <div class="bg-white p-3 rounded-lg mt-3">
+           <p class="text-xs font-semibold text-slate-800">🔑 Implementation:</p>
+           <ul class="text-xs text-slate-600 mt-2 space-y-1">
+            <li>✓ Encryption of data</li>
+            <li>✓ Access controls &amp; passwords</li>
+            <li>✓ User authentication</li>
+            <li>✓ Confidentiality agreements</li>
+           </ul>
+          </div>
+         </div>
+        </div><!-- Integrity -->
+        <div class="card-hover bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border-2 border-green-300">
+         <div class="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+          ✓
+         </div>
+         <h3 class="font-heading text-xl font-bold text-green-700 text-center mb-4">Integrity</h3>
+         <div class="space-y-3">
+          <p class="text-slate-700 font-semibold">Ensure data accuracy and completeness</p>
+          <p class="text-sm text-slate-600">Information must be accurate, complete, and unaltered by unauthorized or accidental modification.</p>
+          <div class="bg-white p-3 rounded-lg mt-3">
+           <p class="text-xs font-semibold text-slate-800">🔑 Implementation:</p>
+           <ul class="text-xs text-slate-600 mt-2 space-y-1">
+            <li>✓ Data validation &amp; verification</li>
+            <li>✓ Checksums &amp; hash functions</li>
+            <li>✓ Access controls</li>
+            <li>✓ Audit logs &amp; monitoring</li>
+           </ul>
+          </div>
+         </div>
+        </div><!-- Availability -->
+        <div class="card-hover bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg border-2 border-orange-300">
+         <div class="w-14 h-14 bg-orange-500 text-white rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+          ⚡
+         </div>
+         <h3 class="font-heading text-xl font-bold text-orange-700 text-center mb-4">Availability</h3>
+         <div class="space-y-3">
+          <p class="text-slate-700 font-semibold">Ensure authorized users access information when needed</p>
+          <p class="text-sm text-slate-600">Systems and data must be accessible and operational for legitimate users at all times.</p>
+          <div class="bg-white p-3 rounded-lg mt-3">
+           <p class="text-xs font-semibold text-slate-800">🔑 Implementation:</p>
+           <ul class="text-xs text-slate-600 mt-2 space-y-1">
+            <li>✓ Backup &amp; disaster recovery</li>
+            <li>✓ Redundancy &amp; failover</li>
+            <li>✓ Load balancing</li>
+            <li>✓ System maintenance</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div><!-- Additional Principles -->
+       <h3 class="font-heading text-xl font-bold text-slate-800 mb-4">🔐 Additional Security Principles:</h3>
+       <div class="grid md:grid-cols-2 gap-4">
+        <div class="principle-item bg-slate-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-slate-800 mb-2">🆔 Authentication</h4>
+         <p class="text-sm text-slate-700">Verify user identity (passwords, biometrics, multi-factor authentication)</p>
+        </div>
+        <div class="principle-item bg-slate-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-slate-800 mb-2">🚨 Non-Repudiation</h4>
+         <p class="text-sm text-slate-700">Ensure users cannot deny their actions (digital signatures, audit trails)</p>
+        </div>
+        <div class="principle-item bg-slate-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-slate-800 mb-2">👥 Authorization</h4>
+         <p class="text-sm text-slate-700">Define what authenticated users can do (role-based access control)</p>
+        </div>
+        <div class="principle-item bg-slate-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-slate-800 mb-2">📊 Accountability</h4>
+         <p class="text-sm text-slate-700">Track and log all actions for auditing (system logs, transaction records)</p>
+        </div>
+       </div>
+      </section>
+     </div><!-- Threats & Risks Tab -->
+     <div id="threats" class="tab-content space-y-6">
+      <section class="bg-white rounded-xl p-8 shadow-md border border-slate-200">
+       <h2 class="font-heading text-2xl font-bold text-red-700 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">⚠️</span> Common Information Security Threats</h2>
+       <div class="space-y-4 mb-8"><!-- Malware -->
+        <div class="risk-level-critical p-5 rounded-lg">
+         <div class="flex items-start gap-4"><span class="threat-icon">🦠</span>
+          <div class="flex-1">
+           <h3 class="font-semibold text-red-800 mb-2">Malware (Virus, Worm, Trojan)</h3>
+           <p class="text-sm text-slate-700 mb-3">Malicious software designed to damage systems, steal data, or gain unauthorized access.</p>
+           <div class="text-xs text-slate-700 bg-white/50 p-3 rounded"><strong>Impact:</strong> System crashes, data theft, operational disruption<br><strong>Examples:</strong> Ransomware, spyware, adware, rootkits
+           </div>
+          </div>
+         </div>
+        </div><!-- Phishing -->
+        <div class="risk-level-high p-5 rounded-lg">
+         <div class="flex items-start gap-4"><span class="threat-icon">🎣</span>
+          <div class="flex-1">
+           <h3 class="font-semibold text-orange-800 mb-2">Phishing Attacks</h3>
+           <p class="text-sm text-slate-700 mb-3">Fraudulent attempts to trick users into revealing sensitive information via fake emails/websites.</p>
+           <div class="text-xs text-slate-700 bg-white/50 p-3 rounded"><strong>Impact:</strong> Credential theft, identity fraud, unauthorized access<br><strong>Examples:</strong> Fake bank emails, fake login pages, social engineering
+           </div>
+          </div>
+         </div>
+        </div><!-- SQL Injection -->
+        <div class="risk-level-critical p-5 rounded-lg">
+         <div class="flex items-start gap-4"><span class="threat-icon">💉</span>
+          <div class="flex-1">
+           <h3 class="font-semibold text-red-800 mb-2">SQL Injection &amp; Database Attacks</h3>
+           <p class="text-sm text-slate-700 mb-3">Attackers insert malicious code into database queries to access, modify, or destroy data.</p>
+           <div class="text-xs text-slate-700 bg-white/50 p-3 rounded"><strong>Impact:</strong> Unauthorized data access, data modification/deletion, system compromise<br><strong>Example:</strong> Entering <span class="font-code">'; DROP TABLE users; --</span> in a login field
+           </div>
+          </div>
+         </div>
+        </div><!-- DDoS -->
+        <div class="risk-level-high p-5 rounded-lg">
+         <div class="flex items-start gap-4"><span class="threat-icon">🌊</span>
+          <div class="flex-1">
+           <h3 class="font-semibold text-orange-800 mb-2">Distributed Denial of Service (DDoS)</h3>
+           <p class="text-sm text-slate-700 mb-3">Attackers overwhelm systems with massive traffic from multiple sources, making services unavailable.</p>
+           <div class="text-xs text-slate-700 bg-white/50 p-3 rounded"><strong>Impact:</strong> System downtime, service interruption, financial loss<br><strong>Examples:</strong> Botnet attacks, volumetric attacks, protocol attacks
+           </div>
+          </div>
+         </div>
+        </div><!-- Man-in-the-Middle -->
+        <div class="risk-level-high p-5 rounded-lg">
+         <div class="flex items-start gap-4"><span class="threat-icon">🕵️</span>
+          <div class="flex-1">
+           <h3 class="font-semibold text-orange-800 mb-2">Man-in-the-Middle (MITM) Attack</h3>
+           <p class="text-sm text-slate-700 mb-3">Attacker intercepts communication between two parties to eavesdrop or alter information.</p>
+           <div class="text-xs text-slate-700 bg-white/50 p-3 rounded"><strong>Impact:</strong> Data interception, credential theft, information disclosure<br><strong>Examples:</strong> WiFi sniffing, SSL stripping, DNS hijacking
+           </div>
+          </div>
+         </div>
+        </div><!-- Insider Threat -->
+        <div class="risk-level-medium p-5 rounded-lg">
+         <div class="flex items-start gap-4"><span class="threat-icon">👤</span>
+          <div class="flex-1">
+           <h3 class="font-semibold text-yellow-800 mb-2">Insider Threats</h3>
+           <p class="text-sm text-slate-700 mb-3">Authorized employees or partners misuse their access to steal data or sabotage systems.</p>
+           <div class="text-xs text-slate-700 bg-white/50 p-3 rounded"><strong>Impact:</strong> Data theft, intellectual property loss, sabotage<br><strong>Motives:</strong> Financial gain, revenge, espionage
+           </div>
+          </div>
+         </div>
+        </div><!-- Zero-Day Vulnerability -->
+        <div class="risk-level-critical p-5 rounded-lg">
+         <div class="flex items-start gap-4"><span class="threat-icon">💣</span>
+          <div class="flex-1">
+           <h3 class="font-semibold text-red-800 mb-2">Zero-Day Vulnerabilities</h3>
+           <p class="text-sm text-slate-700 mb-3">Unknown security flaws exploited by attackers before developers can patch them.</p>
+           <div class="text-xs text-slate-700 bg-white/50 p-3 rounded"><strong>Impact:</strong> Widespread exploitation, system compromise, data breach<br><strong>Characteristics:</strong> No patch available, high impact, widespread use
+           </div>
+          </div>
+         </div>
+        </div><!-- Data Breach -->
+        <div class="risk-level-critical p-5 rounded-lg">
+         <div class="flex items-start gap-4"><span class="threat-icon">📋</span>
+          <div class="flex-1">
+           <h3 class="font-semibold text-red-800 mb-2">Data Breach</h3>
+           <p class="text-sm text-slate-700 mb-3">Unauthorized access and extraction of sensitive data from databases or systems.</p>
+           <div class="text-xs text-slate-700 bg-white/50 p-3 rounded"><strong>Impact:</strong> Privacy violation, regulatory penalties, reputation damage<br><strong>Examples:</strong> Customer PII theft, credit card data theft, medical records exposure
+           </div>
+          </div>
+         </div>
+        </div>
+       </div><!-- Risk Assessment Matrix -->
+       <h3 class="font-heading text-xl font-bold text-slate-800 mb-4">📊 Risk Assessment Matrix</h3>
+       <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+         <thead>
+          <tr class="bg-slate-200">
+           <th class="px-4 py-3 text-left font-semibold">Threat</th>
+           <th class="px-4 py-3 text-left font-semibold">Likelihood</th>
+           <th class="px-4 py-3 text-left font-semibold">Impact</th>
+           <th class="px-4 py-3 text-left font-semibold">Risk Level</th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr class="border-b hover:bg-slate-50">
+           <td class="px-4 py-3">Phishing</td>
+           <td class="px-4 py-3">Very High</td>
+           <td class="px-4 py-3">High</td>
+           <td class="px-4 py-3"><span class="text-xs font-semibold bg-red-100 text-red-800 px-2 py-1 rounded">CRITICAL</span></td>
+          </tr>
+          <tr class="border-b hover:bg-slate-50">
+           <td class="px-4 py-3">Malware</td>
+           <td class="px-4 py-3">High</td>
+           <td class="px-4 py-3">Very High</td>
+           <td class="px-4 py-3"><span class="text-xs font-semibold bg-red-100 text-red-800 px-2 py-1 rounded">CRITICAL</span></td>
+          </tr>
+          <tr class="border-b hover:bg-slate-50">
+           <td class="px-4 py-3">DDoS</td>
+           <td class="px-4 py-3">Medium</td>
+           <td class="px-4 py-3">High</td>
+           <td class="px-4 py-3"><span class="text-xs font-semibold bg-orange-100 text-orange-800 px-2 py-1 rounded">HIGH</span></td>
+          </tr>
+          <tr class="border-b hover:bg-slate-50">
+           <td class="px-4 py-3">Insider Threat</td>
+           <td class="px-4 py-3">Medium</td>
+           <td class="px-4 py-3">Very High</td>
+           <td class="px-4 py-3"><span class="text-xs font-semibold bg-orange-100 text-orange-800 px-2 py-1 rounded">HIGH</span></td>
+          </tr>
+          <tr class="hover:bg-slate-50">
+           <td class="px-4 py-3">Zero-Day</td>
+           <td class="px-4 py-3">Low</td>
+           <td class="px-4 py-3">Very High</td>
+           <td class="px-4 py-3"><span class="text-xs font-semibold bg-yellow-100 text-yellow-800 px-2 py-1 rounded">MEDIUM</span></td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </section>
+     </div><!-- Activities Tab -->
+     <div id="activities" class="tab-content space-y-6"><!-- Individual Activity -->
+      <section class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 shadow-md border-2 border-blue-300">
+       <h2 class="font-heading text-2xl font-bold text-blue-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center">👤</span> Individual Activity (20 minutes)</h2>
+       <div class="bg-white p-6 rounded-lg">
+        <h3 class="font-semibold text-slate-800 mb-4">📋 Task: Information Security Risk Assessment</h3>
+        <p class="text-slate-700 mb-4">Analyze a real-world scenario and complete the assessment below:</p>
+        <div class="bg-slate-100 p-5 rounded-lg mb-6 border-l-4 border-blue-500">
+         <p class="font-semibold text-slate-800 mb-2">Scenario:</p>
+         <p class="text-slate-700">A healthcare hospital stores patient medical records in a centralized database accessible by 500+ staff members. The system runs on outdated software, has minimal access controls, no encryption, and staff frequently use shared credentials. Recently, a hospital employee tried to access records outside their department and was unsuccessful.</p>
+        </div>
+        <div class="space-y-4">
+         <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <p class="font-semibold text-slate-800 mb-3">1️⃣ Identify 5 Security Threats in this scenario:</p><textarea class="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="List the threats..."></textarea>
+         </div>
+         <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <p class="font-semibold text-slate-808 mb-3">2️⃣ How are the CIA Triad principles violated?</p>
+          <div class="space-y-2"><label class="flex items-start gap-3"> <input type="checkbox" class="mt-1"> <span class="text-slate-700"><strong>Confidentiality:</strong> Information could be accessed by unauthorized persons</span> </label> <label class="flex items-start gap-3"> <input type="checkbox" class="mt-1"> <span class="text-slate-700"><strong>Integrity:</strong> Data could be modified without detection</span> </label> <label class="flex items-start gap-3"> <input type="checkbox" class="mt-1"> <span class="text-slate-700"><strong>Availability:</strong> System could become unavailable due to attacks</span> </label>
+          </div>
+         </div>
+         <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <p class="font-semibold text-slate-808 mb-3">3️⃣ Propose 5 mitigation strategies:</p><textarea class="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="List your recommendations..."></textarea>
+         </div>
+         <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <p class="font-semibold text-slate-808 mb-3">4️⃣ Data Quality Issues:</p>
+          <p class="text-sm text-slate-700 mb-3">Which data quality dimensions are at risk?</p><textarea class="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Analyze completeness, accuracy, consistency, timeliness..."></textarea>
+         </div>
+        </div>
+       </div>
+      </section><!-- Group Activity -->
+      <section class="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-8 shadow-md border-2 border-emerald-300">
+       <h2 class="font-heading text-2xl font-bold text-emerald-800 mb-6 flex items-center gap-3"><span class="w-10 h-10 bg-emerald-500 text-white rounded-lg flex items-center justify-center">👥</span> Group Activity (45 minutes)</h2>
+       <div class="bg-white p-6 rounded-lg space-y-5">
+        <h3 class="font-semibold text-slate-800">🎯 Task: Develop a Data Security &amp; Quality Framework</h3>
+        <p class="text-slate-700">In groups of 4-5, create a comprehensive framework for a college enrollment system.</p>
+        <div class="bg-emerald-50 p-5 rounded-lg border-l-4 border-emerald-500 space-y-4">
+         <div>
+          <h4 class="font-semibold text-emerald-800 mb-2">📋 Deliverable 1: Threat Identification</h4>
+          <p class="text-sm text-slate-700 mb-3">Identify 10 potential threats to the college enrollment system and their risk levels.</p>
+          <div class="bg-white p-3 rounded border border-slate-200 text-sm font-code">
+           <p>Example Format:</p>
+           <p>• Threat: Student grades database accessed by unauthorized staff</p>
+           <p>Risk Level: CRITICAL | Impact: Privacy violation</p>
+          </div>
+         </div>
+         <div>
+          <h4 class="font-semibold text-emerald-800 mb-2">🛡️ Deliverable 2: Security Measures (CIA Triad)</h4>
+          <p class="text-sm text-slate-700 mb-3">Design security controls for each CIA component:</p>
+          <ul class="text-sm text-slate-700 space-y-2 ml-4">
+           <li>🔒 <strong>Confidentiality:</strong> How to ensure only authorized users access enrollment data?</li>
+           <li>✓ <strong>Integrity:</strong> How to prevent unauthorized modification of grades/records?</li>
+           <li>⚡ <strong>Availability:</strong> How to ensure the system is accessible 24/7 during enrollment?</li>
+          </ul>
+         </div>
+         <div>
+          <h4 class="font-semibold text-emerald-800 mb-2">📊 Deliverable 3: Data Quality Standards</h4>
+          <p class="text-sm text-slate-700 mb-3">Define data quality rules for student records:</p>
+          <ul class="text-sm text-slate-700 space-y-2 ml-4">
+           <li>✨ <strong>Accuracy:</strong> Student ID must match national ID format</li>
+           <li>📦 <strong>Completeness:</strong> All required fields (name, email, phone) must be filled</li>
+           <li>🔄 <strong>Consistency:</strong> Email format must match international standards</li>
+           <li>⏰ <strong>Timeliness:</strong> GPA must be updated within 24 hours of grade entry</li>
+           <li>🎯 <strong>Relevance:</strong> Only store data relevant to enrollment process</li>
+          </ul>
+         </div>
+         <div>
+          <h4 class="font-semibold text-emerald-800 mb-2">📝 Deliverable 4: Implementation Plan</h4>
+          <p class="text-sm text-slate-700">Create a 1-page implementation roadmap showing:</p>
+          <ul class="text-sm text-slate-700 space-y-1 ml-4">
+           <li>• Priority measures (high/medium/low)</li>
+           <li>• Timeline (immediate/short-term/long-term)</li>
+           <li>• Resource requirements (budget, personnel)</li>
+           <li>• Success metrics</li>
+          </ul>
+         </div>
+        </div>
+        <div class="bg-emerald-100 p-4 rounded-lg">
+         <p class="text-sm font-semibold text-emerald-800">📌 Presentation Requirements:</p>
+         <ul class="text-sm text-emerald-700 mt-2 space-y-1">
+          <li>✓ Create visual slides (PowerPoint/Google Slides)</li>
+          <li>✓ Each group presents 5 minutes + 3 minutes Q&amp;A</li>
+          <li>✓ Focus on practical, implementable solutions</li>
+         </ul>
+        </div>
+       </div>
+      </section>
+     </div><!-- Quiz Tab -->
+     <div id="quiz" class="tab-content">
+      <section class="bg-white rounded-xl p-8 shadow-md border border-slate-200">
+       <h2 class="font-heading text-2xl font-bold text-teal-700 mb-2">🧪 Review Quiz</h2>
+       <p class="text-slate-600 mb-6">Test your knowledge with 10 questions. Click an option to select your answer.</p>
+       <div id="quiz-container" class="space-y-6"><!-- Questions will be dynamically inserted here -->
+       </div><button onclick="submitQuiz()" class="mt-8 bg-gradient-to-r from-teal-600 to-teal-700 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-all"> 📊 Submit Quiz </button>
+       <div id="quiz-results" class="mt-8 hidden">
+        <h3 class="font-heading text-xl font-bold text-slate-800 mb-4">✅ Your Results:</h3>
+        <div class="bg-gradient-to-r from-teal-50 to-cyan-50 p-6 rounded-lg border border-teal-300">
+         <p class="text-center mb-4"><span class="score-badge" id="score-display">Score: 0/10</span></p>
+         <p id="performance-text" class="text-center text-slate-700 mb-6"></p>
+         <div id="answer-review" class="space-y-4"></div>
+        </div><button onclick="resetQuiz()" class="mt-6 w-full bg-slate-200 text-slate-800 py-2 rounded-lg font-semibold hover:bg-slate-300 transition"> 🔄 Retake Quiz </button>
+       </div>
+      </section>
+     </div>
+    </main><!-- Footer -->
+    <footer class="bg-gradient-to-r from-slate-800 to-slate-900 text-slate-300 py-8 px-6 mt-12">
+     <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8 mb-6">
+       <div>
+        <h4 class="font-semibold text-white mb-3">📚 Course Info</h4>
+        <p class="text-sm">CC105 - Information Management<br>
+         Midterm Examination Period</p>
+       </div>
+       <div>
+        <h4 class="font-semibold text-white mb-3">🎓 Institution</h4>
+        <p class="text-sm">Lyceum de San Pablo<br>
+         BSIS Program</p>
+       </div>
+       <div>
+        <h4 class="font-semibold text-white mb-3">👨‍🏫 Instructor</h4>
+        <p class="text-sm">MKDB<br>
+         Information Systems Department</p>
+       </div>
+      </div>
+      <div class="border-t border-slate-700 pt-6">
+       <p class="text-center text-sm">© 2026 Information Management Course. All Rights Reserved.</p>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script>
+    // Quiz Questions
+    const quizQuestions = [
+      {
+        question: "Which of the following is NOT a dimension of information quality?",
+        options: ["Accuracy", "Completeness", "Confidentiality", "Timeliness"],
+        correct: 2,
+        explanation: "Confidentiality is a security principle (CIA Triad), not a dimension of information quality. Quality dimensions are Accuracy, Completeness, Consistency, Timeliness, Relevance, and Validity."
+      },
+      {
+        question: "What does the CIA Triad stand for in information security?",
+        options: ["Central Intelligence Agency Triad", "Confidentiality, Integrity, Availability", "Computer Information Authorization", "Cyber Intelligence Analysis"],
+        correct: 1,
+        explanation: "CIA Triad represents Confidentiality (authorized access), Integrity (accuracy/unaltered data), and Availability (accessible when needed)."
+      },
+      {
+        question: "Which security principle ensures that data is accurate and unaltered by unauthorized modifications?",
+        options: ["Confidentiality", "Integrity", "Availability", "Authenticity"],
+        correct: 1,
+        explanation: "Integrity ensures data accuracy and completeness, preventing unauthorized or accidental modification through checksums, audit logs, and access controls."
+      },
+      {
+        question: "What type of attack involves tricking users into revealing sensitive information through fake emails or websites?",
+        options: ["Malware", "DDoS", "Phishing", "SQL Injection"],
+        correct: 2,
+        explanation: "Phishing uses social engineering to deceive users into disclosing credentials or sensitive data. It's one of the most common and effective cyber attacks."
+      },
+      {
+        question: "Which of the following is an example of a data quality issue?",
+        options: ["Strong password encryption", "Multi-factor authentication", "Duplicate customer records", "Regular security audits"],
+        correct: 2,
+        explanation: "Duplicate records is a common data quality issue. Other examples include missing values, inconsistent formatting, outdated information, and invalid data."
+      },
+      {
+        question: "What is a Zero-Day vulnerability?",
+        options: ["A 24-hour security alert", "An unknown flaw exploited before a patch exists", "A daily security scan", "A vulnerability lasting one day"],
+        correct: 1,
+        explanation: "Zero-day is an unknown security flaw that developers haven't patched yet, making it highly dangerous when exploited by attackers."
+      },
+      {
+        question: "Which principle of information security ensures authorized users can access information when needed?",
+        options: ["Confidentiality", "Integrity", "Availability", "Authentication"],
+        correct: 2,
+        explanation: "Availability ensures systems and data are accessible for legitimate users through backups, redundancy, load balancing, and disaster recovery."
+      },
+      {
+        question: "What is a common cause of incomplete data in information systems?",
+        options: ["Strong encryption", "Regular backups", "Manual data entry errors", "Multi-factor authentication"],
+        correct: 2,
+        explanation: "Manual data entry often results in missing values due to human error. Other causes include system integration issues and incomplete forms."
+      },
+      {
+        question: "Which type of threat involves an employee misusing their authorized access to steal data?",
+        options: ["External Malware", "Insider Threat", "Phishing", "DDoS Attack"],
+        correct: 1,
+        explanation: "Insider Threats occur when authorized employees or partners abuse their access for financial gain, revenge, or espionage."
+      },
+      {
+        question: "What is the primary purpose of data validation and verification in maintaining information integrity?",
+        options: ["To encrypt sensitive data", "To prevent unauthorized access", "To ensure data accuracy and completeness", "To increase system speed"],
+        correct: 2,
+        explanation: "Data validation and verification check that information conforms to required formats and business rules, ensuring integrity and accuracy."
+      }
+    ];
+
+    let userAnswers = [];
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+      
+      quizQuestions.forEach((q, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'bg-slate-50 p-6 rounded-lg border border-slate-200';
+        questionDiv.innerHTML = `
+          <h3 class="font-semibold text-slate-800 mb-4">Q${index + 1}: ${q.question}</h3>
+          <div class="space-y-3" id="options-${index}">
+            ${q.options.map((option, optIndex) => `
+              <div class="quiz-option bg-white border-l-4 border-slate-300 p-4 rounded cursor-pointer hover:bg-slate-100"
+                   onclick="selectAnswer(${index}, ${optIndex})">
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="q${index}" value="${optIndex}" class="cursor-pointer">
+                  <span class="text-slate-700">${option}</span>
+                </label>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(questionDiv);
+      });
+    }
+
+    function selectAnswer(questionIndex, optionIndex) {
+      userAnswers[questionIndex] = optionIndex;
+      const optionsDiv = document.getElementById(`options-${questionIndex}`);
+      const options = optionsDiv.querySelectorAll('.quiz-option');
+      options.forEach((opt, idx) => {
+        opt.classList.toggle('selected', idx === optionIndex);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      const resultDiv = document.getElementById('answer-review');
+      resultDiv.innerHTML = '';
+      
+      quizQuestions.forEach((q, index) => {
+        if (userAnswers[index] === q.correct) {
+          score++;
+        }
+        
+        const reviewDiv = document.createElement('div');
+        const isCorrect = userAnswers[index] === q.correct;
+        reviewDiv.className = `p-4 rounded-lg ${isCorrect ? 'bg-green-50 border-l-4 border-green-500' : 'bg-red-50 border-l-4 border-red-500'}`;
+        reviewDiv.innerHTML = `
+          <p class="font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'} mb-2">
+            ${isCorrect ? '✓' : '✗'} Q${index + 1}: ${q.question}
+          </p>
+          <p class="text-sm text-slate-700 mb-2"><strong>Your answer:</strong> ${q.options[userAnswers[index]] || 'Not answered'}</p>
+          <p class="text-sm text-slate-700 mb-2"><strong>Correct answer:</strong> ${q.options[q.correct]}</p>
+          <p class="text-sm text-slate-700"><strong>Explanation:</strong> ${q.explanation}</p>
+        `;
+        resultDiv.appendChild(reviewDiv);
+      });
+      
+      document.getElementById('score-display').textContent = `Score: ${score}/10`;
+      const percentage = (score / quizQuestions.length) * 100;
+      let perfText = '';
+      
+      if (percentage === 100) perfText = '🌟 Perfect! Excellent understanding of the material!';
+      else if (percentage >= 80) perfText = '🎉 Great! You have a strong grasp of the concepts!';
+      else if (percentage >= 60) perfText = '👍 Good! Review the explanations for areas needing improvement.';
+      else if (percentage >= 40) perfText = '📚 Study more! Focus on security principles and threats.';
+      else perfText = '⚠️ Please review all concepts and materials carefully.';
+      
+      document.getElementById('performance-text').textContent = perfText;
+      document.getElementById('quiz-results').classList.remove('hidden');
+      document.getElementById('quiz-container').classList.add('hidden');
+      document.querySelector('button[onclick="submitQuiz()"]').classList.add('hidden');
+    }
+
+    function resetQuiz() {
+      userAnswers = [];
+      renderQuiz();
+      document.getElementById('quiz-results').classList.add('hidden');
+      document.getElementById('quiz-container').classList.remove('hidden');
+      document.querySelector('button[onclick="submitQuiz()"]').classList.remove('hidden');
+      document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function switchTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      
+      // Show selected tab
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+
+      if (tabName === 'quiz' && document.getElementById('quiz-container').innerHTML === '') {
+        renderQuiz();
+      }
+    }
+
+    // SDK Integration
+    const defaultConfig = {
+      lesson_title: 'Information Quality and Data Management',
+      week_number: 'Midterm Week 2',
+      instructor_name: 'MKDB'
+    };
+
+    let config = { ...defaultConfig };
+
+    async function onConfigChange(newConfig) {
+      document.getElementById('lesson_title').textContent = newConfig.lesson_title || defaultConfig.lesson_title;
+      document.getElementById('week_number').textContent = newConfig.week_number || defaultConfig.week_number;
+      document.getElementById('instructor_name').textContent = newConfig.instructor_name || defaultConfig.instructor_name;
+    }
+
+    function mapToCapabilities(config) {
+      return { recolorables: [], borderables: [], fontEditable: undefined, fontSizeable: undefined };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['lesson_title', config.lesson_title || defaultConfig.lesson_title],
+        ['week_number', config.week_number || defaultConfig.week_number],
+        ['instructor_name', config.instructor_name || defaultConfig.instructor_name]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities, mapToEditPanelValues });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d1e9b05667dfee8',t:'MTc3MTc2NDU4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

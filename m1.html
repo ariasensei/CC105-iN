@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Fundamentals - Midterm Week 1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { font-family: 'Poppins', sans-serif; }
+    .font-heading { font-family: 'Poppins', sans-serif; font-weight: 700; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .gradient-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+    .tab-button { transition: all 0.2s ease; }
+    .tab-button.active { border-bottom: 3px solid #3b82f6; color: #3b82f6; }
+    .ilo-badge { animation: slideIn 0.5s ease; }
+    .content-grid { display: grid; gap: 1.5rem; }
+    .concept-card { background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-left: 4px solid #3b82f6; }
+    .quiz-option { transition: all 0.2s ease; cursor: pointer; }
+    .quiz-option:hover { transform: translateX(4px); }
+    .quiz-option.selected { background-color: #dbeafe; border-left: 4px solid #3b82f6; }
+    .quiz-option.correct { background-color: #dcfce7; border-left: 4px solid #22c55e; }
+    .quiz-option.incorrect { background-color: #fee2e2; border-left: 4px solid #ef4444; }
+    .activity-section { background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%); border: 2px dashed #3b82f6; }
+    .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-family: 'JetBrains Mono', monospace; }
+    .component-badge { display: inline-block; background: #dbeafe; color: #1e40af; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .definition-box { background: linear-gradient(135deg, #fef2f2 0%, #fef5f2 100%); border-left: 4px solid #ef4444; padding: 1rem; border-radius: 0.5rem; }
+    .example-box { background: linear-gradient(135deg, #f0fdf4 0%, #f1f5f9 100%); border-left: 4px solid #22c55e; padding: 1rem; border-radius: 0.5rem; }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body bg-slate-50 text-slate-800">
+  <div class="h-full overflow-auto">
+   <div class="min-h-full w-full">
+    <!-- Header -->
+    <header class="gradient-header text-white py-8 px-6">
+     <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-4 mb-4">
+       <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 1.657.895 3.146 2.232 3.956V15.672a.75.75 0 01.75-.75h12.036a.75.75 0 01.75.75v8.284c1.337-.81 2.232-2.299 2.232-3.956V7M12 2v15m8.5-12H3.5" />
+        </svg>
+       </div>
+       <div>
+        <p class="text-blue-300 text-sm font-medium tracking-widest uppercase" id="week-number">Midterm - Week 1</p>
+        <h1 class="font-heading text-4xl font-bold" id="lesson-title">Database Fundamentals</h1>
+       </div>
+      </div>
+      <p class="text-slate-300 flex items-center gap-2 mt-3">
+       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+       </svg><span>Instructor: <strong id="instructor-name">MKDB</strong></span></p>
+     </div>
+    </header>
+    <main class="max-w-6xl mx-auto px-6 py-8">
+     <!-- ILO Section -->
+     <section class="mb-8">
+      <div class="ilo-badge bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+       <h2 class="font-heading text-lg font-bold text-blue-900 mb-4">🎯 Intended Learning Outcomes (ILO)</h2>
+       <div class="grid md:grid-cols-2 gap-4">
+        <div class="flex items-start gap-3"><span class="text-2xl">✓</span>
+         <div>
+          <p class="font-semibold text-blue-900">Define Database &amp; DBMS Concepts</p>
+          <p class="text-sm text-blue-700 mt-1">Understand fundamental database principles and management systems</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-3"><span class="text-2xl">✓</span>
+         <div>
+          <p class="font-semibold text-blue-900">Identify Basic Database Components</p>
+          <p class="text-sm text-blue-700 mt-1">Recognize and understand the key building blocks of databases</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Tab Navigation -->
+     <div class="mb-8 border-b border-slate-200 flex gap-4 overflow-x-auto"><button class="tab-button active px-6 py-3 text-slate-600 font-semibold hover:text-blue-600" data-tab="content">📚 Content</button> <button class="tab-button px-6 py-3 text-slate-600 font-semibold hover:text-blue-600" data-tab="components">🔧 Components</button> <button class="tab-button px-6 py-3 text-slate-600 font-semibold hover:text-blue-600" data-tab="activities">✍️ Activities</button> <button class="tab-button px-6 py-3 text-slate-600 font-semibold hover:text-blue-600" data-tab="quiz">🧪 Quiz</button>
+     </div><!-- Content Tab -->
+     <div id="content-tab" class="tab-content">
+      <!-- What is a Database? -->
+      <section class="mb-10">
+       <h2 class="font-heading text-3xl font-bold text-slate-900 mb-4">📊 What is a Database?</h2>
+       <div class="definition-box mb-6">
+        <p class="font-semibold text-red-900 text-lg mb-2">Definition:</p>
+        <p class="text-red-800 leading-relaxed">A database is an organized collection of structured data stored electronically in a computer system that can be accessed, managed, and updated efficiently. It allows multiple users to retrieve and modify data simultaneously while maintaining data integrity and security.</p>
+       </div>
+       <div class="grid md:grid-cols-2 gap-6">
+        <div class="concept-card p-6 rounded-lg">
+         <h3 class="font-heading text-lg font-bold text-slate-800 mb-3">🎯 Key Characteristics</h3>
+         <ul class="space-y-2 text-slate-700">
+          <li class="flex items-center gap-2"><span class="text-blue-500">•</span> <strong>Organized:</strong> Data structured in tables &amp; relationships</li>
+          <li class="flex items-center gap-2"><span class="text-blue-500">•</span> <strong>Persistent:</strong> Data stored permanently</li>
+          <li class="flex items-center gap-2"><span class="text-blue-500">•</span> <strong>Shared:</strong> Multiple users access simultaneously</li>
+          <li class="flex items-center gap-2"><span class="text-blue-500">•</span> <strong>Controlled:</strong> Access restrictions &amp; permissions</li>
+          <li class="flex items-center gap-2"><span class="text-blue-500">•</span> <strong>Efficient:</strong> Fast retrieval of specific data</li>
+         </ul>
+        </div>
+        <div class="example-box p-6 rounded-lg">
+         <h3 class="font-heading text-lg font-bold text-slate-800 mb-3">📋 Real-World Examples</h3>
+         <ul class="space-y-3 text-slate-700">
+          <li><strong>🏥 Hospital:</strong> Patient records, medical history, prescriptions</li>
+          <li><strong>🏦 Bank:</strong> Account info, transactions, customer data</li>
+          <li><strong>🏪 E-commerce:</strong> Products, orders, customer profiles</li>
+          <li><strong>🎓 University:</strong> Student records, grades, course info</li>
+          <li><strong>📱 Social Media:</strong> User profiles, posts, comments</li>
+         </ul>
+        </div>
+       </div>
+      </section><!-- What is DBMS? -->
+      <section class="mb-10">
+       <h2 class="font-heading text-3xl font-bold text-slate-900 mb-4">⚙️ What is a DBMS?</h2>
+       <div class="definition-box mb-6">
+        <p class="font-semibold text-red-900 text-lg mb-2">Definition:</p>
+        <p class="text-red-800 leading-relaxed">A Database Management System (DBMS) is software that acts as an intermediary between users and the database. It controls how data is stored, retrieved, updated, and deleted while ensuring data security, consistency, and integrity.</p>
+       </div>
+       <div class="concept-card p-6 rounded-lg mb-6">
+        <h3 class="font-heading text-lg font-bold text-slate-800 mb-4">🔑 DBMS Functions</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+         <div class="bg-blue-50 p-4 rounded">
+          <p class="font-semibold text-blue-900">1. Data Definition</p>
+          <p class="text-sm text-blue-700 mt-1">Create database structure (tables, fields, relationships)</p>
+         </div>
+         <div class="bg-blue-50 p-4 rounded">
+          <p class="font-semibold text-blue-900">2. Data Manipulation</p>
+          <p class="text-sm text-blue-700 mt-1">Insert, update, delete, and retrieve data</p>
+         </div>
+         <div class="bg-blue-50 p-4 rounded">
+          <p class="font-semibold text-blue-900">3. Data Retrieval</p>
+          <p class="text-sm text-blue-700 mt-1">Query and fetch specific data efficiently</p>
+         </div>
+         <div class="bg-blue-50 p-4 rounded">
+          <p class="font-semibold text-blue-900">4. Data Security</p>
+          <p class="text-sm text-blue-700 mt-1">User authentication, access control, encryption</p>
+         </div>
+         <div class="bg-blue-50 p-4 rounded">
+          <p class="font-semibold text-blue-900">5. Data Integrity</p>
+          <p class="text-sm text-blue-700 mt-1">Ensure data consistency and validity</p>
+         </div>
+         <div class="bg-blue-50 p-4 rounded">
+          <p class="font-semibold text-blue-900">6. Backup &amp; Recovery</p>
+          <p class="text-sm text-blue-700 mt-1">Protect data and recover from failures</p>
+         </div>
+        </div>
+       </div>
+       <div class="concept-card p-6 rounded-lg">
+        <h3 class="font-heading text-lg font-bold text-slate-800 mb-3">🌍 Popular DBMS Examples</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+         <div class="bg-slate-100 p-4 rounded text-center">
+          <p class="font-semibold text-slate-800">SQL Server</p>
+          <p class="text-xs text-slate-600 mt-1">Microsoft's relational database</p>
+         </div>
+         <div class="bg-slate-100 p-4 rounded text-center">
+          <p class="font-semibold text-slate-800">MySQL</p>
+          <p class="text-xs text-slate-600 mt-1">Open-source relational DB</p>
+         </div>
+         <div class="bg-slate-100 p-4 rounded text-center">
+          <p class="font-semibold text-slate-800">Oracle</p>
+          <p class="text-xs text-slate-600 mt-1">Enterprise-grade database</p>
+         </div>
+         <div class="bg-slate-100 p-4 rounded text-center">
+          <p class="font-semibold text-slate-800">PostgreSQL</p>
+          <p class="text-xs text-slate-600 mt-1">Advanced open-source DB</p>
+         </div>
+         <div class="bg-slate-100 p-4 rounded text-center">
+          <p class="font-semibold text-slate-800">MongoDB</p>
+          <p class="text-xs text-slate-600 mt-1">NoSQL document database</p>
+         </div>
+         <div class="bg-slate-100 p-4 rounded text-center">
+          <p class="font-semibold text-slate-800">Firebase</p>
+          <p class="text-xs text-slate-600 mt-1">Cloud-based database</p>
+         </div>
+        </div>
+       </div>
+      </section><!-- Database vs DBMS -->
+      <section class="mb-10">
+       <h2 class="font-heading text-2xl font-bold text-slate-900 mb-4">📊 Database vs DBMS</h2>
+       <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+         <thead>
+          <tr class="bg-blue-600 text-white">
+           <th class="px-4 py-3 text-left font-semibold">Aspect</th>
+           <th class="px-4 py-3 text-left font-semibold">Database</th>
+           <th class="px-4 py-3 text-left font-semibold">DBMS</th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr class="border-b border-slate-200">
+           <td class="px-4 py-3 font-semibold text-slate-700">Definition</td>
+           <td class="px-4 py-3 text-slate-600">Collection of organized data</td>
+           <td class="px-4 py-3 text-slate-600">Software managing the database</td>
+          </tr>
+          <tr class="border-b border-slate-200 bg-slate-50">
+           <td class="px-4 py-3 font-semibold text-slate-700">Role</td>
+           <td class="px-4 py-3 text-slate-600">Storage container</td>
+           <td class="px-4 py-3 text-slate-600">Tool/Interface</td>
+          </tr>
+          <tr class="border-b border-slate-200">
+           <td class="px-4 py-3 font-semibold text-slate-700">Type</td>
+           <td class="px-4 py-3 text-slate-600">Passive (data only)</td>
+           <td class="px-4 py-3 text-slate-600">Active (operations)</td>
+          </tr>
+          <tr class="border-b border-slate-200 bg-slate-50">
+           <td class="px-4 py-3 font-semibold text-slate-700">Access</td>
+           <td class="px-4 py-3 text-slate-600">Cannot be accessed directly</td>
+           <td class="px-4 py-3 text-slate-600">Provides user interface</td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </section>
+     </div><!-- Components Tab -->
+     <div id="components-tab" class="tab-content hidden">
+      <h2 class="font-heading text-3xl font-bold text-slate-900 mb-8">🔧 Basic Database Components</h2>
+      <div class="content-grid">
+       <!-- Component 1 -->
+       <div class="card-hover bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">📋</span>
+         <h3 class="font-heading text-xl font-bold text-slate-900">1. Tables (Relations)</h3>
+        </div>
+        <p class="text-slate-600 mb-4">The basic unit of data storage in a database, organized in rows and columns.</p>
+        <div class="bg-slate-100 p-4 rounded font-mono text-sm">
+         <p class="text-slate-700 mb-2"><strong>Example: Students Table</strong></p>
+         <table class="w-full text-xs">
+          <tbody>
+           <tr>
+            <td class="border border-slate-300 p-1">StudentID</td>
+            <td class="border border-slate-300 p-1">Name</td>
+            <td class="border border-slate-300 p-1">Email</td>
+           </tr>
+           <tr>
+            <td class="border border-slate-300 p-1">101</td>
+            <td class="border border-slate-300 p-1">John Doe</td>
+            <td class="border border-slate-300 p-1">john@email.com</td>
+           </tr>
+           <tr>
+            <td class="border border-slate-300 p-1">102</td>
+            <td class="border border-slate-300 p-1">Jane Smith</td>
+            <td class="border border-slate-300 p-1">jane@email.com</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <ul class="mt-4 text-sm text-slate-600 space-y-1">
+         <li>✓ <strong>Row:</strong> Individual record (e.g., one student)</li>
+         <li>✓ <strong>Column:</strong> Attribute/field (e.g., name, email)</li>
+         <li>✓ <strong>Cell:</strong> Single data value</li>
+        </ul>
+       </div><!-- Component 2 -->
+       <div class="card-hover bg-white rounded-xl p-6 shadow-sm border-l-4 border-green-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🔑</span>
+         <h3 class="font-heading text-xl font-bold text-slate-900">2. Primary Key</h3>
+        </div>
+        <p class="text-slate-600 mb-4">A unique identifier that uniquely identifies each record in a table.</p>
+        <div class="bg-slate-100 p-4 rounded font-mono text-sm">
+         <p class="text-slate-700"><strong>Example: StudentID = Primary Key</strong></p>
+         <p class="text-xs text-slate-600 mt-2">Each StudentID is unique and identifies one student</p>
+        </div>
+        <ul class="mt-4 text-sm text-slate-600 space-y-2">
+         <li>✓ Must be <strong>unique</strong> for each record</li>
+         <li>✓ Cannot be <strong>NULL</strong> (empty)</li>
+         <li>✓ Usually auto-incrementing (101, 102, 103...)</li>
+         <li>✓ Ensures data integrity</li>
+        </ul>
+       </div><!-- Component 3 -->
+       <div class="card-hover bg-white rounded-xl p-6 shadow-sm border-l-4 border-purple-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🔗</span>
+         <h3 class="font-heading text-xl font-bold text-slate-900">3. Foreign Key</h3>
+        </div>
+        <p class="text-slate-600 mb-4">A field that links to the primary key of another table, creating relationships.</p>
+        <div class="bg-slate-100 p-4 rounded font-mono text-sm">
+         <p class="text-slate-700"><strong>Example: Enrollments Table</strong></p>
+         <p class="text-xs text-slate-600 mt-2">StudentID in Enrollments = FK (refers to Students table)</p>
+        </div>
+        <ul class="mt-4 text-sm text-slate-600 space-y-2">
+         <li>✓ References primary key of <strong>another table</strong></li>
+         <li>✓ Maintains <strong>referential integrity</strong></li>
+         <li>✓ Enables <strong>table relationships</strong></li>
+         <li>✓ Prevents invalid data entry</li>
+        </ul>
+       </div><!-- Component 4 -->
+       <div class="card-hover bg-white rounded-xl p-6 shadow-sm border-l-4 border-orange-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">📊</span>
+         <h3 class="font-heading text-xl font-bold text-slate-900">4. Attributes (Columns)</h3>
+        </div>
+        <p class="text-slate-600 mb-4">Properties or characteristics of entities stored in each column.</p>
+        <div class="bg-slate-100 p-4 rounded font-mono text-sm">
+         <p class="text-slate-700"><strong>Student Table Attributes:</strong></p>
+         <ul class="mt-2 text-xs text-slate-600 space-y-1">
+          <li>• StudentID (Integer)</li>
+          <li>• Name (Text)</li>
+          <li>• Email (Text)</li>
+          <li>• GPA (Decimal)</li>
+         </ul>
+        </div>
+        <ul class="mt-4 text-sm text-slate-600 space-y-2">
+         <li>✓ Has a <strong>data type</strong> (Integer, Text, Date, etc.)</li>
+         <li>✓ May have <strong>constraints</strong> (NOT NULL, UNIQUE)</li>
+         <li>✓ Represents single information piece</li>
+        </ul>
+       </div><!-- Component 5 -->
+       <div class="card-hover bg-white rounded-xl p-6 shadow-sm border-l-4 border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">📝</span>
+         <h3 class="font-heading text-xl font-bold text-slate-900">5. Records (Tuples)</h3>
+        </div>
+        <p class="text-slate-600 mb-4">Individual rows containing complete data for one entity.</p>
+        <div class="bg-slate-100 p-4 rounded font-mono text-sm">
+         <p class="text-slate-700"><strong>Example: One Record</strong></p>
+         <p class="text-xs text-slate-600 mt-2">{ 101, "John Doe", "john@email.com", 3.8 }</p>
+        </div>
+        <ul class="mt-4 text-sm text-slate-600 space-y-2">
+         <li>✓ Complete set of related fields</li>
+         <li>✓ Represents one instance of entity</li>
+         <li>✓ Can be updated independently</li>
+        </ul>
+       </div><!-- Component 6 -->
+       <div class="card-hover bg-white rounded-xl p-6 shadow-sm border-l-4 border-cyan-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🗂️</span>
+         <h3 class="font-heading text-xl font-bold text-slate-900">6. Schema</h3>
+        </div>
+        <p class="text-slate-600 mb-4">The overall structure and organization of the database.</p>
+        <div class="bg-slate-100 p-4 rounded font-mono text-sm">
+         <p class="text-slate-700"><strong>Schema Shows:</strong></p>
+         <ul class="mt-2 text-xs text-slate-600 space-y-1">
+          <li>• All tables in database</li>
+          <li>• Columns in each table</li>
+          <li>• Data types</li>
+          <li>• Relationships between tables</li>
+         </ul>
+        </div>
+        <ul class="mt-4 text-sm text-slate-600 space-y-2">
+         <li>✓ Blueprint of database</li>
+         <li>✓ Defines constraints &amp; rules</li>
+         <li>✓ Visualized as ER diagram</li>
+        </ul>
+       </div>
+      </div><!-- Component Diagram -->
+      <div class="mt-10 bg-white rounded-xl p-8 shadow-sm border border-slate-200">
+       <h3 class="font-heading text-xl font-bold text-slate-900 mb-4">📐 Database Component Hierarchy</h3>
+       <div class="font-mono text-sm text-slate-700 bg-slate-100 p-6 rounded">
+        <p>Database (Instance)</p>
+        <p class="ml-4">├── Schema (Structure)</p>
+        <p class="ml-8">│ ├── Table 1</p>
+        <p class="ml-12">│ │ ├── Column 1 (PK)</p>
+        <p class="ml-12">│ │ ├── Column 2 (FK)</p>
+        <p class="ml-12">│ │ └── Column 3</p>
+        <p class="ml-12">│ │</p>
+        <p class="ml-12">│ └── Record 1, Record 2, Record 3...</p>
+        <p class="ml-8">│</p>
+        <p class="ml-8">└── Table 2</p>
+        <p class="ml-12">├── Column 1 (PK)</p>
+        <p class="ml-12">└── Record 1, Record 2...</p>
+       </div>
+      </div>
+     </div><!-- Activities Tab -->
+     <div id="activities-tab" class="tab-content hidden">
+      <h2 class="font-heading text-3xl font-bold text-slate-900 mb-8">✍️ Learning Activities</h2><!-- Individual Activity -->
+      <section class="mb-10">
+       <div class="activity-section p-8 rounded-xl mb-6">
+        <h3 class="font-heading text-2xl font-bold text-blue-900 mb-4">👤 Individual Activity: Database Component Identification</h3>
+        <p class="text-slate-700 mb-6"><strong>Duration:</strong> 20 minutes | <strong>Difficulty:</strong> Intermediate</p>
+        <div class="bg-white p-6 rounded-lg mb-6">
+         <h4 class="font-semibold text-slate-800 mb-4">📋 Task Instructions:</h4>
+         <p class="text-slate-600 mb-4">Given the following scenario, identify and label the database components:</p>
+         <div class="bg-slate-100 p-4 rounded mb-4 font-mono text-sm">
+          <p class="text-slate-800 font-semibold mb-3">Company Employee Database:</p>
+          <table class="w-full text-xs">
+           <tbody>
+            <tr class="bg-slate-200">
+             <td class="border p-1 font-semibold">EmpID</td>
+             <td class="border p-1 font-semibold">Name</td>
+             <td class="border p-1 font-semibold">DeptID</td>
+             <td class="border p-1 font-semibold">Salary</td>
+            </tr>
+            <tr>
+             <td class="border p-1">1001</td>
+             <td class="border p-1">Alice Johnson</td>
+             <td class="border p-1">D05</td>
+             <td class="border p-1">$65,000</td>
+            </tr>
+            <tr>
+             <td class="border p-1">1002</td>
+             <td class="border p-1">Bob Smith</td>
+             <td class="border p-1">D03</td>
+             <td class="border p-1">$72,000</td>
+            </tr>
+            <tr>
+             <td class="border p-1">1003</td>
+             <td class="border p-1">Carol White</td>
+             <td class="border p-1">D05</td>
+             <td class="border p-1">$68,500</td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <h4 class="font-semibold text-slate-800 mb-3">Questions to Answer:</h4>
+         <ol class="space-y-3 text-slate-600">
+          <li class="flex gap-3"><span class="font-semibold text-blue-600">1.</span> <span>Identify the Primary Key. Why is it the best choice?</span></li>
+          <li class="flex gap-3"><span class="font-semibold text-blue-600">2.</span> <span>List all attributes (columns) and their data types.</span></li>
+          <li class="flex gap-3"><span class="font-semibold text-blue-600">3.</span> <span>What would be a Foreign Key? Explain.</span></li>
+          <li class="flex gap-3"><span class="font-semibold text-blue-600">4.</span> <span>How many records are shown? Describe one record completely.</span></li>
+          <li class="flex gap-3"><span class="font-semibold text-blue-600">5.</span> <span>What constraints should be applied to each column?</span></li>
+         </ol>
+        </div>
+        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+         <p class="text-sm text-blue-900"><strong>💡 Tip:</strong> Think about unique values, relationships to other tables, and data constraints that would ensure data quality.</p>
+        </div>
+       </div>
+      </section><!-- Group Activity -->
+      <section class="mb-10">
+       <div class="activity-section p-8 rounded-xl mb-6">
+        <h3 class="font-heading text-2xl font-bold text-green-900 mb-4">👥 Group Activity: Design a School Database Schema</h3>
+        <p class="text-slate-700 mb-6"><strong>Duration:</strong> 45 minutes | <strong>Group Size:</strong> 3-4 students | <strong>Difficulty:</strong> Advanced</p>
+        <div class="bg-white p-6 rounded-lg mb-6">
+         <h4 class="font-semibold text-slate-800 mb-4">📋 Task Instructions:</h4>
+         <p class="text-slate-600 mb-4">Your group must design a database schema for a school system that tracks:</p>
+         <ul class="text-slate-600 mb-6 space-y-2">
+          <li>✓ Student information (admission data, contact details)</li>
+          <li>✓ Teachers and their specializations</li>
+          <li>✓ Classes/Sections offered</li>
+          <li>✓ Student enrollment in classes</li>
+          <li>✓ Grades and academic performance</li>
+         </ul>
+         <div class="bg-slate-100 p-4 rounded mb-6">
+          <h4 class="font-semibold text-slate-800 mb-3">Your Deliverables:</h4>
+          <ol class="text-slate-600 space-y-2">
+           <li>1. <strong>List all required tables</strong> with descriptions</li>
+           <li>2. <strong>Define columns</strong> for each table (with data types)</li>
+           <li>3. <strong>Identify Primary Keys</strong> for each table</li>
+           <li>4. <strong>Identify Foreign Keys</strong> and relationships</li>
+           <li>5. <strong>Draw an ER Diagram</strong> (sketch or digital)</li>
+           <li>6. <strong>Write sample SQL</strong> to create one table</li>
+          </ol>
+         </div>
+         <div class="bg-amber-50 p-4 rounded border-l-4 border-amber-500">
+          <p class="text-sm text-amber-900"><strong>📌 Requirements:</strong> Ensure no redundancy, maintain referential integrity, apply appropriate constraints, and create logical relationships.</p>
+         </div>
+        </div>
+       </div>
+      </section>
+     </div><!-- Quiz Tab -->
+     <div id="quiz-tab" class="tab-content hidden">
+      <h2 class="font-heading text-3xl font-bold text-slate-900 mb-8">🧪 Review Quiz - 10 Questions</h2>
+      <div id="quiz-container" class="space-y-6"></div>
+      <div class="mt-8 flex gap-4"><button id="submit-quiz" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition">Submit Quiz</button> <button id="reset-quiz" class="bg-slate-400 hover:bg-slate-500 text-white px-8 py-3 rounded-lg font-semibold transition">Reset Answers</button>
+      </div>
+      <div id="quiz-results" class="mt-8 hidden"></div>
+     </div>
+    </main>
+   </div>
+  </div><!-- Footer -->
+  <footer class="bg-slate-900 text-slate-300 py-6 px-6 mt-12 border-t border-slate-700">
+   <div class="max-w-6xl mx-auto text-center">
+    <p class="flex items-center justify-center gap-2 text-sm">
+     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C6.596 6.253 2 10.849 2 16.5S6.596 26.747 12 26.747s10-4.596 10-10.247S17.404 6.253 12 6.253z" />
+     </svg> Database Fundamentals - Midterm Week 1 | CC105 Information Management</p>
+    <p class="text-slate-400 text-xs mt-2">© 2026 Lyceum de San Pablo - BSIS | All Rights Reserved</p>
+   </div>
+  </footer>
+  <script>
+    const defaultConfig = {
+      lesson_title: 'Database Fundamentals',
+      week_number: 'Midterm - Week 1',
+      instructor_name: 'MKDB'
+    };
+
+    let config = { ...defaultConfig };
+    let userAnswers = {};
+    let quizData = [
+      {
+        id: 1,
+        question: "What is a database?",
+        options: [
+          "A collection of random data files",
+          "An organized collection of structured data stored electronically",
+          "A type of software application",
+          "A filing cabinet for physical documents"
+        ],
+        correct: 1,
+        explanation: "A database is specifically an organized collection of structured data stored electronically in a computer system that can be accessed and managed efficiently."
+      },
+      {
+        id: 2,
+        question: "Which of the following is NOT a function of a DBMS?",
+        options: [
+          "Data Definition",
+          "Data Manipulation",
+          "Data Security",
+          "Hardware Manufacturing"
+        ],
+        correct: 3,
+        explanation: "DBMS manages data-related functions like definition, manipulation, retrieval, and security. Hardware manufacturing is not a DBMS function."
+      },
+      {
+        id: 3,
+        question: "What is a Primary Key?",
+        options: [
+          "The most important data in a table",
+          "A unique identifier that uniquely identifies each record",
+          "A password to access the database",
+          "The first column in a table"
+        ],
+        correct: 1,
+        explanation: "A Primary Key is a unique identifier that ensures each record can be uniquely identified and accessed."
+      },
+      {
+        id: 4,
+        question: "What is a Foreign Key?",
+        options: [
+          "A key from another country's database",
+          "A field that links to the primary key of another table",
+          "A key used to encrypt data",
+          "A temporary access code"
+        ],
+        correct: 1,
+        explanation: "A Foreign Key creates relationships between tables by referencing the primary key of another table."
+      },
+      {
+        id: 5,
+        question: "In database terminology, what is a 'row'?",
+        options: [
+          "A horizontal line in the table interface",
+          "A single record containing complete data for one entity",
+          "A column of related data",
+          "A backup copy of the table"
+        ],
+        correct: 1,
+        explanation: "A row is an individual record in a table that contains all the related information for one entity."
+      },
+      {
+        id: 6,
+        question: "What does DBMS stand for?",
+        options: [
+          "Database Manipulation System",
+          "Data Business Management System",
+          "Database Management System",
+          "Data Backup Management Service"
+        ],
+        correct: 2,
+        explanation: "DBMS stands for Database Management System, which is software that manages database operations."
+      },
+      {
+        id: 7,
+        question: "Which of the following best describes a database schema?",
+        options: [
+          "The physical location where data is stored",
+          "The blueprint of the database structure",
+          "The backup plan for data recovery",
+          "A type of encryption method"
+        ],
+        correct: 1,
+        explanation: "A schema is the overall structure and blueprint that defines all tables, columns, relationships, and constraints in a database."
+      },
+      {
+        id: 8,
+        question: "What is a characteristic of a Primary Key?",
+        options: [
+          "It can contain duplicate values",
+          "It can be NULL",
+          "It must be unique for each record",
+          "It is optional in every table"
+        ],
+        correct: 2,
+        explanation: "A Primary Key must be unique for every record and cannot be NULL (empty), ensuring data integrity."
+      },
+      {
+        id: 9,
+        question: "Which DBMS is an open-source, relational database?",
+        options: [
+          "Oracle",
+          "Microsoft SQL Server",
+          "MySQL",
+          "IBM DB2"
+        ],
+        correct: 2,
+        explanation: "MySQL is a popular open-source relational database management system widely used in web applications."
+      },
+      {
+        id: 10,
+        question: "What is the main difference between a Database and a DBMS?",
+        options: [
+          "They are the same thing",
+          "Database is data; DBMS is software that manages the database",
+          "DBMS is more expensive than a database",
+          "A database can only store text while DBMS stores images"
+        ],
+        correct: 1,
+        explanation: "A database is the collection of organized data (passive), while DBMS is the software tool (active) that manages and controls access to that data."
+      }
+    ];
+
+    // Tab switching functionality
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const tabName = this.dataset.tab;
+        
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+          tab.classList.add('hidden');
+        });
+        
+        // Remove active class from all buttons
+        document.querySelectorAll('.tab-button').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Show selected tab and mark button as active
+        document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+        this.classList.add('active');
+        
+        // Generate quiz if quiz tab is clicked
+        if (tabName === 'quiz') {
+          generateQuiz();
+        }
+      });
+    });
+
+    function generateQuiz() {
+      const container = document.getElementById('quiz-container');
+      if (container.innerHTML !== '') return; // Already generated
+      
+      quizData.forEach((question, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'bg-white rounded-xl p-6 shadow-sm border border-slate-200';
+        
+        let optionsHTML = '';
+        question.options.forEach((option, optIndex) => {
+          optionsHTML += `
+            <div class="quiz-option p-4 rounded-lg mb-3 border-l-4 border-slate-300 hover:bg-slate-50" onclick="selectAnswer(${question.id}, ${optIndex})">
+              <input type="radio" name="q${question.id}" value="${optIndex}" id="q${question.id}_${optIndex}" style="cursor: pointer;">
+              <label for="q${question.id}_${optIndex}" style="cursor: pointer; margin-left: 0.5rem;">${option}</label>
+            </div>
+          `;
+        });
+        
+        questionDiv.innerHTML = `
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-4">Question ${index + 1}</h3>
+          <p class="text-slate-700 mb-6 font-semibold">${question.question}</p>
+          <div class="space-y-2">${optionsHTML}</div>
+        `;
+        
+        container.appendChild(questionDiv);
+      });
+    }
+
+    function selectAnswer(questionId, optionIndex) {
+      userAnswers[questionId] = optionIndex;
+      const questionDiv = document.querySelector(`input[name="q${questionId}"][value="${optionIndex}"]`);
+      questionDiv.checked = true;
+    }
+
+    document.getElementById('submit-quiz').addEventListener('click', () => {
+      let correct = 0;
+      let answered = 0;
+      let resultHTML = '<h3 class="font-heading text-2xl font-bold text-slate-900 mb-6">📊 Quiz Results</h3>';
+      
+      quizData.forEach(question => {
+        if (userAnswers.hasOwnProperty(question.id)) {
+          answered++;
+          const userAnswer = userAnswers[question.id];
+          const isCorrect = userAnswer === question.correct;
+          
+          if (isCorrect) correct++;
+          
+          resultHTML += `
+            <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 ${isCorrect ? 'border-green-500' : 'border-red-500'} mb-4">
+              <p class="font-semibold ${isCorrect ? 'text-green-700' : 'text-red-700'} mb-2">
+                ${isCorrect ? '✓ Correct' : '✗ Incorrect'} - Question ${question.id}
+              </p>
+              <p class="text-slate-700 mb-2"><strong>Your Answer:</strong> ${question.options[userAnswer]}</p>
+              ${!isCorrect ? `<p class="text-slate-700 mb-2"><strong>Correct Answer:</strong> ${question.options[question.correct]}</p>` : ''}
+              <p class="text-slate-600 text-sm"><strong>Explanation:</strong> ${question.explanation}</p>
+            </div>
+          `;
+        }
+      });
+      
+      const percentage = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+      const scoreBg = percentage >= 75 ? 'bg-green-50' : percentage >= 50 ? 'bg-yellow-50' : 'bg-red-50';
+      const scoreBorder = percentage >= 75 ? 'border-green-500' : percentage >= 50 ? 'border-yellow-500' : 'border-red-500';
+      const scoreColor = percentage >= 75 ? 'text-green-700' : percentage >= 50 ? 'text-yellow-700' : 'text-red-700';
+      
+      resultHTML = `
+        <div class="${scoreBg} border-l-4 ${scoreBorder} p-6 rounded-xl mb-8">
+          <p class="text-lg ${scoreColor} font-bold mb-2">Score: ${correct}/${answered} (${percentage}%)</p>
+          <p class="text-slate-700">You answered ${answered} out of ${quizData.length} questions.</p>
+        </div>
+      ` + resultHTML;
+      
+      document.getElementById('quiz-results').innerHTML = resultHTML;
+      document.getElementById('quiz-results').classList.remove('hidden');
+      window.scrollTo(0, document.getElementById('quiz-results').offsetTop - 100);
+    });
+
+    document.getElementById('reset-quiz').addEventListener('click', () => {
+      userAnswers = {};
+      document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.checked = false;
+      });
+      document.getElementById('quiz-results').classList.add('hidden');
+      document.getElementById('quiz-results').innerHTML = '';
+    });
+
+    async function onConfigChange(newConfig) {
+      document.getElementById('lesson-title').textContent = newConfig.lesson_title || defaultConfig.lesson_title;
+      document.getElementById('week-number').textContent = newConfig.week_number || defaultConfig.week_number;
+      document.getElementById('instructor-name').textContent = newConfig.instructor_name || defaultConfig.instructor_name;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['lesson_title', config.lesson_title || defaultConfig.lesson_title],
+        ['week_number', config.week_number || defaultConfig.week_number],
+        ['instructor_name', config.instructor_name || defaultConfig.instructor_name]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d1e884ce420fee9',t:'MTc3MTc2MzgyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

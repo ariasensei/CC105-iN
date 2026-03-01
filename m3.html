@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Information Security Concepts - CC105</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .tab-btn { transition: all 0.3s ease; }
+    .tab-btn.active { background-color: #dc2626; color: white; }
+    .tab-content { animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .threat-card { transition: all 0.3s ease; }
+    .threat-card:hover { transform: translateY(-4px); }
+    .principle-badge { display: inline-block; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
+    .security-badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; }
+    .cia-card { border-left: 4px solid; }
+    .quiz-question { animation: slideIn 0.3s ease; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .gradient-red { background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
+  <div class="h-full overflow-auto">
+   <div class="min-h-full w-full pb-8"><!-- Header -->
+    <header class="gradient-red text-white py-8 px-6 shadow-2xl">
+     <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-4 mb-3">
+       <div class="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+       </div>
+       <div>
+        <p class="text-red-200 text-sm font-mono tracking-wider" id="week-number">Midterm Week 3</p>
+        <h1 class="font-heading text-3xl md:text-4xl font-bold" id="lesson-title">Information Security Concepts</h1>
+       </div>
+      </div>
+      <p class="text-red-100 flex items-center gap-2 ml-20">
+       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+       </svg><span>CC105 - Information Management | Instructor: <strong id="instructor-name">MKDB</strong></span></p>
+     </div>
+    </header><!-- Navigation Tabs -->
+    <div class="max-w-6xl mx-auto px-6 mt-8">
+     <div class="flex gap-2 flex-wrap border-b border-slate-700"><button class="tab-btn active px-4 py-3 rounded-t-lg font-semibold transition-all" data-tab="content">📚 Content</button> <button class="tab-btn px-4 py-3 rounded-t-lg font-semibold transition-all" data-tab="threats">⚠️ Threats &amp; Risks</button> <button class="tab-btn px-4 py-3 rounded-t-lg font-semibold transition-all" data-tab="activities">✍️ Activities</button> <button class="tab-btn px-4 py-3 rounded-t-lg font-semibold transition-all" data-tab="quiz">🧪 Quiz</button>
+     </div>
+    </div>
+    <main class="max-w-6xl mx-auto px-6 py-8"><!-- Content Tab -->
+     <div id="content-tab" class="tab-content"><!-- Learning Outcomes -->
+      <section class="mb-10">
+       <h2 class="font-heading text-2xl font-bold text-red-400 mb-6 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg> Learning Outcomes</h2>
+       <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-slate-800 rounded-lg p-5 border border-slate-700 hover:border-red-500 transition">
+         <p class="text-red-400 font-semibold mb-2">🔐 Security Principles</p>
+         <p class="text-slate-300">Explain the core principles of information security including Confidentiality, Integrity, Availability, and additional security concepts.</p>
+        </div>
+        <div class="bg-slate-800 rounded-lg p-5 border border-slate-700 hover:border-red-500 transition">
+         <p class="text-red-400 font-semibold mb-2">🎯 Threat Identification</p>
+         <p class="text-slate-300">Identify common security threats, vulnerabilities, risks, and attacks that target information systems.</p>
+        </div>
+       </div>
+      </section><!-- Security Principles -->
+      <section class="mb-10">
+       <h2 class="font-heading text-2xl font-bold text-red-400 mb-6 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg> Information Security Principles</h2>
+       <div class="grid md:grid-cols-3 gap-6 mb-8"><!-- CIA Triad -->
+        <div class="cia-card border-red-500 bg-gradient-to-br from-slate-800 to-slate-700 rounded-lg p-6 shadow-lg">
+         <h3 class="text-red-400 font-heading text-xl font-bold mb-4">🔒 Confidentiality</h3>
+         <p class="text-slate-300 text-sm mb-4">Information is accessible only to authorized individuals. Access controls and encryption prevent unauthorized disclosure.</p>
+         <div class="space-y-2 text-xs">
+          <p class="text-slate-400"><strong>✓ Controls:</strong> Access lists, encryption, passwords</p>
+          <p class="text-slate-400"><strong>✓ Risk:</strong> Unauthorized access, data leakage</p>
+         </div>
+        </div>
+        <div class="cia-card border-green-500 bg-gradient-to-br from-slate-800 to-slate-700 rounded-lg p-6 shadow-lg">
+         <h3 class="text-green-400 font-heading text-xl font-bold mb-4">✓ Integrity</h3>
+         <p class="text-slate-300 text-sm mb-4">Data remains accurate, complete, and unaltered. Information is exactly as it should be.</p>
+         <div class="space-y-2 text-xs">
+          <p class="text-slate-400"><strong>✓ Controls:</strong> Checksums, digital signatures, version control</p>
+          <p class="text-slate-400"><strong>✓ Risk:</strong> Data corruption, unauthorized modification</p>
+         </div>
+        </div>
+        <div class="cia-card border-blue-500 bg-gradient-to-br from-slate-800 to-slate-700 rounded-lg p-6 shadow-lg">
+         <h3 class="text-blue-400 font-heading text-xl font-bold mb-4">⚡ Availability</h3>
+         <p class="text-slate-300 text-sm mb-4">Information is accessible when needed. Systems are operational and responsive to legitimate users.</p>
+         <div class="space-y-2 text-xs">
+          <p class="text-slate-400"><strong>✓ Controls:</strong> Backups, redundancy, load balancing</p>
+          <p class="text-slate-400"><strong>✓ Risk:</strong> Service outages, denial of access</p>
+         </div>
+        </div>
+       </div><!-- Additional Principles -->
+       <div class="bg-slate-800 rounded-lg p-6 border border-slate-700 space-y-4">
+        <h3 class="font-heading text-lg font-bold text-red-400 mb-4">Additional Security Principles</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+         <div class="bg-slate-700 rounded p-4">
+          <p class="text-yellow-400 font-semibold mb-2">🔑 Authentication</p>
+          <p class="text-slate-300 text-sm">Verifying the identity of users, systems, or devices. "Who are you?"</p>
+          <p class="text-xs text-slate-400 mt-2">Methods: Passwords, biometrics, MFA, certificates</p>
+         </div>
+         <div class="bg-slate-700 rounded p-4">
+          <p class="text-purple-400 font-semibold mb-2">🎯 Authorization</p>
+          <p class="text-slate-300 text-sm">Determining what authenticated users can do. "What are you allowed to do?"</p>
+          <p class="text-xs text-slate-400 mt-2">Methods: Role-based access, permissions, policies</p>
+         </div>
+         <div class="bg-slate-700 rounded p-4">
+          <p class="text-cyan-400 font-semibold mb-2">📝 Non-Repudiation</p>
+          <p class="text-slate-300 text-sm">Users cannot deny their actions. Proof of involvement in transactions.</p>
+          <p class="text-xs text-slate-400 mt-2">Methods: Digital signatures, audit trails, logs</p>
+         </div>
+         <div class="bg-slate-700 rounded p-4">
+          <p class="text-orange-400 font-semibold mb-2">📊 Accountability</p>
+          <p class="text-slate-300 text-sm">System tracks who did what and when. Audit trails for all activities.</p>
+          <p class="text-xs text-slate-400 mt-2">Methods: Logging, monitoring, forensics</p>
+         </div>
+        </div>
+       </div>
+      </section><!-- Key Concepts -->
+      <section class="mb-10">
+       <h2 class="font-heading text-2xl font-bold text-red-400 mb-6">🔍 Key Security Concepts</h2>
+       <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-slate-800 rounded-lg p-6 border border-slate-700">
+         <h3 class="text-cyan-400 font-semibold text-lg mb-3">Vulnerability</h3>
+         <p class="text-slate-300 mb-3">A weakness in security that could be exploited.</p>
+         <div class="bg-slate-700 rounded p-3 text-sm text-slate-400"><strong>Example:</strong> Unpatched software, weak passwords, misconfigured firewalls
+         </div>
+        </div>
+        <div class="bg-slate-800 rounded-lg p-6 border border-slate-700">
+         <h3 class="text-blue-400 font-semibold text-lg mb-3">Threat</h3>
+         <p class="text-slate-300 mb-3">Any potential attack that could exploit a vulnerability.</p>
+         <div class="bg-slate-700 rounded p-3 text-sm text-slate-400"><strong>Example:</strong> Hackers, malware, disgruntled employees, natural disasters
+         </div>
+        </div>
+        <div class="bg-slate-800 rounded-lg p-6 border border-slate-700">
+         <h3 class="text-green-400 font-semibold text-lg mb-3">Risk</h3>
+         <p class="text-slate-300 mb-3">Probability of a threat exploiting a vulnerability and causing damage.</p>
+         <div class="bg-slate-700 rounded p-3 text-sm text-slate-400"><strong>Formula:</strong> Risk = Threat × Vulnerability × Impact
+         </div>
+        </div>
+        <div class="bg-slate-800 rounded-lg p-6 border border-slate-700">
+         <h3 class="text-red-400 font-semibold text-lg mb-3">Attack</h3>
+         <p class="text-slate-300 mb-3">Active attempt to exploit a vulnerability for malicious purposes.</p>
+         <div class="bg-slate-700 rounded p-3 text-sm text-slate-400"><strong>Example:</strong> SQL injection, phishing, DDoS, brute force, ransomware
+         </div>
+        </div>
+       </div>
+      </section>
+     </div><!-- Threats & Risks Tab -->
+     <div id="threats-tab" class="tab-content hidden">
+      <h2 class="font-heading text-2xl font-bold text-red-400 mb-6">⚠️ Common Security Threats &amp; Risks</h2>
+      <div class="grid md:grid-cols-2 gap-6"><!-- Malware -->
+       <div class="threat-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🦠</span>
+         <h3 class="font-heading text-lg font-bold text-red-400">Malware</h3>
+        </div>
+        <p class="text-slate-300 mb-3">Malicious software designed to harm systems or steal data.</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="text-red-400 font-semibold">Types:</span></p>
+         <ul class="list-disc list-inside text-slate-400 ml-1">
+          <li>Virus - Self-replicating, requires host</li>
+          <li>Worm - Self-replicating, spreads independently</li>
+          <li>Trojan - Disguised as legitimate software</li>
+          <li>Ransomware - Encrypts data, demands payment</li>
+         </ul>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">⚠️ Impact: Data theft, system damage, financial loss</p>
+       </div><!-- Phishing -->
+       <div class="threat-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🎣</span>
+         <h3 class="font-heading text-lg font-bold text-red-400">Phishing</h3>
+        </div>
+        <p class="text-slate-300 mb-3">Social engineering attacks via email or messages to obtain credentials.</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="text-red-400 font-semibold">Variants:</span></p>
+         <ul class="list-disc list-inside text-slate-400 ml-1">
+          <li>Email phishing - Fake emails from trusted sources</li>
+          <li>Spearphishing - Targeted attacks on specific individuals</li>
+          <li>Whaling - Targets high-level executives</li>
+          <li>Vishing - Voice-based phishing calls</li>
+         </ul>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">⚠️ Impact: Credential theft, unauthorized access, fraud</p>
+       </div><!-- SQL Injection -->
+       <div class="threat-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">💉</span>
+         <h3 class="font-heading text-lg font-bold text-red-400">SQL Injection</h3>
+        </div>
+        <p class="text-slate-300 mb-3">Inserting malicious SQL code to manipulate database queries.</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="text-red-400 font-semibold">How It Works:</span></p>
+         <p class="text-slate-400">Attacker inputs specially crafted SQL commands in form fields to:</p>
+         <ul class="list-disc list-inside text-slate-400 ml-1">
+          <li>Extract sensitive data</li>
+          <li>Modify or delete records</li>
+          <li>Bypass authentication</li>
+         </ul>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">⚠️ Impact: Data breach, database compromise, system takeover</p>
+       </div><!-- DDoS -->
+       <div class="threat-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🌊</span>
+         <h3 class="font-heading text-lg font-bold text-red-400">DDoS Attack</h3>
+        </div>
+        <p class="text-slate-300 mb-3">Overwhelming servers with massive traffic to disable services.</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="text-red-400 font-semibold">Types:</span></p>
+         <ul class="list-disc list-inside text-slate-400 ml-1">
+          <li>Volume attacks - Consume bandwidth</li>
+          <li>Protocol attacks - Exploit weaknesses</li>
+          <li>Application attacks - Target specific services</li>
+         </ul>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">⚠️ Impact: Service outages, loss of revenue, reputation damage</p>
+       </div><!-- Man-in-the-Middle -->
+       <div class="threat-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🕵️</span>
+         <h3 class="font-heading text-lg font-bold text-red-400">Man-in-the-Middle (MitM)</h3>
+        </div>
+        <p class="text-slate-300 mb-3">Intercepting communication between two parties to steal or modify data.</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="text-red-400 font-semibold">Methods:</span></p>
+         <ul class="list-disc list-inside text-slate-400 ml-1">
+          <li>ARP spoofing on local networks</li>
+          <li>DNS spoofing - Redirect to fake sites</li>
+          <li>Unencrypted WiFi sniffing</li>
+         </ul>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">⚠️ Impact: Credential theft, data interception, session hijacking</p>
+       </div><!-- Insider Threats -->
+       <div class="threat-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">👤</span>
+         <h3 class="font-heading text-lg font-bold text-red-400">Insider Threats</h3>
+        </div>
+        <p class="text-slate-300 mb-3">Malicious actions by authorized employees or contractors.</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="text-red-400 font-semibold">Types:</span></p>
+         <ul class="list-disc list-inside text-slate-400 ml-1">
+          <li>Data theft for personal gain</li>
+          <li>Sabotage by disgruntled employees</li>
+          <li>Unintentional security breaches</li>
+         </ul>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">⚠️ Impact: Severe data loss, operational disruption, legal issues</p>
+       </div><!-- Zero-Day -->
+       <div class="threat-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">💣</span>
+         <h3 class="font-heading text-lg font-bold text-red-400">Zero-Day Vulnerability</h3>
+        </div>
+        <p class="text-slate-300 mb-3">Exploitable flaws unknown to vendors, no patches available yet.</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="text-red-400 font-semibold">Characteristics:</span></p>
+         <ul class="list-disc list-inside text-slate-400 ml-1">
+          <li>No existing fix or patch</li>
+          <li>Highly valuable to attackers</li>
+          <li>Detection is extremely difficult</li>
+         </ul>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">⚠️ Impact: Rapid system compromise before defense available</p>
+       </div><!-- Data Breach -->
+       <div class="threat-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">📋</span>
+         <h3 class="font-heading text-lg font-bold text-red-400">Data Breach</h3>
+        </div>
+        <p class="text-slate-300 mb-3">Unauthorized access and extraction of sensitive data.</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="text-red-400 font-semibold">Common Causes:</span></p>
+         <ul class="list-disc list-inside text-slate-400 ml-1">
+          <li>Weak security controls</li>
+          <li>Compromised credentials</li>
+          <li>Unpatched vulnerabilities</li>
+         </ul>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">⚠️ Impact: Privacy violations, regulatory fines, loss of trust</p>
+       </div><!-- Social Engineering -->
+       <div class="threat-card bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-red-500">
+        <div class="flex items-center gap-3 mb-4"><span class="text-3xl">🎭</span>
+         <h3 class="font-heading text-lg font-bold text-red-400">Social Engineering</h3>
+        </div>
+        <p class="text-slate-300 mb-3">Manipulating people into divulging confidential information or performing actions.</p>
+        <div class="space-y-2 text-sm">
+         <p><span class="text-red-400 font-semibold">Tactics:</span></p>
+         <ul class="list-disc list-inside text-slate-400 ml-1">
+          <li>Pretexting - Creating false scenarios</li>
+          <li>Baiting - Offering incentives for information</li>
+          <li>Tailgating - Following into restricted areas</li>
+         </ul>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">⚠️ Impact: Unauthorized access, information disclosure</p>
+       </div>
+      </div><!-- Risk Assessment Matrix -->
+      <div class="mt-10 bg-slate-800 rounded-lg p-6 border border-slate-700">
+       <h3 class="font-heading text-lg font-bold text-red-400 mb-4">Risk Assessment Matrix</h3>
+       <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+         <thead>
+          <tr class="border-b border-slate-700">
+           <th class="text-left p-3 text-red-400">Threat</th>
+           <th class="text-center p-3 text-red-400">Likelihood</th>
+           <th class="text-center p-3 text-red-400">Impact</th>
+           <th class="text-center p-3 text-red-400">Risk Level</th>
+          </tr>
+         </thead>
+         <tbody class="divide-y divide-slate-700">
+          <tr>
+           <td class="p-3">Phishing</td>
+           <td class="text-center">High</td>
+           <td class="text-center">Medium</td>
+           <td class="text-center"><span class="security-badge bg-orange-900 text-orange-200">HIGH</span></td>
+          </tr>
+          <tr>
+           <td class="p-3">Malware</td>
+           <td class="text-center">Medium</td>
+           <td class="text-center">High</td>
+           <td class="text-center"><span class="security-badge bg-orange-900 text-orange-200">HIGH</span></td>
+          </tr>
+          <tr>
+           <td class="p-3">SQL Injection</td>
+           <td class="text-center">Medium</td>
+           <td class="text-center">Critical</td>
+           <td class="text-center"><span class="security-badge bg-red-900 text-red-200">CRITICAL</span></td>
+          </tr>
+          <tr>
+           <td class="p-3">DDoS</td>
+           <td class="text-center">Medium</td>
+           <td class="text-center">High</td>
+           <td class="text-center"><span class="security-badge bg-orange-900 text-orange-200">HIGH</span></td>
+          </tr>
+          <tr>
+           <td class="p-3">Zero-Day</td>
+           <td class="text-center">Low</td>
+           <td class="text-center">Critical</td>
+           <td class="text-center"><span class="security-badge bg-orange-900 text-orange-200">HIGH</span></td>
+          </tr>
+          <tr>
+           <td class="p-3">Insider Threat</td>
+           <td class="text-center">Low-Medium</td>
+           <td class="text-center">Critical</td>
+           <td class="text-center"><span class="security-badge bg-orange-900 text-orange-200">HIGH</span></td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- Activities Tab -->
+     <div id="activities-tab" class="tab-content hidden">
+      <h2 class="font-heading text-2xl font-bold text-red-400 mb-6">✍️ Learning Activities</h2><!-- Individual Activity -->
+      <section class="mb-10">
+       <div class="bg-blue-900/30 border border-blue-700 rounded-lg p-6 mb-6">
+        <h3 class="font-heading text-xl font-bold text-blue-300 mb-3">👤 Individual Activity: Security Incident Analysis</h3>
+        <p class="text-slate-300 mb-4"><strong>Duration:</strong> 20 minutes | <strong>Individual Work</strong></p>
+        <div class="bg-slate-800 rounded p-4 mb-4">
+         <p class="text-yellow-400 font-semibold mb-3">Scenario: E-Commerce Platform Security Breach</p>
+         <p class="text-slate-300 text-sm mb-3">You're a security analyst at an online shopping platform. The company discovered that attackers accessed the database containing 500,000 customer records including names, emails, phone numbers, and encrypted passwords. The attack occurred through an unpatched SQL vulnerability in the login portal that was known for 6 months but not fixed.</p>
+        </div>
+        <div class="bg-slate-700 rounded p-4 space-y-3">
+         <p class="text-slate-200 font-semibold">✓ Your Tasks:</p>
+         <ol class="list-decimal list-inside space-y-2 text-slate-300 text-sm">
+          <li>Identify which CIA Triad principles were violated</li>
+          <li>Categorize the threats, vulnerabilities, and risks in this scenario</li>
+          <li>List 5 security controls that could have prevented this breach</li>
+          <li>Propose immediate actions (short-term) and preventive measures (long-term)</li>
+          <li>Calculate potential business impact (financial, reputation, legal)</li>
+         </ol>
+        </div>
+        <div class="mt-4 p-4 bg-slate-800 rounded border border-slate-700">
+         <p class="text-slate-200 font-semibold mb-2">📋 Deliverables:</p>
+         <ul class="list-disc list-inside text-slate-300 text-sm space-y-1">
+          <li>Written analysis (1-2 pages)</li>
+          <li>CIA Triad violation matrix</li>
+          <li>Security recommendations with priority levels</li>
+         </ul>
+        </div>
+       </div>
+      </section><!-- Group Activity -->
+      <section class="mb-10">
+       <div class="bg-purple-900/30 border border-purple-700 rounded-lg p-6">
+        <h3 class="font-heading text-xl font-bold text-purple-300 mb-3">👥 Group Activity: Security Framework Design</h3>
+        <p class="text-slate-300 mb-4"><strong>Duration:</strong> 45 minutes | <strong>4-5 Person Groups</strong></p>
+        <div class="bg-slate-800 rounded p-4 mb-4">
+         <p class="text-yellow-400 font-semibold mb-3">Task: Design an Information Security Framework for a Bank</p>
+         <p class="text-slate-300 text-sm mb-3">Your group is hired to design a comprehensive security framework for a regional bank with 500,000 customers. The bank processes daily transactions worth millions and stores highly sensitive financial data.</p>
+        </div>
+        <div class="bg-slate-700 rounded p-4 space-y-4">
+         <div>
+          <p class="text-purple-300 font-semibold mb-2">📌 Deliverables (4 Components):</p>
+          <div class="space-y-3">
+           <div class="bg-slate-800 rounded p-3">
+            <p class="text-cyan-400 font-semibold">1. Threat &amp; Vulnerability Analysis</p>
+            <ul class="list-disc list-inside text-slate-300 text-sm ml-2 mt-1">
+             <li>Top 6 threats specific to banking</li>
+             <li>Critical vulnerabilities to address</li>
+             <li>Risk prioritization matrix</li>
+            </ul>
+           </div>
+           <div class="bg-slate-800 rounded p-3">
+            <p class="text-green-400 font-semibold">2. Security Controls &amp; Policies</p>
+            <ul class="list-disc list-inside text-slate-300 text-sm ml-2 mt-1">
+             <li>Access control policies (authentication, authorization)</li>
+             <li>Data protection measures (encryption, backup)</li>
+             <li>Incident response procedures</li>
+            </ul>
+           </div>
+           <div class="bg-slate-800 rounded p-3">
+            <p class="text-orange-400 font-semibold">3. Compliance &amp; Governance</p>
+            <ul class="list-disc list-inside text-slate-300 text-sm ml-2 mt-1">
+             <li>Regulatory requirements (PCI-DSS, banking regulations)</li>
+             <li>Audit and monitoring requirements</li>
+             <li>Employee training programs</li>
+            </ul>
+           </div>
+           <div class="bg-slate-800 rounded p-3">
+            <p class="text-red-400 font-semibold">4. Incident Response Plan</p>
+            <ul class="list-disc list-inside text-slate-300 text-sm ml-2 mt-1">
+             <li>Detection and response procedures</li>
+             <li>Communication protocols</li>
+             <li>Recovery and lessons learned processes</li>
+            </ul>
+           </div>
+          </div>
+         </div>
+         <div class="border-t border-slate-700 pt-4">
+          <p class="text-slate-200 font-semibold mb-2">📊 Presentation Requirements:</p>
+          <ul class="list-disc list-inside text-slate-300 text-sm space-y-1">
+           <li>10-15 minute presentation with visual slides</li>
+           <li>Clearly explain security framework architecture</li>
+           <li>Justify recommendations with risk analysis</li>
+           <li>Prepare for Q&amp;A about implementation challenges</li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </section>
+     </div><!-- Quiz Tab -->
+     <div id="quiz-tab" class="tab-content hidden">
+      <h2 class="font-heading text-2xl font-bold text-red-400 mb-6">🧪 Review Quiz - 10 Questions</h2>
+      <div id="quiz-container" class="space-y-6"><!-- Questions will be inserted here by JavaScript -->
+      </div>
+      <div id="quiz-results" class="hidden mt-8 bg-slate-800 rounded-lg p-8 border border-slate-700 text-center">
+       <h3 class="font-heading text-2xl font-bold text-red-400 mb-4">Quiz Results</h3>
+       <p class="text-4xl font-bold text-red-300 mb-2"><span id="score">0</span>%</p>
+       <p class="text-slate-300 mb-6"><span id="questions-correct">0</span> out of 10 questions correct</p><button onclick="resetQuiz()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition">Retake Quiz</button>
+      </div>
+     </div>
+    </main><!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-700 mt-12 py-6 px-6">
+     <div class="max-w-6xl mx-auto text-center text-slate-400 text-sm">
+      <p class="flex items-center justify-center gap-2 mb-1">
+       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+       </svg> BSIS - Lyceum de San Pablo</p>
+      <p class="text-slate-500">© 2026 Information Management Course - All Rights Reserved</p>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script>
+    // Quiz Questions
+    const quizQuestions = [
+      {
+        question: "Which principle of the CIA Triad ensures that only authorized users can access information?",
+        options: ["Integrity", "Confidentiality", "Availability", "Authentication"],
+        correct: 1,
+        explanation: "Confidentiality protects information from unauthorized access through access controls and encryption."
+      },
+      {
+        question: "What is the primary difference between a vulnerability and a threat?",
+        options: [
+          "Vulnerabilities are weaknesses; threats are potential attacks",
+          "Threats are weaknesses; vulnerabilities are attacks",
+          "They are the same thing",
+          "Vulnerabilities require malware; threats don't"
+        ],
+        correct: 0,
+        explanation: "A vulnerability is a weakness in security, while a threat is any potential attack that could exploit that weakness."
+      },
+      {
+        question: "Which attack involves intercepting communication between two parties?",
+        options: ["DDoS", "Phishing", "Man-in-the-Middle", "SQL Injection"],
+        correct: 2,
+        explanation: "Man-in-the-Middle (MitM) attacks intercept communication to steal or modify data between parties."
+      },
+      {
+        question: "What does a zero-day vulnerability represent?",
+        options: [
+          "A vulnerability that has been fixed",
+          "An unknown exploitable flaw with no patch available",
+          "A common vulnerability found in old systems",
+          "A fake vulnerability for testing purposes"
+        ],
+        correct: 1,
+        explanation: "A zero-day vulnerability is an unknown flaw that vendors haven't discovered or created a patch for yet."
+      },
+      {
+        question: "Which principle ensures that data cannot be modified without authorization?",
+        options: ["Confidentiality", "Integrity", "Availability", "Authentication"],
+        correct: 1,
+        explanation: "Integrity ensures that information remains accurate, complete, and unaltered from its original state."
+      },
+      {
+        question: "What type of attack involves sending malicious SQL code through input fields?",
+        options: ["Phishing", "Malware", "SQL Injection", "DDoS"],
+        correct: 2,
+        explanation: "SQL Injection attacks insert malicious SQL code to manipulate database queries and extract or modify data."
+      },
+      {
+        question: "Which of the following is NOT a component of the CIA Triad?",
+        options: ["Confidentiality", "Integrity", "Availability", "Accountability"],
+        correct: 3,
+        explanation: "Accountability is an additional security principle, but the CIA Triad consists only of Confidentiality, Integrity, and Availability."
+      },
+      {
+        question: "What is the primary purpose of authentication?",
+        options: [
+          "To encrypt data",
+          "To verify the identity of users or systems",
+          "To backup information",
+          "To monitor network traffic"
+        ],
+        correct: 1,
+        explanation: "Authentication verifies 'who you are' through methods like passwords, biometrics, or certificates."
+      },
+      {
+        question: "Which principle provides proof that users cannot deny their actions?",
+        options: ["Authorization", "Authentication", "Non-Repudiation", "Confidentiality"],
+        correct: 2,
+        explanation: "Non-Repudiation ensures users cannot deny involvement through audit trails and digital signatures."
+      },
+      {
+        question: "What is the formula for calculating risk?",
+        options: [
+          "Risk = Threat + Vulnerability",
+          "Risk = Threat × Vulnerability × Impact",
+          "Risk = Threat - Impact",
+          "Risk = Vulnerability / Threat"
+        ],
+        correct: 1,
+        explanation: "Risk is calculated as the product of Threat, Vulnerability, and Impact: Risk = Threat × Vulnerability × Impact."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let userAnswers = [];
+
+    function initializeQuiz() {
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const container = document.getElementById('quiz-container');
+      const q = quizQuestions[currentQuestion];
+      
+      let html = `
+        <div class="quiz-question bg-slate-800 rounded-lg p-6 border border-slate-700">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-sm font-semibold text-slate-400">Question ${currentQuestion + 1} of ${quizQuestions.length}</span>
+            <div class="flex-1 bg-slate-700 rounded-full h-2 overflow-hidden">
+              <div class="bg-red-500 h-full" style="width: ${((currentQuestion + 1) / quizQuestions.length) * 100}%"></div>
+            </div>
+          </div>
+          
+          <h3 class="font-heading text-lg font-bold text-red-400 mb-6">${q.question}</h3>
+          
+          <div class="space-y-3 mb-6">
+      `;
+      
+      q.options.forEach((option, index) => {
+        html += `
+          <button onclick="selectAnswer(${index})" class="w-full text-left p-4 rounded-lg border border-slate-700 bg-slate-700/50 hover:bg-slate-700 hover:border-red-500 transition text-slate-300 font-medium">
+            <input type="radio" name="answer" value="${index}" class="mr-3"> ${option}
+          </button>
+        `;
+      });
+      
+      html += `
+          </div>
+          <button onclick="nextQuestion()" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition disabled:opacity-50" id="next-btn" disabled>Next Question</button>
+        </div>
+      `;
+      
+      container.innerHTML = html;
+    }
+
+    function selectAnswer(index) {
+      userAnswers[currentQuestion] = index;
+      document.getElementById('next-btn').disabled = false;
+      document.querySelectorAll('input[name="answer"]').forEach((input, i) => {
+        input.checked = i === index;
+      });
+    }
+
+    function nextQuestion() {
+      if (userAnswers[currentQuestion] === quizQuestions[currentQuestion].correct) {
+        score++;
+      }
+      
+      currentQuestion++;
+      if (currentQuestion < quizQuestions.length) {
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('quiz-container').classList.add('hidden');
+      document.getElementById('quiz-results').classList.remove('hidden');
+      document.getElementById('score').textContent = Math.round((score / quizQuestions.length) * 100);
+      document.getElementById('questions-correct').textContent = score;
+    }
+
+    function resetQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      userAnswers = [];
+      document.getElementById('quiz-container').classList.remove('hidden');
+      document.getElementById('quiz-results').classList.add('hidden');
+      renderQuestion();
+    }
+
+    // Tab Navigation
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabName = btn.dataset.tab;
+        
+        // Hide all tabs
+        document.querySelectorAll('[id$="-tab"]').forEach(tab => {
+          tab.classList.add('hidden');
+        });
+        
+        // Show selected tab
+        document.getElementById(tabName + '-tab').classList.remove('hidden');
+        
+        // Update button states
+        document.querySelectorAll('.tab-btn').forEach(b => {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        
+        // Initialize quiz if quiz tab clicked
+        if (tabName === 'quiz' && currentQuestion === 0 && userAnswers.length === 0) {
+          initializeQuiz();
+        }
+      });
+    });
+
+    // Config for Element SDK
+    const defaultConfig = {
+      lesson_title: 'Information Security Concepts',
+      week_number: 'Midterm Week 3',
+      instructor_name: 'MKDB'
+    };
+
+    let config = { ...defaultConfig };
+
+    async function onConfigChange(newConfig) {
+      document.getElementById('lesson-title').textContent = newConfig.lesson_title || defaultConfig.lesson_title;
+      document.getElementById('week-number').textContent = newConfig.week_number || defaultConfig.week_number;
+      document.getElementById('instructor-name').textContent = newConfig.instructor_name || defaultConfig.instructor_name;
+    }
+
+    function mapToCapabilities(config) {
+      return { recolorables: [], borderables: [], fontEditable: undefined, fontSizeable: undefined };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['lesson_title', config.lesson_title || defaultConfig.lesson_title],
+        ['week_number', config.week_number || defaultConfig.week_number],
+        ['instructor_name', config.instructor_name || defaultConfig.instructor_name]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities, mapToEditPanelValues });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d1ea3fa004dfee8',t:'MTc3MTc2NDk1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
