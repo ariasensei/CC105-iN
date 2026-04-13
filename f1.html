@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CC105 - Information Management Tools</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Outfit', 'sans-serif'],
+            body: ['Source Serif 4', 'Georgia', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    .lesson-wrapper { height: 100%; overflow-y: auto; overflow-x: hidden; }
+    .tab-btn.active { background: var(--accent); color: #fff; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .tool-card { transition: all 0.3s ease; }
+    .compare-cell { transition: background 0.2s; }
+    .compare-cell:hover { background: rgba(37,99,235,0.06); }
+    .activity-check { accent-color: var(--accent); width: 18px; height: 18px; }
+    .fade-in { animation: fadeIn 0.5s ease forwards; opacity: 0; }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .section-divider { height: 3px; background: linear-gradient(90deg, var(--accent), var(--secondary), transparent); border-radius: 2px; }
+    :root {
+      --bg: #F0EDE6;
+      --surface: #FFFFFF;
+      --text: #1E293B;
+      --accent: #2563EB;
+      --secondary: #7C3AED;
+    }
+    .hero-pattern {
+      background-image: radial-gradient(circle at 20% 50%, rgba(37,99,235,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(124,58,237,0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 60% 80%, rgba(37,99,235,0.04) 0%, transparent 40%);
+    }
+    .worksheet-input {
+      border: none; border-bottom: 2px dashed #cbd5e1; background: transparent;
+      font-family: 'Source Serif 4', serif; font-size: 15px; padding: 4px 2px;
+      width: 100%; outline: none; transition: border-color 0.2s;
+    }
+    .worksheet-input:focus { border-bottom-color: var(--accent); }
+    .quiz-option { cursor: pointer; transition: all 0.2s; border: 2px solid #e2e8f0; }
+    .quiz-option:hover { border-color: var(--accent); background: rgba(37,99,235,0.04); }
+    .quiz-option.selected { border-color: var(--accent); background: rgba(37,99,235,0.08); }
+    .quiz-option.correct { border-color: #16a34a; background: rgba(22,163,74,0.1); }
+    .quiz-option.wrong { border-color: #dc2626; background: rgba(220,38,38,0.08); }
+    .progress-ring { transition: stroke-dashoffset 0.6s ease; }
+    @media print {
+      .no-print { display: none !important; }
+      .lesson-wrapper { overflow: visible; height: auto; }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full" style="background:var(--bg); color:var(--text);">
+  <div class="lesson-wrapper"><!-- HEADER -->
+   <header class="hero-pattern" style="background-color:var(--bg);">
+    <div class="max-w-4xl mx-auto px-5 pt-8 pb-6">
+     <div class="flex flex-wrap items-center justify-between gap-3 mb-6"><span id="courseBadge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-display font-600 tracking-wide" style="background:var(--accent);color:#fff;"> <i data-lucide="book-open" style="width:14px;height:14px;"></i> CC105 - Information Management </span> <span id="weekBadge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-display font-500" style="background:var(--secondary);color:#fff;"> <i data-lucide="calendar" style="width:14px;height:14px;"></i> Finals Week 1 </span>
+     </div>
+     <h1 id="topicTitle" class="font-display font-800 text-3xl sm:text-4xl md:text-5xl leading-tight mb-3" style="color:var(--text);">Information Management Tools</h1>
+     <p id="instructorLine" class="font-body text-base opacity-70 flex items-center gap-2"><i data-lucide="user" style="width:16px;height:16px;"></i> Prof. MKDB</p>
+     <div class="section-divider mt-6"></div>
+    </div>
+   </header><!-- ILO BANNER -->
+   <section class="max-w-4xl mx-auto px-5 mb-8">
+    <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+     <h2 class="font-display font-700 text-sm uppercase tracking-widest mb-3" style="color:var(--accent);"><i data-lucide="target" style="width:16px;height:16px;display:inline;vertical-align:-3px;margin-right:6px;"></i> Intended Learning Outcomes</h2>
+     <ul class="space-y-2 font-body text-base">
+      <li class="flex items-start gap-2"><span style="color:var(--accent);">✦</span> Identify common information management tools used in real organizations</li>
+      <li class="flex items-start gap-2"><span style="color:var(--secondary);">✦</span> Explain the role of cloud systems in modern information management</li>
+      <li class="flex items-start gap-2"><span style="color:var(--accent);">✦</span> Compare tools through hands-on demo and a structured worksheet</li>
+     </ul>
+    </div>
+   </section><!-- TAB NAVIGATION -->
+   <nav class="max-w-4xl mx-auto px-5 mb-6 no-print">
+    <div class="flex flex-wrap gap-2" role="tablist"><button class="tab-btn active font-display font-600 text-sm px-4 py-2 rounded-full transition-all" style="border:2px solid var(--accent);" onclick="switchTab('lesson')" role="tab" aria-selected="true"> <i data-lucide="book-open" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Lesson </button> <button class="tab-btn font-display font-600 text-sm px-4 py-2 rounded-full transition-all" style="border:2px solid #cbd5e1;color:var(--text);" onclick="switchTab('demo')" role="tab" aria-selected="false"> <i data-lucide="monitor" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Tool Demo </button> <button class="tab-btn font-display font-600 text-sm px-4 py-2 rounded-full transition-all" style="border:2px solid #cbd5e1;color:var(--text);" onclick="switchTab('worksheet')" role="tab" aria-selected="false"> <i data-lucide="clipboard-list" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Worksheet </button> <button class="tab-btn font-display font-600 text-sm px-4 py-2 rounded-full transition-all" style="border:2px solid #cbd5e1;color:var(--text);" onclick="switchTab('activities')" role="tab" aria-selected="false"> <i data-lucide="users" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Activities </button> <button class="tab-btn font-display font-600 text-sm px-4 py-2 rounded-full transition-all" style="border:2px solid #cbd5e1;color:var(--text);" onclick="switchTab('quiz')" role="tab" aria-selected="false"> <i data-lucide="help-circle" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Quiz </button>
+    </div>
+   </nav><!-- ===================== TAB: LESSON ===================== -->
+   <div id="tab-lesson" class="tab-content active max-w-4xl mx-auto px-5 pb-16"><!-- PART 1: What is IM? -->
+    <section class="mb-10 fade-in">
+     <h2 class="font-display font-700 text-2xl mb-4" style="color:var(--text);"><span style="color:var(--accent);">01</span> &nbsp;What Are Information Management Tools?</h2>
+     <div class="rounded-2xl p-5 sm:p-6 border mb-5" style="background:var(--surface);border-color:#e2e8f0;">
+      <p class="font-body text-base leading-relaxed mb-4">Think of information management tools as the <strong>digital backbone</strong> of any organization. Just like how you use folders, notebooks, and planners to organize your school life, businesses use specialized software to <strong>collect, store, organize, retrieve, and share</strong> information.</p>
+      <div class="rounded-xl p-4 mb-4" style="background:rgba(37,99,235,0.06);border-left:4px solid var(--accent);">
+       <p class="font-body text-sm leading-relaxed"><strong>🎓 Real-World Example:</strong> Imagine you're managing a college org event. You need a spreadsheet for the budget (Google Sheets), a shared folder for posters and documents (Google Drive), a group chat for coordination (Slack), and a task board to track who's doing what (Trello). Each of these is an <em>information management tool</em>.</p>
+      </div>
+      <p class="font-body text-base leading-relaxed">In the professional world, the stakes are higher — hospitals manage patient records, banks handle transactions, and e-commerce sites track millions of orders. The right tools prevent chaos and make information <strong>accessible, accurate, and secure</strong>.</p>
+     </div>
+    </section><!-- PART 2: Categories of Tools -->
+    <section class="mb-10 fade-in" style="animation-delay:0.1s;">
+     <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">02</span> &nbsp;Common Categories of IM Tools</h2>
+     <div class="grid sm:grid-cols-2 gap-4">
+      <div class="tool-card rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;">
+       <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(37,99,235,0.1);">
+         <i data-lucide="database" style="width:20px;height:20px;color:var(--accent);"></i>
+        </div>
+        <h3 class="font-display font-700 text-lg">Database Systems</h3>
+       </div>
+       <p class="font-body text-sm leading-relaxed mb-2">Store and query structured data at scale.</p>
+       <div class="flex flex-wrap gap-1"><span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(37,99,235,0.08);color:var(--accent);">MySQL</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(37,99,235,0.08);color:var(--accent);">PostgreSQL</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(37,99,235,0.08);color:var(--accent);">MongoDB</span>
+       </div>
+       <p class="font-body text-xs mt-3 opacity-60">📌 Used by: Banks, airlines, universities for records</p>
+      </div>
+      <div class="tool-card rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;">
+       <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(124,58,237,0.1);">
+         <i data-lucide="cloud" style="width:20px;height:20px;color:var(--secondary);"></i>
+        </div>
+        <h3 class="font-display font-700 text-lg">Cloud Storage</h3>
+       </div>
+       <p class="font-body text-sm leading-relaxed mb-2">Store files remotely, access from anywhere.</p>
+       <div class="flex flex-wrap gap-1"><span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(124,58,237,0.08);color:var(--secondary);">Google Drive</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(124,58,237,0.08);color:var(--secondary);">Dropbox</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(124,58,237,0.08);color:var(--secondary);">OneDrive</span>
+       </div>
+       <p class="font-body text-xs mt-3 opacity-60">📌 Used by: Students, remote teams, media companies</p>
+      </div>
+      <div class="tool-card rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;">
+       <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(37,99,235,0.1);">
+         <i data-lucide="layout-dashboard" style="width:20px;height:20px;color:var(--accent);"></i>
+        </div>
+        <h3 class="font-display font-700 text-lg">Project Management</h3>
+       </div>
+       <p class="font-body text-sm leading-relaxed mb-2">Organize tasks, deadlines, and team collaboration.</p>
+       <div class="flex flex-wrap gap-1"><span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(37,99,235,0.08);color:var(--accent);">Trello</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(37,99,235,0.08);color:var(--accent);">Asana</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(37,99,235,0.08);color:var(--accent);">Notion</span>
+       </div>
+       <p class="font-body text-xs mt-3 opacity-60">📌 Used by: Startups, dev teams, event organizers</p>
+      </div>
+      <div class="tool-card rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;">
+       <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(124,58,237,0.1);">
+         <i data-lucide="file-spreadsheet" style="width:20px;height:20px;color:var(--secondary);"></i>
+        </div>
+        <h3 class="font-display font-700 text-lg">Spreadsheets &amp; BI</h3>
+       </div>
+       <p class="font-body text-sm leading-relaxed mb-2">Analyze data, create reports, and visualize trends.</p>
+       <div class="flex flex-wrap gap-1"><span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(124,58,237,0.08);color:var(--secondary);">Excel</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(124,58,237,0.08);color:var(--secondary);">Google Sheets</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(124,58,237,0.08);color:var(--secondary);">Power BI</span>
+       </div>
+       <p class="font-body text-xs mt-3 opacity-60">📌 Used by: Accountants, analysts, researchers</p>
+      </div>
+      <div class="tool-card rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;">
+       <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(37,99,235,0.1);">
+         <i data-lucide="folder-archive" style="width:20px;height:20px;color:var(--accent);"></i>
+        </div>
+        <h3 class="font-display font-700 text-lg">Document Management</h3>
+       </div>
+       <p class="font-body text-sm leading-relaxed mb-2">Version control, digital filing, and compliance.</p>
+       <div class="flex flex-wrap gap-1"><span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(37,99,235,0.08);color:var(--accent);">SharePoint</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(37,99,235,0.08);color:var(--accent);">Confluence</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(37,99,235,0.08);color:var(--accent);">Notion</span>
+       </div>
+       <p class="font-body text-xs mt-3 opacity-60">📌 Used by: Law firms, HR departments, government</p>
+      </div>
+      <div class="tool-card rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;">
+       <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(124,58,237,0.1);">
+         <i data-lucide="message-circle" style="width:20px;height:20px;color:var(--secondary);"></i>
+        </div>
+        <h3 class="font-display font-700 text-lg">Communication Tools</h3>
+       </div>
+       <p class="font-body text-sm leading-relaxed mb-2">Real-time messaging, video calls, and team channels.</p>
+       <div class="flex flex-wrap gap-1"><span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(124,58,237,0.08);color:var(--secondary);">Slack</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(124,58,237,0.08);color:var(--secondary);">MS Teams</span> <span class="text-xs font-display px-2 py-0.5 rounded-full" style="background:rgba(124,58,237,0.08);color:var(--secondary);">Zoom</span>
+       </div>
+       <p class="font-body text-xs mt-3 opacity-60">📌 Used by: Every modern organization</p>
+      </div>
+     </div>
+    </section><!-- PART 3: Role of Cloud Systems -->
+    <section class="mb-10 fade-in" style="animation-delay:0.2s;">
+     <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">03</span> &nbsp;The Role of Cloud Systems</h2>
+     <div class="rounded-2xl p-5 sm:p-6 border mb-5" style="background:var(--surface);border-color:#e2e8f0;">
+      <p class="font-body text-base leading-relaxed mb-4">Cloud computing means using <strong>remote servers on the internet</strong> instead of your own computer or local server to store and process data. Think of it like renting a storage unit instead of building a warehouse in your backyard.</p>
+      <div class="rounded-xl p-4 mb-5" style="background:rgba(124,58,237,0.06);border-left:4px solid var(--secondary);">
+       <p class="font-body text-sm leading-relaxed"><strong>🎓 College Analogy:</strong> Remember when you lost a term paper because your USB broke? Cloud storage (like Google Drive) fixes that — your files exist on Google's servers, accessible from any device. Even if your laptop dies, your thesis is safe. <em>That's the power of cloud.</em></p>
+      </div>
+      <h3 class="font-display font-700 text-lg mb-3">Why Cloud Matters for Information Management</h3>
+      <div class="grid sm:grid-cols-2 gap-3 mb-5">
+       <div class="rounded-xl p-4" style="background:var(--bg);">
+        <div class="flex items-center gap-2 mb-2"><i data-lucide="globe" style="width:18px;height:18px;color:var(--accent);"></i> <span class="font-display font-600 text-sm">Anywhere Access</span>
+        </div>
+        <p class="font-body text-xs leading-relaxed">Work from home, campus, or a coffee shop. Your data follows you on any device with internet.</p>
+       </div>
+       <div class="rounded-xl p-4" style="background:var(--bg);">
+        <div class="flex items-center gap-2 mb-2"><i data-lucide="users" style="width:18px;height:18px;color:var(--accent);"></i> <span class="font-display font-600 text-sm">Real-Time Collaboration</span>
+        </div>
+        <p class="font-body text-xs leading-relaxed">Multiple people edit the same Google Doc simultaneously — no more emailing "FinalVersion_v3_REAL.docx".</p>
+       </div>
+       <div class="rounded-xl p-4" style="background:var(--bg);">
+        <div class="flex items-center gap-2 mb-2"><i data-lucide="trending-up" style="width:18px;height:18px;color:var(--secondary);"></i> <span class="font-display font-600 text-sm">Scalability</span>
+        </div>
+        <p class="font-body text-xs leading-relaxed">Need more storage? Just upgrade your plan. No need to buy physical hard drives or servers.</p>
+       </div>
+       <div class="rounded-xl p-4" style="background:var(--bg);">
+        <div class="flex items-center gap-2 mb-2"><i data-lucide="shield" style="width:18px;height:18px;color:var(--secondary);"></i> <span class="font-display font-600 text-sm">Backup &amp; Security</span>
+        </div>
+        <p class="font-body text-xs leading-relaxed">Cloud providers use encryption, redundancy, and disaster recovery — far beyond what most individuals can set up.</p>
+       </div>
+       <div class="rounded-xl p-4" style="background:var(--bg);">
+        <div class="flex items-center gap-2 mb-2"><i data-lucide="dollar-sign" style="width:18px;height:18px;color:var(--accent);"></i> <span class="font-display font-600 text-sm">Cost Efficiency</span>
+        </div>
+        <p class="font-body text-xs leading-relaxed">Pay only for what you use. Startups don't need million-peso server rooms anymore.</p>
+       </div>
+       <div class="rounded-xl p-4" style="background:var(--bg);">
+        <div class="flex items-center gap-2 mb-2"><i data-lucide="refresh-cw" style="width:18px;height:18px;color:var(--accent);"></i> <span class="font-display font-600 text-sm">Auto Updates</span>
+        </div>
+        <p class="font-body text-xs leading-relaxed">Cloud tools update automatically — you always have the latest features without manual installs.</p>
+       </div>
+      </div>
+      <h3 class="font-display font-700 text-lg mb-3">Three Cloud Service Models</h3>
+      <div class="space-y-3">
+       <div class="rounded-xl p-4 border" style="border-color:#e2e8f0;"><span class="font-display font-700 text-sm" style="color:var(--accent);">IaaS — Infrastructure as a Service</span>
+        <p class="font-body text-sm mt-1">Rent virtual machines and storage. <em>Example: AWS EC2, DigitalOcean.</em></p>
+        <p class="font-body text-xs mt-1 opacity-60">🏗️ Analogy: Renting an empty lot — you build whatever you want on it.</p>
+       </div>
+       <div class="rounded-xl p-4 border" style="border-color:#e2e8f0;"><span class="font-display font-700 text-sm" style="color:var(--secondary);">PaaS — Platform as a Service</span>
+        <p class="font-body text-sm mt-1">A ready-made platform to build apps on. <em>Example: Heroku, Google App Engine.</em></p>
+        <p class="font-body text-xs mt-1 opacity-60">🏠 Analogy: Renting a furnished apartment — the basics are set up, you just move in.</p>
+       </div>
+       <div class="rounded-xl p-4 border" style="border-color:#e2e8f0;"><span class="font-display font-700 text-sm" style="color:var(--accent);">SaaS — Software as a Service</span>
+        <p class="font-body text-sm mt-1">Use ready-made software via the browser. <em>Example: Gmail, Canva, Google Docs, Zoom.</em></p>
+        <p class="font-body text-xs mt-1 opacity-60">🏨 Analogy: Staying in a hotel — everything is done for you, just use it.</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- PART 4: Key Takeaways -->
+    <section class="mb-8 fade-in" style="animation-delay:0.3s;">
+     <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">04</span> &nbsp;Key Takeaways</h2>
+     <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+      <ul class="space-y-3 font-body text-base">
+       <li class="flex items-start gap-3"><span class="mt-1 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-display font-700" style="background:var(--accent);color:#fff;">1</span> IM tools span databases, cloud storage, project management, spreadsheets, document systems, and communication platforms.</li>
+       <li class="flex items-start gap-3"><span class="mt-1 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-display font-700" style="background:var(--secondary);color:#fff;">2</span> Cloud systems enable anywhere access, real-time collaboration, automatic backups, and cost savings.</li>
+       <li class="flex items-start gap-3"><span class="mt-1 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-display font-700" style="background:var(--accent);color:#fff;">3</span> The three cloud models (IaaS, PaaS, SaaS) offer different levels of control vs. convenience.</li>
+       <li class="flex items-start gap-3"><span class="mt-1 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-display font-700" style="background:var(--secondary);color:#fff;">4</span> Choosing the right tool depends on the task, team size, budget, and security needs.</li>
+      </ul>
+     </div>
+    </section>
+   </div><!-- ===================== TAB: TOOL DEMO ===================== -->
+   <div id="tab-demo" class="tab-content max-w-4xl mx-auto px-5 pb-16">
+    <h2 class="font-display font-700 text-2xl mb-2"><span style="color:var(--accent);">🖥️</span> Interactive Tool Demo</h2>
+    <p class="font-body text-sm opacity-70 mb-6">Click on each tool below to explore what it does, its strengths, and a mini simulated preview.</p>
+    <div class="grid sm:grid-cols-3 gap-3 mb-6" id="demoToolList"><!-- Populated by JS -->
+    </div>
+    <div id="demoPanel" class="rounded-2xl border p-5 sm:p-6" style="background:var(--surface);border-color:#e2e8f0;display:none;">
+     <div class="flex items-center justify-between mb-4">
+      <h3 id="demoPanelTitle" class="font-display font-700 text-xl"></h3><button onclick="closeDemoPanel()" class="w-8 h-8 rounded-full flex items-center justify-center hover:opacity-70" style="background:var(--bg);"><i data-lucide="x" style="width:16px;height:16px;"></i></button>
+     </div>
+     <p id="demoPanelDesc" class="font-body text-sm mb-4"></p>
+     <div id="demoPanelSim" class="rounded-xl p-4 border" style="background:var(--bg);border-color:#e2e8f0;"></div>
+     <div class="mt-4"><span class="font-display font-600 text-xs uppercase tracking-wider opacity-50">Best For:</span>
+      <p id="demoPanelBest" class="font-body text-sm mt-1"></p>
+     </div>
+    </div>
+   </div><!-- ===================== TAB: WORKSHEET ===================== -->
+   <div id="tab-worksheet" class="tab-content max-w-4xl mx-auto px-5 pb-16">
+    <h2 class="font-display font-700 text-2xl mb-2"><span style="color:var(--accent);">📋</span> Tool Comparison Worksheet</h2>
+    <p class="font-body text-sm opacity-70 mb-6">Fill in the table below to compare information management tools. This is your personal study reference.</p>
+    <div class="overflow-x-auto rounded-2xl border" style="background:var(--surface);border-color:#e2e8f0;">
+     <table class="w-full text-sm">
+      <thead>
+       <tr style="background:var(--accent);color:#fff;">
+        <th class="font-display font-600 text-left p-3 min-w-[120px]">Tool Name</th>
+        <th class="font-display font-600 text-left p-3 min-w-[100px]">Category</th>
+        <th class="font-display font-600 text-left p-3 min-w-[140px]">Key Feature</th>
+        <th class="font-display font-600 text-left p-3 min-w-[80px]">Cloud?</th>
+        <th class="font-display font-600 text-left p-3 min-w-[80px]">Free Tier?</th>
+        <th class="font-display font-600 text-left p-3 min-w-[140px]">Best Use Case</th>
+       </tr>
+      </thead>
+      <tbody id="worksheetBody"><!-- Populated by JS -->
+      </tbody>
+     </table>
+    </div>
+    <div class="mt-4 flex flex-wrap gap-3 no-print"><button onclick="addWorksheetRow()" class="font-display font-600 text-sm px-4 py-2 rounded-full flex items-center gap-2 hover:opacity-90 transition" style="background:var(--accent);color:#fff;"> <i data-lucide="plus" style="width:14px;height:14px;"></i> Add Row </button> <button onclick="clearWorksheet()" class="font-display font-600 text-sm px-4 py-2 rounded-full flex items-center gap-2 hover:opacity-90 transition border" style="border-color:#cbd5e1;"> <i data-lucide="trash-2" style="width:14px;height:14px;"></i> Clear All </button>
+    </div><!-- Pre-filled comparison section -->
+    <div class="mt-10">
+     <h3 class="font-display font-700 text-lg mb-3">📊 Quick Reference: Tool Comparison Matrix</h3>
+     <div class="overflow-x-auto rounded-2xl border" style="background:var(--surface);border-color:#e2e8f0;">
+      <table class="w-full text-xs sm:text-sm">
+       <thead>
+        <tr style="background:var(--secondary);color:#fff;">
+         <th class="font-display font-600 text-left p-3">Feature</th>
+         <th class="font-display font-600 text-center p-3">Google Drive</th>
+         <th class="font-display font-600 text-center p-3">Trello</th>
+         <th class="font-display font-600 text-center p-3">Notion</th>
+         <th class="font-display font-600 text-center p-3">MS Excel</th>
+         <th class="font-display font-600 text-center p-3">Slack</th>
+        </tr>
+       </thead>
+       <tbody class="font-body">
+        <tr class="border-b" style="border-color:#f1f5f9;">
+         <td class="p-3 font-display font-500">Cloud-Based</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">⚠️ Optional</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+        </tr>
+        <tr class="border-b" style="border-color:#f1f5f9;">
+         <td class="p-3 font-display font-500">Real-Time Collab</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">⚠️ Limited</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+        </tr>
+        <tr class="border-b" style="border-color:#f1f5f9;">
+         <td class="p-3 font-display font-500">Free Tier</td>
+         <td class="p-3 text-center compare-cell">15 GB</td>
+         <td class="p-3 text-center compare-cell">Yes</td>
+         <td class="p-3 text-center compare-cell">Yes</td>
+         <td class="p-3 text-center compare-cell">No*</td>
+         <td class="p-3 text-center compare-cell">Yes</td>
+        </tr>
+        <tr class="border-b" style="border-color:#f1f5f9;">
+         <td class="p-3 font-display font-500">Best For</td>
+         <td class="p-3 text-center compare-cell text-xs">File Storage</td>
+         <td class="p-3 text-center compare-cell text-xs">Task Boards</td>
+         <td class="p-3 text-center compare-cell text-xs">All-in-One Docs</td>
+         <td class="p-3 text-center compare-cell text-xs">Data Analysis</td>
+         <td class="p-3 text-center compare-cell text-xs">Team Chat</td>
+        </tr>
+        <tr>
+         <td class="p-3 font-display font-500">Mobile App</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+         <td class="p-3 text-center compare-cell">✅</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <p class="font-body text-xs opacity-50 mt-2">* MS Excel requires Microsoft 365 subscription; Google Sheets (free) is a cloud alternative.</p>
+    </div>
+   </div><!-- ===================== TAB: ACTIVITIES ===================== -->
+   <div id="tab-activities" class="tab-content max-w-4xl mx-auto px-5 pb-16"><!-- Individual Activity -->
+    <section class="mb-10">
+     <div class="flex items-center gap-3 mb-4">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:var(--accent);">
+       <i data-lucide="user" style="width:20px;height:20px;color:#fff;"></i>
+      </div>
+      <div>
+       <h2 class="font-display font-700 text-xl">Individual Activity</h2>
+       <p class="font-display text-xs opacity-60">15–20 minutes</p>
+      </div>
+     </div>
+     <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+      <h3 class="font-display font-700 text-lg mb-2" style="color:var(--accent);">🔍 "My Digital Toolbox" Audit</h3>
+      <p class="font-body text-sm leading-relaxed mb-4">Think about all the digital tools you already use in your daily life as a student. For each prompt below, write the tool you use and categorize it. <strong>Be honest — there are no wrong answers!</strong></p>
+      <div class="space-y-4" id="individualActivity">
+       <div class="rounded-xl p-4" style="background:var(--bg);"><label class="font-display font-600 text-sm block mb-2" for="ia1">1. Where do you save your school files? (e.g., assignments, slides)</label> <input id="ia1" type="text" class="worksheet-input" placeholder="e.g., Google Drive — Cloud Storage">
+        <div class="flex items-center gap-2 mt-2"><input type="checkbox" class="activity-check" id="ia1c"><label for="ia1c" class="font-body text-xs opacity-60">Done</label>
+        </div>
+       </div>
+       <div class="rounded-xl p-4" style="background:var(--bg);"><label class="font-display font-600 text-sm block mb-2" for="ia2">2. How do you coordinate tasks with groupmates?</label> <input id="ia2" type="text" class="worksheet-input" placeholder="e.g., Messenger GC — Communication Tool">
+        <div class="flex items-center gap-2 mt-2"><input type="checkbox" class="activity-check" id="ia2c"><label for="ia2c" class="font-body text-xs opacity-60">Done</label>
+        </div>
+       </div>
+       <div class="rounded-xl p-4" style="background:var(--bg);"><label class="font-display font-600 text-sm block mb-2" for="ia3">3. What app do you use for notes or to-do lists?</label> <input id="ia3" type="text" class="worksheet-input" placeholder="e.g., Notion — Project Management / Docs">
+        <div class="flex items-center gap-2 mt-2"><input type="checkbox" class="activity-check" id="ia3c"><label for="ia3c" class="font-body text-xs opacity-60">Done</label>
+        </div>
+       </div>
+       <div class="rounded-xl p-4" style="background:var(--bg);"><label class="font-display font-600 text-sm block mb-2" for="ia4">4. Where do you edit or create spreadsheets/data?</label> <input id="ia4" type="text" class="worksheet-input" placeholder="e.g., Google Sheets — Spreadsheet / BI">
+        <div class="flex items-center gap-2 mt-2"><input type="checkbox" class="activity-check" id="ia4c"><label for="ia4c" class="font-body text-xs opacity-60">Done</label>
+        </div>
+       </div>
+       <div class="rounded-xl p-4" style="background:var(--bg);"><label class="font-display font-600 text-sm block mb-2" for="ia5">5. Name one tool you've never used but want to try. Why?</label> <input id="ia5" type="text" class="worksheet-input" placeholder="e.g., Trello — I want to organize my thesis tasks visually">
+        <div class="flex items-center gap-2 mt-2"><input type="checkbox" class="activity-check" id="ia5c"><label for="ia5c" class="font-body text-xs opacity-60">Done</label>
+        </div>
+       </div>
+      </div>
+      <div class="mt-5 rounded-xl p-4" style="background:rgba(37,99,235,0.06);border-left:4px solid var(--accent);">
+       <p class="font-body text-xs"><strong>Reflection:</strong> Look at your answers. How many of these tools are cloud-based? What would happen if you suddenly lost internet for a week — which tools would still work?</p>
+      </div>
+     </div>
+    </section><!-- Group Activity -->
+    <section class="mb-8">
+     <div class="flex items-center gap-3 mb-4">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:var(--secondary);">
+       <i data-lucide="users" style="width:20px;height:20px;color:#fff;"></i>
+      </div>
+      <div>
+       <h2 class="font-display font-700 text-xl">Group Activity</h2>
+       <p class="font-display text-xs opacity-60">25–30 minutes · Groups of 4–5</p>
+      </div>
+     </div>
+     <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+      <h3 class="font-display font-700 text-lg mb-2" style="color:var(--secondary);">🏢 "ToolStack Pitch" — Designing an IM System</h3>
+      <p class="font-body text-sm leading-relaxed mb-4">Your group is a <strong>consulting team</strong> hired by a client. Choose one scenario below, then design a complete information management toolstack for that client. You'll present a 3-minute pitch to the class.</p>
+      <h4 class="font-display font-600 text-sm mb-3 uppercase tracking-wider opacity-60">Choose Your Client Scenario:</h4>
+      <div class="grid sm:grid-cols-2 gap-3 mb-5" id="scenarioCards">
+       <div class="scenario-card rounded-xl p-4 border cursor-pointer hover:shadow-md transition" style="border-color:#e2e8f0;" onclick="selectScenario(this,0)"><span class="text-2xl">🏥</span>
+        <h5 class="font-display font-700 text-sm mt-2">Small Medical Clinic</h5>
+        <p class="font-body text-xs mt-1 opacity-70">3 doctors, 2 nurses. Need to manage patient appointments, records, and billing.</p>
+       </div>
+       <div class="scenario-card rounded-xl p-4 border cursor-pointer hover:shadow-md transition" style="border-color:#e2e8f0;" onclick="selectScenario(this,1)"><span class="text-2xl">☕</span>
+        <h5 class="font-display font-700 text-sm mt-2">College Startup Café</h5>
+        <p class="font-body text-xs mt-1 opacity-70">5 student employees. Manage inventory, sales tracking, and social media content.</p>
+       </div>
+       <div class="scenario-card rounded-xl p-4 border cursor-pointer hover:shadow-md transition" style="border-color:#e2e8f0;" onclick="selectScenario(this,2)"><span class="text-2xl">🎓</span>
+        <h5 class="font-display font-700 text-sm mt-2">Student Organization</h5>
+        <p class="font-body text-xs mt-1 opacity-70">30 members. Coordinate events, track finances, store documents, and communicate.</p>
+       </div>
+       <div class="scenario-card rounded-xl p-4 border cursor-pointer hover:shadow-md transition" style="border-color:#e2e8f0;" onclick="selectScenario(this,3)"><span class="text-2xl">🛒</span>
+        <h5 class="font-display font-700 text-sm mt-2">Online Reselling Business</h5>
+        <p class="font-body text-xs mt-1 opacity-70">1 owner, 2 assistants. Manage orders, inventory, customer inquiries, and deliveries.</p>
+       </div>
+      </div>
+      <h4 class="font-display font-600 text-sm mb-3 uppercase tracking-wider opacity-60">Your Pitch Must Include:</h4>
+      <div class="space-y-2 mb-5">
+       <div class="flex items-start gap-2"><input type="checkbox" class="activity-check mt-1" id="gc1"><label for="gc1" class="font-body text-sm">At least <strong>3 different tools</strong> from different categories</label>
+       </div>
+       <div class="flex items-start gap-2"><input type="checkbox" class="activity-check mt-1" id="gc2"><label for="gc2" class="font-body text-sm"><strong>Why</strong> each tool was chosen (justify the pick)</label>
+       </div>
+       <div class="flex items-start gap-2"><input type="checkbox" class="activity-check mt-1" id="gc3"><label for="gc3" class="font-body text-sm">At least <strong>1 cloud-based tool</strong> — explain why cloud matters for this client</label>
+       </div>
+       <div class="flex items-start gap-2"><input type="checkbox" class="activity-check mt-1" id="gc4"><label for="gc4" class="font-body text-sm">A simple <strong>diagram or list</strong> showing how the tools connect</label>
+       </div>
+       <div class="flex items-start gap-2"><input type="checkbox" class="activity-check mt-1" id="gc5"><label for="gc5" class="font-body text-sm"><strong>Budget consideration</strong> — are the tools free or paid?</label>
+       </div>
+      </div>
+      <div class="rounded-xl p-4" style="background:rgba(124,58,237,0.06);border-left:4px solid var(--secondary);">
+       <p class="font-body text-xs"><strong>💡 Pro Tip:</strong> Think about how data flows between tools. For example, a student org might use Google Forms (data collection) → Google Sheets (tracking) → Slack (notifications). Show this flow in your pitch!</p>
+      </div><!-- Group notes area -->
+      <div class="mt-5"><label class="font-display font-600 text-sm block mb-2" for="groupNotes">📝 Group Notes (use this space to plan your pitch)</label> <textarea id="groupNotes" class="w-full rounded-xl p-4 border font-body text-sm" style="border-color:#e2e8f0;background:var(--bg);min-height:120px;resize:vertical;outline:none;" placeholder="List your chosen tools, reasons, and how they connect..."></textarea>
+      </div>
+     </div>
+    </section>
+   </div><!-- ===================== TAB: QUIZ ===================== -->
+   <div id="tab-quiz" class="tab-content max-w-4xl mx-auto px-5 pb-16">
+    <div class="flex items-center justify-between mb-6">
+     <div>
+      <h2 class="font-display font-700 text-2xl"><span style="color:var(--accent);">✓</span> Quick Check</h2>
+      <p class="font-body text-sm opacity-70">Test what you learned — 5 questions</p>
+     </div>
+     <div class="text-center">
+      <svg width="60" height="60" viewbox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="none" stroke="#e2e8f0" stroke-width="4" /> <circle id="progressRing" class="progress-ring" cx="30" cy="30" r="26" fill="none" stroke="var(--accent)" stroke-width="4" stroke-dasharray="163.36" stroke-dashoffset="163.36" stroke-linecap="round" transform="rotate(-90 30 30)" /> <text x="30" y="34" text-anchor="middle" class="font-display font-700" style="font-size:14px;fill:var(--text);" id="scoreText">
+        0/5
+       </text>
+      </svg>
+     </div>
+    </div>
+    <div id="quizContainer" class="space-y-6"><!-- Populated by JS -->
+    </div>
+    <div class="mt-6 flex flex-wrap gap-3 no-print"><button id="checkAnswersBtn" onclick="checkQuizAnswers()" class="font-display font-600 text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition" style="background:var(--accent);color:#fff;"> Check Answers </button> <button onclick="resetQuiz()" class="font-display font-600 text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition border" style="border-color:#cbd5e1;"> Reset Quiz </button>
+    </div>
+   </div>
+  </div><!-- end lesson-wrapper -->
+  <script>
+// ===== ELEMENT SDK =====
+const defaultConfig = {
+  background_color: '#F0EDE6',
+  surface_color: '#FFFFFF',
+  text_color: '#1E293B',
+  accent_color: '#2563EB',
+  secondary_color: '#7C3AED',
+  font_family: 'Outfit',
+  font_size: 16,
+  course_title: 'CC105 - Information Management',
+  instructor_name: 'Prof. MKDB',
+  week_label: 'Finals Week 1',
+  topic_title: 'Information Management Tools'
+};
+
+function applyConfig(cfg) {
+  const root = document.documentElement.style;
+  root.setProperty('--bg', cfg.background_color || defaultConfig.background_color);
+  root.setProperty('--surface', cfg.surface_color || defaultConfig.surface_color);
+  root.setProperty('--text', cfg.text_color || defaultConfig.text_color);
+  root.setProperty('--accent', cfg.accent_color || defaultConfig.accent_color);
+  root.setProperty('--secondary', cfg.secondary_color || defaultConfig.secondary_color);
+
+  document.body.style.color = cfg.text_color || defaultConfig.text_color;
+  document.body.style.background = cfg.background_color || defaultConfig.background_color;
+
+  const font = cfg.font_family || defaultConfig.font_family;
+  const base = cfg.font_size || defaultConfig.font_size;
+  document.querySelectorAll('.font-display').forEach(el => { el.style.fontFamily = `${font}, Outfit, sans-serif`; });
+  document.querySelectorAll('.font-body').forEach(el => { el.style.fontFamily = `Source Serif 4, Georgia, serif`; });
+
+  const titleEl = document.getElementById('topicTitle');
+  if (titleEl) titleEl.textContent = cfg.topic_title || defaultConfig.topic_title;
+  const instrEl = document.getElementById('instructorLine');
+  if (instrEl) instrEl.innerHTML = `<i data-lucide="user" style="width:16px;height:16px;"></i> ${cfg.instructor_name || defaultConfig.instructor_name}`;
+  const courseEl = document.getElementById('courseBadge');
+  if (courseEl) courseEl.innerHTML = `<i data-lucide="book-open" style="width:14px;height:14px;"></i> ${cfg.course_title || defaultConfig.course_title}`;
+  const weekEl = document.getElementById('weekBadge');
+  if (weekEl) weekEl.innerHTML = `<i data-lucide="calendar" style="width:14px;height:14px;"></i> ${cfg.week_label || defaultConfig.week_label}`;
+
+  // Reapply accent to tab buttons
+  document.querySelectorAll('.tab-btn.active').forEach(btn => {
+    btn.style.background = cfg.accent_color || defaultConfig.accent_color;
+    btn.style.borderColor = cfg.accent_color || defaultConfig.accent_color;
+  });
+
+  lucide.createIcons();
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (cfg) => { applyConfig(cfg); },
+    mapToCapabilities: (cfg) => ({
+      recolorables: [
+        { get: () => cfg.background_color || defaultConfig.background_color, set: (v) => { cfg.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => cfg.surface_color || defaultConfig.surface_color, set: (v) => { cfg.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => cfg.text_color || defaultConfig.text_color, set: (v) => { cfg.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => cfg.accent_color || defaultConfig.accent_color, set: (v) => { cfg.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+        { get: () => cfg.secondary_color || defaultConfig.secondary_color, set: (v) => { cfg.secondary_color = v; window.elementSdk.setConfig({ secondary_color: v }); } }
+      ],
+      borderables: [],
+      fontEditable: { get: () => cfg.font_family || defaultConfig.font_family, set: (v) => { cfg.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+      fontSizeable: { get: () => cfg.font_size || defaultConfig.font_size, set: (v) => { cfg.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+    }),
+    mapToEditPanelValues: (cfg) => new Map([
+      ['course_title', cfg.course_title || defaultConfig.course_title],
+      ['instructor_name', cfg.instructor_name || defaultConfig.instructor_name],
+      ['week_label', cfg.week_label || defaultConfig.week_label],
+      ['topic_title', cfg.topic_title || defaultConfig.topic_title]
+    ])
+  });
+}
+
+// ===== TABS =====
+function switchTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active');
+    b.style.background = 'transparent';
+    b.style.borderColor = '#cbd5e1';
+    b.style.color = 'var(--text)';
+  });
+  document.getElementById('tab-' + id).classList.add('active');
+  const btns = document.querySelectorAll('.tab-btn');
+  const tabNames = ['lesson','demo','worksheet','activities','quiz'];
+  const idx = tabNames.indexOf(id);
+  if (idx >= 0 && btns[idx]) {
+    btns[idx].classList.add('active');
+    btns[idx].style.background = 'var(--accent)';
+    btns[idx].style.borderColor = 'var(--accent)';
+    btns[idx].style.color = '#fff';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== TOOL DEMO =====
+const demoTools = [
+  {
+    name: 'Google Drive', icon: 'cloud', cat: 'Cloud Storage',
+    desc: 'Google Drive stores your files in the cloud with 15 GB free. You can create Docs, Sheets, and Slides directly, and share files with anyone via a link.',
+    best: 'Students and teams who need easy file sharing and collaborative editing without installing software.',
+    sim: `<div class="space-y-2">
+      <div class="flex items-center gap-2 p-2 rounded-lg" style="background:#fff;"><span>📁</span><span class="text-sm font-display">My Files</span><span class="ml-auto text-xs opacity-50">12 items</span></div>
+      <div class="flex items-center gap-2 p-2 rounded-lg" style="background:#fff;"><span>📄</span><span class="text-sm font-display">Thesis_Draft_v2.docx</span><span class="ml-auto text-xs opacity-50">2.3 MB</span></div>
+      <div class="flex items-center gap-2 p-2 rounded-lg" style="background:#fff;"><span>📊</span><span class="text-sm font-display">Budget_Tracker.xlsx</span><span class="ml-auto text-xs opacity-50">156 KB</span></div>
+      <div class="flex items-center gap-2 p-2 rounded-lg" style="background:#fff;"><span>🖼️</span><span class="text-sm font-display">Event_Poster.png</span><span class="ml-auto text-xs opacity-50">4.1 MB</span></div>
+      <p class="text-xs opacity-50 mt-2">Storage: 3.2 GB / 15 GB used</p>
+    </div>`
+  },
+  {
+    name: 'Trello', icon: 'layout-dashboard', cat: 'Project Management',
+    desc: 'Trello uses a Kanban board system — cards move across columns (like "To Do," "In Progress," "Done") to visualize workflow. It\'s drag-and-drop simple.',
+    best: 'Teams managing tasks with clear stages. Great for event planning, sprint tracking, and thesis milestones.',
+    sim: `<div class="flex gap-2 overflow-x-auto pb-2">
+      <div class="min-w-[130px] rounded-lg p-2" style="background:#fff;">
+        <p class="font-display font-600 text-xs mb-2" style="color:var(--accent);">📋 To Do</p>
+        <div class="space-y-1"><div class="text-xs p-1.5 rounded" style="background:var(--bg);">Research topic</div><div class="text-xs p-1.5 rounded" style="background:var(--bg);">Draft outline</div></div>
+      </div>
+      <div class="min-w-[130px] rounded-lg p-2" style="background:#fff;">
+        <p class="font-display font-600 text-xs mb-2" style="color:#f59e0b;">🔄 In Progress</p>
+        <div class="space-y-1"><div class="text-xs p-1.5 rounded" style="background:#fef3c7;">Write Chapter 1</div></div>
+      </div>
+      <div class="min-w-[130px] rounded-lg p-2" style="background:#fff;">
+        <p class="font-display font-600 text-xs mb-2" style="color:#16a34a;">✅ Done</p>
+        <div class="space-y-1"><div class="text-xs p-1.5 rounded" style="background:#dcfce7;">Submit proposal</div></div>
+      </div>
+    </div>`
+  },
+  {
+    name: 'Notion', icon: 'file-text', cat: 'All-in-One Workspace',
+    desc: 'Notion combines notes, databases, task boards, and wikis in one tool. You can build custom pages for anything — class notes, project trackers, personal journals.',
+    best: 'Students and teams who want one app for everything instead of juggling multiple tools.',
+    sim: `<div class="space-y-2">
+      <div class="p-2 rounded-lg" style="background:#fff;">
+        <p class="text-xs font-display font-600">📚 CC105 Notes</p>
+        <div class="ml-3 mt-1 space-y-1">
+          <p class="text-xs opacity-70">├ Week 1: Intro to IM</p>
+          <p class="text-xs opacity-70">├ Week 2: Data Models</p>
+          <p class="text-xs font-600">├ <strong>Finals: IM Tools</strong> ← You are here</p>
+        </div>
+      </div>
+      <div class="p-2 rounded-lg" style="background:#fff;">
+        <p class="text-xs font-display font-600">✅ Thesis Tracker</p>
+        <p class="text-xs opacity-50 ml-3">3 of 7 tasks complete</p>
+      </div>
+    </div>`
+  },
+  {
+    name: 'MS Excel', icon: 'file-spreadsheet', cat: 'Spreadsheet / BI',
+    desc: 'Excel is the industry standard for data analysis. With formulas, pivot tables, charts, and macros, it handles everything from simple budgets to complex financial models.',
+    best: 'Data-heavy tasks: accounting, inventory tracking, statistical analysis, and reporting.',
+    sim: `<div class="overflow-x-auto">
+      <table class="w-full text-xs" style="background:#fff;border-radius:8px;overflow:hidden;">
+        <tr style="background:var(--accent);color:#fff;"><th class="p-1.5">Item</th><th class="p-1.5">Qty</th><th class="p-1.5">Price</th><th class="p-1.5">Total</th></tr>
+        <tr class="border-b" style="border-color:#f1f5f9;"><td class="p-1.5">Tarpaulin</td><td class="p-1.5 text-center">2</td><td class="p-1.5 text-right">₱350</td><td class="p-1.5 text-right">₱700</td></tr>
+        <tr class="border-b" style="border-color:#f1f5f9;"><td class="p-1.5">Snacks</td><td class="p-1.5 text-center">50</td><td class="p-1.5 text-right">₱25</td><td class="p-1.5 text-right">₱1,250</td></tr>
+        <tr style="font-weight:600;"><td class="p-1.5" colspan="3">Grand Total</td><td class="p-1.5 text-right" style="color:var(--accent);">₱1,950</td></tr>
+      </table>
+    </div>`
+  },
+  {
+    name: 'Slack', icon: 'message-circle', cat: 'Communication',
+    desc: 'Slack organizes team communication into channels. Instead of messy group chats, each project or topic gets its own channel with searchable history.',
+    best: 'Teams that need organized, searchable communication. Replaces email chains and chaotic group chats.',
+    sim: `<div class="space-y-2">
+      <div class="p-2 rounded-lg" style="background:#fff;">
+        <p class="text-xs font-display font-600"># general</p>
+        <div class="ml-2 mt-1 space-y-1">
+          <p class="text-xs"><strong>Ana:</strong> Meeting moved to 3pm! 🕐</p>
+          <p class="text-xs"><strong>Mark:</strong> Got it, thanks! 👍</p>
+        </div>
+      </div>
+      <div class="p-2 rounded-lg" style="background:#fff;">
+        <p class="text-xs font-display font-600"># event-planning</p>
+        <div class="ml-2 mt-1">
+          <p class="text-xs"><strong>Jess:</strong> Uploaded poster draft → 📎 poster_v3.png</p>
+        </div>
+      </div>
+    </div>`
+  },
+  {
+    name: 'MySQL', icon: 'database', cat: 'Database System',
+    desc: 'MySQL is a relational database that stores data in tables. Used by websites and apps to manage user accounts, transactions, and content behind the scenes.',
+    best: 'Developers building web apps, e-commerce sites, or any system that needs structured, queryable data.',
+    sim: `<div class="p-2 rounded-lg font-mono text-xs" style="background:#1e293b;color:#a5f3fc;">
+      <p style="color:#94a3b8;">-- Student Records</p>
+      <p><span style="color:#c084fc;">SELECT</span> name, course, gpa</p>
+      <p><span style="color:#c084fc;">FROM</span> students</p>
+      <p><span style="color:#c084fc;">WHERE</span> gpa > 3.5</p>
+      <p><span style="color:#c084fc;">ORDER BY</span> gpa <span style="color:#c084fc;">DESC</span>;</p>
+      <p class="mt-2" style="color:#4ade80;">→ 23 rows returned</p>
+    </div>`
+  }
+];
+
+function renderDemoTools() {
+  const c = document.getElementById('demoToolList');
+  c.innerHTML = demoTools.map((t, i) => `
+    <button onclick="openDemo(${i})" class="tool-card rounded-xl p-4 border text-left hover:shadow-md transition" style="background:var(--surface);border-color:#e2e8f0;">
+      <i data-lucide="${t.icon}" style="width:24px;height:24px;color:var(--accent);"></i>
+      <p class="font-display font-700 text-sm mt-2">${t.name}</p>
+      <p class="font-body text-xs opacity-60 mt-1">${t.cat}</p>
+    </button>
+  `).join('');
+  lucide.createIcons();
+}
+
+function openDemo(i) {
+  const t = demoTools[i];
+  document.getElementById('demoPanelTitle').textContent = t.name;
+  document.getElementById('demoPanelDesc').textContent = t.desc;
+  document.getElementById('demoPanelSim').innerHTML = t.sim;
+  document.getElementById('demoPanelBest').textContent = t.best;
+  document.getElementById('demoPanel').style.display = 'block';
+  document.getElementById('demoPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeDemoPanel() { document.getElementById('demoPanel').style.display = 'none'; }
+
+// ===== WORKSHEET =====
+let worksheetRows = [
+  { tool: '', cat: '', feat: '', cloud: '', free: '', use: '' },
+  { tool: '', cat: '', feat: '', cloud: '', free: '', use: '' },
+  { tool: '', cat: '', feat: '', cloud: '', free: '', use: '' }
+];
+
+function renderWorksheet() {
+  const b = document.getElementById('worksheetBody');
+  b.innerHTML = worksheetRows.map((r, i) => `
+    <tr class="border-b" style="border-color:#f1f5f9;">
+      <td class="p-2"><input type="text" class="worksheet-input" value="${r.tool}" onchange="worksheetRows[${i}].tool=this.value" placeholder="e.g., Trello"></td>
+      <td class="p-2"><input type="text" class="worksheet-input" value="${r.cat}" onchange="worksheetRows[${i}].cat=this.value" placeholder="e.g., PM"></td>
+      <td class="p-2"><input type="text" class="worksheet-input" value="${r.feat}" onchange="worksheetRows[${i}].feat=this.value" placeholder="e.g., Kanban boards"></td>
+      <td class="p-2"><input type="text" class="worksheet-input" value="${r.cloud}" onchange="worksheetRows[${i}].cloud=this.value" placeholder="Yes/No"></td>
+      <td class="p-2"><input type="text" class="worksheet-input" value="${r.free}" onchange="worksheetRows[${i}].free=this.value" placeholder="Yes/No"></td>
+      <td class="p-2"><input type="text" class="worksheet-input" value="${r.use}" onchange="worksheetRows[${i}].use=this.value" placeholder="e.g., Task tracking"></td>
+    </tr>
+  `).join('');
+}
+
+function addWorksheetRow() {
+  worksheetRows.push({ tool: '', cat: '', feat: '', cloud: '', free: '', use: '' });
+  renderWorksheet();
+}
+
+function clearWorksheet() {
+  worksheetRows = [{ tool: '', cat: '', feat: '', cloud: '', free: '', use: '' },{ tool: '', cat: '', feat: '', cloud: '', free: '', use: '' },{ tool: '', cat: '', feat: '', cloud: '', free: '', use: '' }];
+  renderWorksheet();
+}
+
+// ===== SCENARIO SELECTION =====
+function selectScenario(el, idx) {
+  document.querySelectorAll('.scenario-card').forEach(c => { c.style.borderColor = '#e2e8f0'; c.style.background = 'transparent'; });
+  el.style.borderColor = 'var(--secondary)';
+  el.style.background = 'rgba(124,58,237,0.06)';
+}
+
+// ===== QUIZ =====
+const quizData = [
+  { q: 'Which of the following is a cloud-based project management tool?', opts: ['Microsoft Word', 'Trello', 'Notepad', 'WinRAR'], ans: 1 },
+  { q: 'What does SaaS stand for?', opts: ['System as a Service', 'Software as a Service', 'Storage as a Service', 'Server as a Solution'], ans: 1 },
+  { q: 'Which is the BEST example of real-time collaboration?', opts: ['Emailing a file back and forth', 'Editing a Google Doc simultaneously with classmates', 'Saving a file to a USB drive', 'Printing a shared document'], ans: 1 },
+  { q: 'A hospital needs to store thousands of patient records with fast search. Which tool category fits best?', opts: ['Communication Tool', 'Cloud Storage', 'Database System', 'Spreadsheet'], ans: 2 },
+  { q: 'Which cloud benefit means you can increase storage without buying physical hardware?', opts: ['Collaboration', 'Scalability', 'Encryption', 'Offline Access'], ans: 1 }
+];
+
+let userAnswers = Array(quizData.length).fill(-1);
+let quizChecked = false;
+
+function renderQuiz() {
+  const c = document.getElementById('quizContainer');
+  c.innerHTML = quizData.map((q, qi) => `
+    <div class="rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;" id="quizQ${qi}">
+      <p class="font-display font-600 text-sm mb-3"><span style="color:var(--accent);">${qi + 1}.</span> ${q.q}</p>
+      <div class="space-y-2">
+        ${q.opts.map((o, oi) => `
+          <div class="quiz-option rounded-xl p-3 flex items-center gap-3 ${userAnswers[qi] === oi ? 'selected' : ''}" onclick="selectAnswer(${qi},${oi})" id="qopt-${qi}-${oi}">
+            <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0" style="border-color:${userAnswers[qi] === oi ? 'var(--accent)' : '#cbd5e1'};">
+              ${userAnswers[qi] === oi ? '<div class="w-3 h-3 rounded-full" style="background:var(--accent);"></div>' : ''}
+            </div>
+            <span class="font-body text-sm">${o}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div id="quizFeedback${qi}" class="mt-3" style="display:none;"></div>
+    </div>
+  `).join('');
+}
+
+function selectAnswer(qi, oi) {
+  if (quizChecked) return;
+  userAnswers[qi] = oi;
+  renderQuiz();
+}
+
+function checkQuizAnswers() {
+  quizChecked = true;
+  let score = 0;
+  quizData.forEach((q, qi) => {
+    const isCorrect = userAnswers[qi] === q.ans;
+    if (isCorrect) score++;
+    q.opts.forEach((_, oi) => {
+      const el = document.getElementById(`qopt-${qi}-${oi}`);
+      el.classList.remove('selected');
+      el.onclick = null;
+      if (oi === q.ans) el.classList.add('correct');
+      else if (oi === userAnswers[qi] && !isCorrect) el.classList.add('wrong');
+    });
+    const fb = document.getElementById(`quizFeedback${qi}`);
+    fb.style.display = 'block';
+    fb.innerHTML = isCorrect
+      ? `<p class="font-body text-sm" style="color:#16a34a;">✅ Correct!</p>`
+      : `<p class="font-body text-sm" style="color:#dc2626;">❌ The correct answer is: <strong>${q.opts[q.ans]}</strong></p>`;
+  });
+
+  // Update progress ring
+  const ring = document.getElementById('progressRing');
+  const circumference = 163.36;
+  const offset = circumference - (score / 5) * circumference;
+  ring.style.strokeDashoffset = offset;
+  ring.style.stroke = score >= 4 ? '#16a34a' : score >= 2 ? '#f59e0b' : '#dc2626';
+  document.getElementById('scoreText').textContent = `${score}/5`;
+}
+
+function resetQuiz() {
+  quizChecked = false;
+  userAnswers = Array(quizData.length).fill(-1);
+  renderQuiz();
+  document.getElementById('progressRing').style.strokeDashoffset = '163.36';
+  document.getElementById('progressRing').style.stroke = 'var(--accent)';
+  document.getElementById('scoreText').textContent = '0/5';
+}
+
+// ===== INIT =====
+renderDemoTools();
+renderWorksheet();
+renderQuiz();
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9eb878bd66a511d9',t:'MTc3NjA2MjM0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
