@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CC105 - Applied Information Management</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; margin: 0; }
+    * { font-family: 'DM Sans', sans-serif; }
+    .font-display { font-family: 'DM Serif Display', serif; }
+    .section-card { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .section-card:hover { transform: translateY(-2px); }
+    .tab-btn.active { border-bottom: 3px solid; font-weight: 700; }
+    .fade-in { animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .case-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .case-accordion-body.open { max-height: 2000px; }
+    .step-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+    .quiz-option { cursor: pointer; transition: all 0.2s ease; }
+    .quiz-option:hover { transform: scale(1.01); }
+    .quiz-option.correct { border-color: #16a34a !important; background: #f0fdf4 !important; }
+    .quiz-option.wrong { border-color: #dc2626 !important; background: #fef2f2 !important; }
+    .progress-bar { transition: width 0.6s ease; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #c4b5a0; border-radius: 3px; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto" style="background-color: #FAF7F2;">
+   <!-- Top Bar -->
+   <header class="sticky top-0 z-50 border-b" style="background-color: #FAF7F2; border-color: #e8e0d4;">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+     <div>
+      <p id="el-course" class="text-xs font-semibold tracking-widest uppercase" style="color: #8B6914;">CC105 - Information Management</p>
+      <p id="el-instructor" class="text-xs mt-0.5" style="color: #7a7060;">Prof. MKDB</p>
+     </div>
+     <div class="flex items-center gap-2">
+      <span id="el-week" class="text-xs font-semibold px-3 py-1 rounded-full" style="background-color: #8B6914; color: #FAF7F2;">Finals Week 4</span> <span id="progress-label" class="text-xs font-semibold" style="color: #8B6914;">0%</span>
+     </div>
+    </div>
+    <div class="h-1 w-full" style="background-color: #e8e0d4;">
+     <div id="progress-bar" class="h-full progress-bar" style="width: 0%; background-color: #8B6914;"></div>
+    </div>
+   </header><!-- Hero -->
+   <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 fade-in">
+    <p class="text-xs font-bold tracking-widest uppercase mb-2" style="color: #8B6914;">Topic</p>
+    <h1 id="el-topic" class="font-display text-3xl md:text-4xl leading-tight" style="color: #2C2416;">Project Development and<br>
+     Consultation</h1>
+    <p class="mt-3 text-base max-w-2xl" style="color: #7a7060;">Design a real information management solution from scratch. Work through scoping, requirements, prototyping, and stakeholder feedback.</p>
+    <div class="mt-4 flex flex-wrap gap-2">
+     <span class="text-xs font-semibold px-3 py-1 rounded-full" style="background: #2C2416; color: #FAF7F2;">ILO: Design IM Solutions</span> <span class="text-xs font-semibold px-3 py-1 rounded-full border" style="border-color: #8B6914; color: #8B6914;">Project Workshop</span> <span class="text-xs font-semibold px-3 py-1 rounded-full border" style="border-color: #8B6914; color: #8B6914;">Project Draft</span>
+    </div>
+   </section><!-- Navigation Tabs -->
+   <nav class="sticky top-[73px] z-40 border-b" style="background-color: #FAF7F2; border-color: #e8e0d4;">
+    <div class="max-w-5xl mx-auto px-4 flex gap-1 overflow-x-auto" id="tab-nav">
+     <button class="tab-btn active px-4 py-3 text-sm font-medium whitespace-nowrap" data-tab="lesson" style="color: #8B6914; border-color: #8B6914;"> <i data-lucide="book-open" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Lesson </button> <button class="tab-btn px-4 py-3 text-sm font-medium whitespace-nowrap" data-tab="guide" style="color: #7a7060;"> <i data-lucide="map" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Project Guide </button> <button class="tab-btn px-4 py-3 text-sm font-medium whitespace-nowrap" data-tab="individual" style="color: #7a7060;"> <i data-lucide="user" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Individual Workshop </button> <button class="tab-btn px-4 py-3 text-sm font-medium whitespace-nowrap" data-tab="group" style="color: #7a7060;"> <i data-lucide="users" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Group Project </button> <button class="tab-btn px-4 py-3 text-sm font-medium whitespace-nowrap" data-tab="checklist" style="color: #7a7060;"> <i data-lucide="clipboard-check" style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:4px;"></i>Submission </button>
+    </div>
+   </nav><!-- CONTENT PANELS -->
+   <div class="max-w-5xl mx-auto px-4 py-8">
+    <!-- ===== LESSON TAB ===== -->
+    <div id="panel-lesson" class="tab-panel fade-in">
+     <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">From Case Studies to Real Design</h2>
+     <p class="mb-6" style="color: #7a7060;">You've analyzed real problems. Now it's time to become an IM consultant and build solutions from the ground up.</p><!-- Key Phases -->
+     <div class="grid md:grid-cols-2 gap-4 mb-8">
+      <div class="section-card rounded-xl p-5 border" style="background:#fff; border-color:#e8e0d4;">
+       <div class="step-dot mb-3" style="background:#8B6914; color:#FAF7F2;">
+        1
+       </div>
+       <h3 class="font-bold mb-2" style="color:#2C2416;">Scoping &amp; Requirements</h3>
+       <p class="text-sm" style="color:#7a7060;">Define what problem you're solving, who the users are, and what success looks like.</p>
+      </div>
+      <div class="section-card rounded-xl p-5 border" style="background:#fff; border-color:#e8e0d4;">
+       <div class="step-dot mb-3" style="background:#8B6914; color:#FAF7F2;">
+        2
+       </div>
+       <h3 class="font-bold mb-2" style="color:#2C2416;">System Design</h3>
+       <p class="text-sm" style="color:#7a7060;">Map data flows, identify integration points, and design the architecture.</p>
+      </div>
+      <div class="section-card rounded-xl p-5 border" style="background:#fff; border-color:#e8e0d4;">
+       <div class="step-dot mb-3" style="background:#8B6914; color:#FAF7F2;">
+        3
+       </div>
+       <h3 class="font-bold mb-2" style="color:#2C2416;">Prototype &amp; Mockups</h3>
+       <p class="text-sm" style="color:#7a7060;">Create simple mockups showing how the system will work in practice.</p>
+      </div>
+      <div class="section-card rounded-xl p-5 border" style="background:#fff; border-color:#e8e0d4;">
+       <div class="step-dot mb-3" style="background:#8B6914; color:#FAF7F2;">
+        4
+       </div>
+       <h3 class="font-bold mb-2" style="color:#2C2416;">Stakeholder Feedback &amp; Iteration</h3>
+       <p class="text-sm" style="color:#7a7060;">Present to stakeholders, gather feedback, and refine your design.</p>
+      </div>
+     </div><!-- Consulting Skills -->
+     <div class="rounded-xl border p-6 mb-8" style="background:#fff; border-color:#e8e0d4;">
+      <h3 class="font-bold mb-3" style="color:#2C2416;">🎯 IM Consultant Skills You'll Practice</h3>
+      <div class="space-y-2 text-sm" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">Discovery:</strong> Ask the right questions to understand the real problem, not the symptom.</p>
+       <p><strong style="color:#2C2416;">Design Thinking:</strong> Iterate on solutions, always keeping the user in mind.</p>
+       <p><strong style="color:#2C2416;">Communication:</strong> Explain technical IM concepts to non-technical stakeholders.</p>
+       <p><strong style="color:#2C2416;">Pragmatism:</strong> Propose realistic solutions within budget, timeline, and technical constraints.</p>
+       <p><strong style="color:#2C2416;">Documentation:</strong> Create clear requirements, diagrams, and specifications.</p>
+      </div>
+     </div><!-- Scope Tips -->
+     <div class="p-5 rounded-xl" style="background: #2C2416;">
+      <p class="text-sm font-bold" style="color: #D4A843;">💡 Scoping Tips for Your Project</p>
+      <ul class="text-sm mt-2 space-y-1" style="color: #e8e0d4;">
+       <li>✓ <strong>Start small:</strong> A tight scope = better execution. Don't try to solve everything.</li>
+       <li>✓ <strong>Define success metrics:</strong> How will you know if your solution worked?</li>
+       <li>✓ <strong>Know your constraints:</strong> Budget, tech, time, organizational culture all matter.</li>
+       <li>✓ <strong>Involve stakeholders early:</strong> The best design is one that solves their actual problem.</li>
+      </ul>
+     </div>
+    </div><!-- ===== PROJECT GUIDE TAB ===== -->
+    <div id="panel-guide" class="tab-panel hidden fade-in">
+     <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">Project Deliverable Framework</h2>
+     <p class="mb-6" style="color: #7a7060;">Your final project will include these components. This tab explains what each one is and why it matters.</p><!-- Section 1 -->
+     <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-3">
+       <span style="font-size:20px;">📋</span>
+       <h3 class="font-bold" style="color:#2C2416;">1. Problem Statement &amp; Business Context</h3>
+      </div>
+      <div class="space-y-2 text-sm" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">What goes here:</strong></p>
+       <ul class="list-disc ml-5">
+        <li>What organization or scenario are you designing for?</li>
+        <li>What IM problem do they face? (1-2 paragraphs)</li>
+        <li>Why does it matter? (Impact on operations, revenue, customer satisfaction, safety?)</li>
+        <li>What constraints exist? (Budget, timeline, existing tech, skills)</li>
+       </ul>
+       <p class="mt-2" style="color:#7a7060;"><em>Example: "MediCare Clinic has 3 separate patient systems. Nurses waste 1 hour per day on manual data entry. This causes 15% of prescriptions to have errors, costing the clinic $50K/year in liability."</em></p>
+      </div>
+     </div><!-- Section 2 -->
+     <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-3">
+       <span style="font-size:20px;">👥</span>
+       <h3 class="font-bold" style="color:#2C2416;">2. Stakeholder Analysis</h3>
+      </div>
+      <div class="space-y-2 text-sm" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">What goes here:</strong></p>
+       <ul class="list-disc ml-5">
+        <li>Who are the key stakeholders? (Users, managers, IT team, executives, customers)</li>
+        <li>What does each group need from the system?</li>
+        <li>What are their pain points?</li>
+        <li>How will each group be affected by your solution?</li>
+       </ul>
+       <p class="mt-3 px-3 py-2 rounded-lg" style="background:#FFF8E7;"><strong style="color:#8B6914;">Format Suggestion:</strong> Create a simple table with columns: Stakeholder Group | Needs | Pain Points | Benefits from Solution</p>
+      </div>
+     </div><!-- Section 3 -->
+     <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-3">
+       <span style="font-size:20px;">⚙️</span>
+       <h3 class="font-bold" style="color:#2C2416;">3. Current State Analysis (As-Is)</h3>
+      </div>
+      <div class="space-y-2 text-sm" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">What goes here:</strong></p>
+       <ul class="list-disc ml-5">
+        <li>What systems or processes exist today?</li>
+        <li>Draw a data flow diagram showing how information currently moves</li>
+        <li>Identify bottlenecks, redundancies, security gaps, or manual workarounds</li>
+        <li>What works well? What doesn't?</li>
+       </ul>
+       <p class="mt-3 px-3 py-2 rounded-lg" style="background:#FFF8E7;"><strong style="color:#8B6914;">Visual Tip:</strong> Use simple boxes and arrows to show data flow. Label each system/process. Include decision points where data branches.</p>
+      </div>
+     </div><!-- Section 4 -->
+     <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-3">
+       <span style="font-size:20px;">🎯</span>
+       <h3 class="font-bold" style="color:#2C2416;">4. Functional Requirements</h3>
+      </div>
+      <div class="space-y-2 text-sm" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">What goes here:</strong></p>
+       <p>A list of what the new system MUST do. Write each as a user story or requirement:</p>
+       <div class="mt-2 px-3 py-2 rounded-lg" style="background:#FFF8E7;">
+        <p style="color:#8B6914;"><strong>Example Format:</strong></p>
+        <p style="color:#8B6914;">• "The system SHALL display patient medical history from all departments in one unified view"</p>
+        <p style="color:#8B6914;">• "Users SHALL be able to search for records by patient ID, name, or insurance number"</p>
+        <p style="color:#8B6914;">• "The system SHALL auto-sync inventory updates every 15 minutes"</p>
+       </div>
+       <p class="mt-2">Aim for 8-12 clear requirements. Avoid vague language like "should be fast" or "user-friendly" — be specific!</p>
+      </div>
+     </div><!-- Section 5 -->
+     <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-3">
+       <span style="font-size:20px;">🏗️</span>
+       <h3 class="font-bold" style="color:#2C2416;">5. Proposed System Design (To-Be)</h3>
+      </div>
+      <div class="space-y-2 text-sm" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">What goes here:</strong></p>
+       <ul class="list-disc ml-5">
+        <li>Draw a data flow diagram of your proposed solution</li>
+        <li>Show all systems, databases, and integrations</li>
+        <li>Identify what's new, what's reused, what's retired</li>
+        <li>Describe the technology stack (database, tools, platforms)</li>
+        <li>Explain why this design solves the original problem</li>
+       </ul>
+       <p class="mt-3 px-3 py-2 rounded-lg" style="background:#FFF8E7;"><strong style="color:#8B6914;">Key Diagrams:</strong> Data Flow Diagram (DFD) or System Context Diagram. Keep it simple — boxes for systems, labeled arrows for data movement.</p>
+      </div>
+     </div><!-- Section 6 -->
+     <div class="rounded-xl border p-6" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-3">
+       <span style="font-size:20px;">📅</span>
+       <h3 class="font-bold" style="color:#2C2416;">6. Implementation Plan &amp; Success Metrics</h3>
+      </div>
+      <div class="space-y-2 text-sm" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">What goes here:</strong></p>
+       <ul class="list-disc ml-5">
+        <li><strong>Timeline:</strong> Break the project into 3-4 phases with milestones</li>
+        <li><strong>Resources Needed:</strong> Budget estimate, team size, expertise required</li>
+        <li><strong>Risks &amp; Mitigation:</strong> What could go wrong? How will you prevent it?</li>
+        <li><strong>Success Metrics:</strong> How will you measure if the project worked?</li>
+       </ul>
+       <p class="mt-3 px-3 py-2 rounded-lg" style="background:#FFF8E7;"><strong style="color:#8B6914;">Success Metrics Example:</strong> Reduce data entry time by 50% | Decrease prescription errors to 0% | Achieve 99.5% system uptime</p>
+      </div>
+     </div>
+    </div><!-- ===== INDIVIDUAL WORKSHOP TAB ===== -->
+    <div id="panel-individual" class="tab-panel hidden fade-in">
+     <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">Individual Workshop</h2>
+     <p class="mb-6" style="color: #7a7060;">Complete this on your own first. You'll bring these ideas to your group.</p>
+     <div class="rounded-xl border p-6 mb-6" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-4">
+       <span class="text-lg">🔧</span>
+       <h3 class="font-bold" style="color:#2C2416;">Activity: Pick Your Project Scenario</h3>
+      </div>
+      <div class="p-4 rounded-lg mb-4" style="background:#FFF8E7;">
+       <p class="text-sm font-semibold" style="color:#8B6914;">⏱ Time: 30 minutes &nbsp;|&nbsp; 📄 Output: 1-page project proposal</p>
+      </div>
+      <div class="space-y-4 text-sm" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">Choose ONE of these project scenarios — or propose your own:</strong></p>
+       <div class="space-y-3 mt-3">
+        <div class="p-3 rounded-lg border" style="border-color:#e8e0d4; background:#FAF7F2;">
+         <p class="font-bold" style="color:#2C2416;">🏠 Option A: Local Real Estate Office</p>
+         <p class="text-xs mt-1">Agent Jane maintains property listings in a spreadsheet. Buyers inquire via email, text, and phone. There's no unified CRM. She's losing deals because she forgets to follow up. Design an IM solution.</p>
+        </div>
+        <div class="p-3 rounded-lg border" style="border-color:#e8e0d4; background:#FAF7F2;">
+         <p class="font-bold" style="color:#2C2416;">🏥 Option B: Small Medical Clinic</p>
+         <p class="text-xs mt-1">Doctors use paper charts. Nurses manually copy prescriptions into the pharmacy system. Patient histories are scattered across different folders. Design a system to centralize patient data.</p>
+        </div>
+        <div class="p-3 rounded-lg border" style="border-color:#e8e0d4; background:#FAF7F2;">
+         <p class="font-bold" style="color:#2C2416;">🏪 Option C: Online Boutique Store</p>
+         <p class="text-xs mt-1">The store sells on 3 platforms (Shopify, Amazon, their website). Inventory is out of sync — customers order items that are already sold. Design a multi-channel inventory management system.</p>
+        </div>
+        <div class="p-3 rounded-lg border" style="border-color:#e8e0d4; background:#FAF7F2;">
+         <p class="font-bold" style="color:#2C2416;">🎓 Option D: Training Academy</p>
+         <p class="text-xs mt-1">The academy offers 20 courses across 3 locations. Student records, attendance, grades, and certifications are spread across multiple systems. Instructors complain about duplicate data entry. Design a unified student information system.</p>
+        </div>
+        <div class="p-3 rounded-lg border" style="border-color:#e8e0d4; background:#FAF7F2;">
+         <p class="font-bold" style="color:#2C2416;">💡 Option E: Your Own Idea</p>
+         <p class="text-xs mt-1">Think of an organization you know (family business, campus club, local nonprofit). What's their IM problem? Describe it and propose a solution.</p>
+        </div>
+       </div>
+      </div><!-- Proposal Template -->
+      <div class="mt-6 p-4 rounded-lg" style="background:#FFF8E7;">
+       <p class="font-bold mb-3" style="color:#8B6914;">📝 Your 1-Page Proposal Should Cover:</p>
+       <div class="text-sm space-y-2" style="color:#7a7060;">
+        <div class="flex gap-2"><span style="color:#8B6914; font-weight:bold;">1.</span> <span><strong style="color:#2C2416;">Organization &amp; Current Problem (3-4 sentences)</strong><br>
+          What organization? What's broken?</span>
+        </div>
+        <div class="flex gap-2"><span style="color:#8B6914; font-weight:bold;">2.</span> <span><strong style="color:#2C2416;">Key Stakeholders (3-4 bullet points)</strong><br>
+          Who's affected? What do they need?</span>
+        </div>
+        <div class="flex gap-2"><span style="color:#8B6914; font-weight:bold;">3.</span> <span><strong style="color:#2C2416;">Your Solution Idea (4-5 sentences)</strong><br>
+          What IM systems or changes do you propose?</span>
+        </div>
+        <div class="flex gap-2"><span style="color:#8B6914; font-weight:bold;">4.</span> <span><strong style="color:#2C2416;">Success Metric (1-2 sentences)</strong><br>
+          How will you know it worked?</span>
+        </div>
+       </div>
+      </div>
+     </div><!-- Rubric -->
+     <div class="rounded-xl border p-6" style="background:#fff; border-color:#e8e0d4;">
+      <h3 class="font-bold mb-3" style="color:#2C2416;">📊 Grading Rubric</h3>
+      <div class="overflow-x-auto">
+       <table class="w-full text-sm" style="color:#5a5040;">
+        <thead>
+         <tr style="border-bottom: 2px solid #e8e0d4;">
+          <th class="text-left py-2 pr-4 font-bold" style="color:#2C2416;">Criteria</th>
+          <th class="text-center py-2 px-2 font-bold" style="color:#2C2416;">Excellent (5)</th>
+          <th class="text-center py-2 px-2 font-bold" style="color:#2C2416;">Good (3-4)</th>
+          <th class="text-center py-2 px-2 font-bold" style="color:#2C2416;">Needs Work (1-2)</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr style="border-bottom: 1px solid #e8e0d4;">
+          <td class="py-2 pr-4 font-medium">Problem Clarity</td>
+          <td class="py-2 px-2 text-center text-xs">Very clear, specific</td>
+          <td class="py-2 px-2 text-center text-xs">Somewhat vague</td>
+          <td class="py-2 px-2 text-center text-xs">Unclear</td>
+         </tr>
+         <tr style="border-bottom: 1px solid #e8e0d4;">
+          <td class="py-2 pr-4 font-medium">Solution Feasibility</td>
+          <td class="py-2 px-2 text-center text-xs">Realistic &amp; actionable</td>
+          <td class="py-2 px-2 text-center text-xs">Possible but vague</td>
+          <td class="py-2 px-2 text-center text-xs">Unrealistic</td>
+         </tr>
+         <tr>
+          <td class="py-2 pr-4 font-medium">IM Concepts Applied</td>
+          <td class="py-2 px-2 text-center text-xs">Multiple concepts cited</td>
+          <td class="py-2 px-2 text-center text-xs">1-2 concepts</td>
+          <td class="py-2 px-2 text-center text-xs">None</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </div><!-- ===== GROUP PROJECT TAB ===== -->
+    <div id="panel-group" class="tab-panel hidden fade-in">
+     <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">Group Project Work</h2>
+     <p class="mb-6" style="color: #7a7060;">Groups of 4-5 develop a comprehensive IM solution together.</p><!-- Phase 1 -->
+     <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-4">
+       <div class="step-dot" style="background:#8B6914; color:#FAF7F2;">
+        A
+       </div>
+       <h3 class="font-bold" style="color:#2C2416;">Phase 1: Kickoff &amp; Role Assignment (20 minutes)</h3>
+      </div>
+      <div class="space-y-3 text-sm" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">Step 1:</strong> Form groups of 4-5. Share your individual proposals (2 min each).</p>
+       <p><strong style="color:#2C2416;">Step 2:</strong> Vote or discuss to select ONE scenario as your group project.</p>
+       <p><strong style="color:#2C2416;">Step 3:</strong> Assign roles within the group:</p>
+       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 my-3">
+        <div class="p-3 rounded-lg text-center border" style="border-color:#e8e0d4;">
+         <p class="text-lg">🔍</p>
+         <p class="text-xs font-bold" style="color:#2C2416;">Requirements Lead</p>
+         <p class="text-xs" style="color:#7a7060;">Defines what the system must do</p>
+        </div>
+        <div class="p-3 rounded-lg text-center border" style="border-color:#e8e0d4;">
+         <p class="text-lg">🏗️</p>
+         <p class="text-xs font-bold" style="color:#2C2416;">Systems Architect</p>
+         <p class="text-xs" style="color:#7a7060;">Designs data flows &amp; integration</p>
+        </div>
+        <div class="p-3 rounded-lg text-center border" style="border-color:#e8e0d4;">
+         <p class="text-lg">👥</p>
+         <p class="text-xs font-bold" style="color:#2C2416;">Stakeholder Lead</p>
+         <p class="text-xs" style="color:#7a7060;">Maps users and their needs</p>
+        </div>
+        <div class="p-3 rounded-lg text-center border" style="border-color:#e8e0d4;">
+         <p class="text-lg">📊</p>
+         <p class="text-xs font-bold" style="color:#2C2416;">Project Manager</p>
+         <p class="text-xs" style="color:#7a7060;">Compiles &amp; coordinates deliverables</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Phase 2 -->
+     <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-4">
+       <div class="step-dot" style="background:#8B6914; color:#FAF7F2;">
+        B
+       </div>
+       <h3 class="font-bold" style="color:#2C2416;">Phase 2: Develop Deliverables (2-3 hours)</h3>
+      </div>
+      <div class="text-sm space-y-3" style="color:#5a5040;">
+       <p><strong style="color:#2C2416;">Each role owner develops their section using the Project Guide:</strong></p>
+       <div class="space-y-2 mt-3">
+        <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;"><span style="color:#8B6914;">①</span> <span><strong style="color:#2C2416;">Requirements Lead:</strong> Problem statement + Functional requirements (sections 1 &amp; 4)</span>
+        </div>
+        <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;"><span style="color:#8B6914;">②</span> <span><strong style="color:#2C2416;">Systems Architect:</strong> Current state + Proposed design (sections 3 &amp; 5)</span>
+        </div>
+        <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;"><span style="color:#8B6914;">③</span> <span><strong style="color:#2C2416;">Stakeholder Lead:</strong> Stakeholder analysis (section 2)</span>
+        </div>
+        <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;"><span style="color:#8B6914;">④</span> <span><strong style="color:#2C2416;">Project Manager:</strong> Implementation plan &amp; success metrics (section 6)</span>
+        </div>
+       </div>
+       <p class="mt-3" style="color:#7a7060;"><em>Collaborate! Share ideas across roles. The best designs happen when everyone contributes.</em></p>
+      </div>
+     </div><!-- Phase 3 -->
+     <div class="rounded-xl border p-6" style="background:#fff; border-color:#e8e0d4;">
+      <div class="flex items-center gap-2 mb-4">
+       <div class="step-dot" style="background:#8B6914; color:#FAF7F2;">
+        C
+       </div>
+       <h3 class="font-bold" style="color:#2C2416;">Phase 3: Group Presentation (10-12 minutes)</h3>
+      </div>
+      <div class="text-sm space-y-3" style="color:#5a5040;">
+       <p>Each group presents their complete IM solution to the class. Suggested format:</p>
+       <div class="space-y-2 mt-3">
+        <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;"><span style="color:#8B6914;">❶</span> <span><strong style="color:#2C2416;">Problem Overview (2 min):</strong> Organization, current pain, stakes</span>
+        </div>
+        <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;"><span style="color:#8B6914;">❷</span> <span><strong style="color:#2C2416;">Stakeholders &amp; Requirements (2 min):</strong> Who's involved, what they need</span>
+        </div>
+        <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;"><span style="color:#8B6914;">❸</span> <span><strong style="color:#2C2416;">System Design (3 min):</strong> Show current vs. proposed architecture. Use diagrams!</span>
+        </div>
+        <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;"><span style="color:#8B6914;">❹</span> <span><strong style="color:#2C2416;">Implementation &amp; Success (2 min):</strong> Timeline, budget, how you'll know it worked</span>
+        </div>
+        <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;"><span style="color:#8B6914;">❺</span> <span><strong style="color:#2C2416;">Q&amp;A (1-2 min):</strong> Answer questions from peers and instructor</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- ===== SUBMISSION CHECKLIST TAB ===== -->
+    <div id="panel-checklist" class="tab-panel hidden fade-in">
+     <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">Submission Checklist</h2>
+     <p class="mb-6" style="color: #7a7060;">Before submitting, verify all components are included. Use this as your quality control.</p><!-- Deliverables -->
+     <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+      <h3 class="font-bold mb-4" style="color:#2C2416;">📦 Final Deliverables (Submit as ONE document)</h3>
+      <div class="space-y-2 text-sm" style="color:#5a5040;">
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">Problem Statement &amp; Business Context</strong><br>
+         1-2 pages. Include: organization, problem, impact, constraints</span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">Stakeholder Analysis</strong><br>
+         1 page. Table or detailed description of all stakeholder groups</span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">Current State Analysis (As-Is)</strong><br>
+         1 page + data flow diagram. What exists today?</span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">Functional Requirements</strong><br>
+         1 page. 8-12 clear, specific requirements (use user stories or requirement format)</span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">Proposed System Design (To-Be)</strong><br>
+         1 page + system architecture diagram. What's the solution?</span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">Implementation Plan &amp; Success Metrics</strong><br>
+         1 page. Timeline (3-4 phases), resources, risks, metrics</span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">Group Presentation Slides</strong><br>
+         10-15 slides. Professional, clear, visually organized</span>
+       </div>
+      </div>
+     </div><!-- Quality Checks -->
+     <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+      <h3 class="font-bold mb-4" style="color:#2C2416;">✅ Quality Checks</h3>
+      <div class="space-y-2 text-sm" style="color:#5a5040;">
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">All diagrams are labeled and easy to understand</strong></span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">IM concepts from the course are cited and applied</strong></span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">Requirements are specific, measurable, and realistic</strong></span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">Solution respects constraints (budget, timeline, tech)</strong></span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">No spelling/grammar errors; document is professional</strong></span>
+       </div>
+       <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;"><input type="checkbox" class="mt-0.5" style="cursor:pointer;"> <span><strong style="color:#2C2416;">All group members contributed visibly to the work</strong></span>
+       </div>
+      </div>
+     </div><!-- Rubric -->
+     <div class="rounded-xl border p-6" style="background:#fff; border-color:#e8e0d4;">
+      <h3 class="font-bold mb-3" style="color:#2C2416;">📊 Group Project Grading Rubric (Total: 100 points)</h3>
+      <div class="overflow-x-auto">
+       <table class="w-full text-xs md:text-sm" style="color:#5a5040;">
+        <thead>
+         <tr style="border-bottom: 2px solid #e8e0d4;">
+          <th class="text-left py-2 pr-3 font-bold" style="color:#2C2416;">Criteria</th>
+          <th class="text-center py-2 px-2 font-bold" style="color:#2C2416;">Pts</th>
+          <th class="text-left py-2 px-2 font-bold" style="color:#2C2416;">Description</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr style="border-bottom: 1px solid #e8e0d4;">
+          <td class="py-2 pr-3 font-medium">Problem Definition</td>
+          <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">12</td>
+          <td class="py-2 px-2">Clear context, specific IM problem identified, impact articulated</td>
+         </tr>
+         <tr style="border-bottom: 1px solid #e8e0d4;">
+          <td class="py-2 pr-3 font-medium">Stakeholder Analysis</td>
+          <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">12</td>
+          <td class="py-2 px-2">All key groups identified, needs &amp; pain points clear</td>
+         </tr>
+         <tr style="border-bottom: 1px solid #e8e0d4;">
+          <td class="py-2 pr-3 font-medium">Requirements Quality</td>
+          <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">15</td>
+          <td class="py-2 px-2">Specific, measurable, realistic; 8-12 functional requirements</td>
+         </tr>
+         <tr style="border-bottom: 1px solid #e8e0d4;">
+          <td class="py-2 pr-3 font-medium">System Design</td>
+          <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">18</td>
+          <td class="py-2 px-2">Current + proposed architecture clear; diagrams effective; solution solves problem</td>
+         </tr>
+         <tr style="border-bottom: 1px solid #e8e0d4;">
+          <td class="py-2 pr-3 font-medium">IM Concepts Applied</td>
+          <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">15</td>
+          <td class="py-2 px-2">Correct use of course theories; data governance, integration, security discussed</td>
+         </tr>
+         <tr style="border-bottom: 1px solid #e8e0d4;">
+          <td class="py-2 pr-3 font-medium">Implementation Feasibility</td>
+          <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">12</td>
+          <td class="py-2 px-2">Realistic timeline, budget, resources; risks identified</td>
+         </tr>
+         <tr style="border-bottom: 1px solid #e8e0d4;">
+          <td class="py-2 pr-3 font-medium">Presentation Delivery</td>
+          <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">10</td>
+          <td class="py-2 px-2">Clear, organized, within time; all members participate; professional</td>
+         </tr>
+         <tr>
+          <td class="py-2 pr-3 font-medium">Teamwork &amp; Collaboration</td>
+          <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">6</td>
+          <td class="py-2 px-2">Evidence of equal contribution; document reflects joint effort</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </div>
+   </div>
+   <p class="mb-6" style="color: #7a7060;">It's about taking IM theories and seeing how they play out in real organizations — the wins, the failures, and the lessons.</p><!-- Key Concepts -->
+   <div class="grid md:grid-cols-3 gap-4 mb-8">
+    <div class="section-card rounded-xl p-5 border" style="background:#fff; border-color:#e8e0d4;">
+     <div class="step-dot mb-3" style="background:#8B6914; color:#FAF7F2;">
+      1
+     </div>
+     <h3 class="font-bold mb-1" style="color:#2C2416;">Data → Information → Knowledge</h3>
+     <p class="text-sm" style="color:#7a7060;">Raw data becomes useful information when organized. Information becomes knowledge when people apply it to decisions.</p>
+     <p class="text-xs mt-3 font-semibold px-2 py-1 rounded inline-block" style="background:#FFF8E7; color:#8B6914;">Example: Sales numbers → Monthly trend report → Decision to restock</p>
+    </div>
+    <div class="section-card rounded-xl p-5 border" style="background:#fff; border-color:#e8e0d4;">
+     <div class="step-dot mb-3" style="background:#8B6914; color:#FAF7F2;">
+      2
+     </div>
+     <h3 class="font-bold mb-1" style="color:#2C2416;">Information Systems (IS)</h3>
+     <p class="text-sm" style="color:#7a7060;">The combination of people, processes, and technology used to collect, store, process, and distribute information.</p>
+     <p class="text-xs mt-3 font-semibold px-2 py-1 rounded inline-block" style="background:#FFF8E7; color:#8B6914;">Example: A university's enrollment system</p>
+    </div>
+    <div class="section-card rounded-xl p-5 border" style="background:#fff; border-color:#e8e0d4;">
+     <div class="step-dot mb-3" style="background:#8B6914; color:#FAF7F2;">
+      3
+     </div>
+     <h3 class="font-bold mb-1" style="color:#2C2416;">Why Case Studies?</h3>
+     <p class="text-sm" style="color:#7a7060;">Textbook theory is not enough. Real cases show how companies succeed or fail based on how they manage information.</p>
+     <p class="text-xs mt-3 font-semibold px-2 py-1 rounded inline-block" style="background:#FFF8E7; color:#8B6914;">You learn to think like a consultant, not just a student.</p>
+    </div>
+   </div><!-- Framework -->
+   <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">Case Study Analysis Framework</h2>
+   <p class="mb-4 text-sm" style="color:#7a7060;">Use this 5-step process for any IM case you encounter:</p>
+   <div class="space-y-3 mb-8">
+    <div class="flex items-start gap-3 p-4 rounded-xl border" style="background:#fff; border-color:#e8e0d4;">
+     <div class="step-dot" style="background:#2C2416; color:#FAF7F2;">
+      1
+     </div>
+     <div>
+      <h4 class="font-bold text-sm" style="color:#2C2416;">Identify the Problem</h4>
+      <p class="text-sm" style="color:#7a7060;">What information management challenge does the organization face? Is it about data quality, security, access, integration, or governance?</p>
+     </div>
+    </div>
+    <div class="flex items-start gap-3 p-4 rounded-xl border" style="background:#fff; border-color:#e8e0d4;">
+     <div class="step-dot" style="background:#2C2416; color:#FAF7F2;">
+      2
+     </div>
+     <div>
+      <h4 class="font-bold text-sm" style="color:#2C2416;">Analyze Stakeholders</h4>
+      <p class="text-sm" style="color:#7a7060;">Who is affected? Employees, customers, management, IT teams? What are their needs and how do they interact with the information system?</p>
+     </div>
+    </div>
+    <div class="flex items-start gap-3 p-4 rounded-xl border" style="background:#fff; border-color:#e8e0d4;">
+     <div class="step-dot" style="background:#2C2416; color:#FAF7F2;">
+      3
+     </div>
+     <div>
+      <h4 class="font-bold text-sm" style="color:#2C2416;">Evaluate the System</h4>
+      <p class="text-sm" style="color:#7a7060;">What technology and processes are in place? What's working? What's broken? Map the information flow.</p>
+     </div>
+    </div>
+    <div class="flex items-start gap-3 p-4 rounded-xl border" style="background:#fff; border-color:#e8e0d4;">
+     <div class="step-dot" style="background:#2C2416; color:#FAF7F2;">
+      4
+     </div>
+     <div>
+      <h4 class="font-bold text-sm" style="color:#2C2416;">Propose Solutions</h4>
+      <p class="text-sm" style="color:#7a7060;">Recommend specific, actionable changes — new tools, better policies, restructured workflows, training programs.</p>
+     </div>
+    </div>
+    <div class="flex items-start gap-3 p-4 rounded-xl border" style="background:#fff; border-color:#e8e0d4;">
+     <div class="step-dot" style="background:#2C2416; color:#FAF7F2;">
+      5
+     </div>
+     <div>
+      <h4 class="font-bold text-sm" style="color:#2C2416;">Predict Outcomes</h4>
+      <p class="text-sm" style="color:#7a7060;">What happens if your solution is implemented? What are the risks? How would you measure success?</p>
+     </div>
+    </div>
+   </div>
+   <div class="p-5 rounded-xl" style="background: #2C2416;">
+    <p class="text-sm font-bold" style="color: #D4A843;">💡 Pro Tip</p>
+    <p class="text-sm mt-1" style="color: #e8e0d4;">Always connect your analysis back to IM concepts: data governance, information lifecycle, system integration, security, and decision support. Your instructor wants to see you apply the theory.</p>
+   </div>
+  </div><!-- ===== CASE STUDIES TAB ===== -->
+  <div id="panel-cases" class="tab-panel hidden fade-in">
+   <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">Real-World Case Studies</h2>
+   <p class="mb-6" style="color: #7a7060;">Click each case to expand. These are simplified versions of real scenarios — perfect for group analysis.</p>
+   <div class="space-y-4" id="case-container">
+    <!-- Case 1 -->
+    <div class="case-item rounded-xl border overflow-hidden" style="background:#fff; border-color:#e8e0d4;">
+     <button class="case-toggle w-full text-left p-5 flex items-center justify-between" onclick="toggleCase(0)">
+      <div class="flex items-center gap-3">
+       <span class="text-2xl">🏥</span>
+       <div>
+        <h3 class="font-bold" style="color:#2C2416;">Case 1: Metro City Hospital — Patient Record Crisis</h3>
+        <p class="text-xs" style="color:#8B6914;">Healthcare · Data Integration · Patient Safety</p>
+       </div>
+      </div><i data-lucide="chevron-down" style="width:20px;height:20px;color:#8B6914;" class="case-chevron transition-transform"></i> </button>
+     <div class="case-accordion-body">
+      <div class="px-5 pb-5 border-t" style="border-color:#e8e0d4;">
+       <div class="pt-4 space-y-3 text-sm" style="color:#5a5040;">
+        <p><strong style="color:#2C2416;">Background:</strong> Metro City Hospital serves 200,000+ patients yearly. They have 3 separate information systems: one for Emergency (installed 2010), one for Outpatient (installed 2015), and one for Lab Results (installed 2018). These systems don't communicate with each other.</p>
+        <p><strong style="color:#2C2416;">The Problem:</strong> A patient, Maria Santos, visited the ER with chest pain. The ER doctor prescribed a blood thinner. Two days later, she visited the outpatient clinic for a follow-up. The outpatient doctor — who couldn't see the ER records — prescribed another blood thinner, causing a dangerous overdose. Maria was rushed back to the ER.</p>
+        <p><strong style="color:#2C2416;">Additional Facts:</strong></p>
+        <ul class="list-disc ml-5 space-y-1">
+         <li>Nurses manually re-enter patient data across systems (takes ~15 min per patient)</li>
+         <li>23% of lab results are delayed because doctors can't access them from the outpatient system</li>
+         <li>The hospital's IT budget was cut by 30% this year</li>
+         <li>Staff have complained about "system fatigue" — too many logins and interfaces</li>
+        </ul>
+        <div class="mt-3 p-3 rounded-lg" style="background:#FFF8E7;">
+         <p class="text-xs font-bold" style="color:#8B6914;">🔍 Analysis Prompts:</p>
+         <ol class="list-decimal ml-4 mt-1 text-xs space-y-1" style="color:#7a7060;">
+          <li>What type of IM problem is this? (Hint: system integration, data silos)</li>
+          <li>Who are the stakeholders and what does each group need?</li>
+          <li>What are 2-3 realistic solutions given the budget constraint?</li>
+          <li>How would you measure if your solution worked?</li>
+         </ol>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Case 2 -->
+    <div class="case-item rounded-xl border overflow-hidden" style="background:#fff; border-color:#e8e0d4;">
+     <button class="case-toggle w-full text-left p-5 flex items-center justify-between" onclick="toggleCase(1)">
+      <div class="flex items-center gap-3">
+       <span class="text-2xl">🛒</span>
+       <div>
+        <h3 class="font-bold" style="color:#2C2416;">Case 2: FreshMart — E-Commerce Data Disaster</h3>
+        <p class="text-xs" style="color:#8B6914;">Retail · Data Quality · Customer Trust</p>
+       </div>
+      </div><i data-lucide="chevron-down" style="width:20px;height:20px;color:#8B6914;" class="case-chevron transition-transform"></i> </button>
+     <div class="case-accordion-body">
+      <div class="px-5 pb-5 border-t" style="border-color:#e8e0d4;">
+       <div class="pt-4 space-y-3 text-sm" style="color:#5a5040;">
+        <p><strong style="color:#2C2416;">Background:</strong> FreshMart is a mid-size grocery chain that launched online ordering during the pandemic. Orders grew from 50/day to 2,000/day in 6 months. Their system was originally designed for in-store inventory only.</p>
+        <p><strong style="color:#2C2416;">The Problem:</strong> Customers started receiving wrong items, expired products, or missing orders. Online reviews dropped from 4.5 to 2.1 stars. Investigation revealed: the inventory system updates only once every 24 hours, so the website shows items as "in stock" that were sold out hours ago. There's no system linking online orders to warehouse picking.</p>
+        <p><strong style="color:#2C2416;">Additional Facts:</strong></p>
+        <ul class="list-disc ml-5 space-y-1">
+         <li>35% of online orders have at least one substitution or missing item</li>
+         <li>Warehouse staff use printed paper lists to pick orders</li>
+         <li>Customer service receives 300+ complaint calls daily</li>
+         <li>Competitor "GreenBasket" has real-time inventory and same-day delivery</li>
+         <li>FreshMart's CEO wants to fix this in 90 days</li>
+        </ul>
+        <div class="mt-3 p-3 rounded-lg" style="background:#FFF8E7;">
+         <p class="text-xs font-bold" style="color:#8B6914;">🔍 Analysis Prompts:</p>
+         <ol class="list-decimal ml-4 mt-1 text-xs space-y-1" style="color:#7a7060;">
+          <li>Identify the root cause vs. symptoms of this problem</li>
+          <li>Map the information flow from customer order → delivery. Where does it break?</li>
+          <li>Propose a phased 90-day plan (what to fix first, second, third)</li>
+          <li>How does poor information management affect competitive advantage?</li>
+         </ol>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Case 3 -->
+    <div class="case-item rounded-xl border overflow-hidden" style="background:#fff; border-color:#e8e0d4;">
+     <button class="case-toggle w-full text-left p-5 flex items-center justify-between" onclick="toggleCase(2)">
+      <div class="flex items-center gap-3">
+       <span class="text-2xl">🏫</span>
+       <div>
+        <h3 class="font-bold" style="color:#2C2416;">Case 3: State University — Enrollment System Meltdown</h3>
+        <p class="text-xs" style="color:#8B6914;">Education · System Failure · Change Management</p>
+       </div>
+      </div><i data-lucide="chevron-down" style="width:20px;height:20px;color:#8B6914;" class="case-chevron transition-transform"></i> </button>
+     <div class="case-accordion-body">
+      <div class="px-5 pb-5 border-t" style="border-color:#e8e0d4;">
+       <div class="pt-4 space-y-3 text-sm" style="color:#5a5040;">
+        <p><strong style="color:#2C2416;">Background:</strong> State University (25,000 students) decided to replace their 15-year-old enrollment system with a modern cloud-based platform. The migration was scheduled over summer break — 8 weeks to move everything.</p>
+        <p><strong style="color:#2C2416;">The Problem:</strong> When classes started, the new system crashed on Day 1. Students couldn't enroll, see their schedules, or check grades from previous semesters. It turned out that 40% of student records had data errors after migration — wrong course codes, missing prerequisites, duplicate accounts.</p>
+        <p><strong style="color:#2C2416;">Additional Facts:</strong></p>
+        <ul class="list-disc ml-5 space-y-1">
+         <li>Faculty were given only a 2-hour training session on the new system</li>
+         <li>The old system stored data in a format incompatible with the new one</li>
+         <li>No parallel testing was done (old and new systems running simultaneously)</li>
+         <li>Students flooded social media with complaints — local news picked up the story</li>
+         <li>The registrar's office processed everything manually for 3 weeks</li>
+        </ul>
+        <div class="mt-3 p-3 rounded-lg" style="background:#FFF8E7;">
+         <p class="text-xs font-bold" style="color:#8B6914;">🔍 Analysis Prompts:</p>
+         <ol class="list-decimal ml-4 mt-1 text-xs space-y-1" style="color:#7a7060;">
+          <li>What went wrong in the planning and execution of this migration?</li>
+          <li>Identify at least 3 IM principles that were violated</li>
+          <li>If you were the CIO, what would you have done differently?</li>
+          <li>How does this case illustrate the importance of change management in IM?</li>
+         </ol>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- ===== INDIVIDUAL ACTIVITY TAB ===== -->
+  <div id="panel-individual" class="tab-panel hidden fade-in">
+   <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">Individual Activity</h2>
+   <p class="mb-6" style="color: #7a7060;">Complete this on your own. This builds your personal analytical skills before group work.</p>
+   <div class="rounded-xl border p-6 mb-6" style="background:#fff; border-color:#e8e0d4;">
+    <div class="flex items-center gap-2 mb-4">
+     <span class="text-lg">📝</span>
+     <h3 class="font-bold" style="color:#2C2416;">Activity: "IM Detective — Find It in Your Life"</h3>
+    </div>
+    <div class="p-4 rounded-lg mb-4" style="background:#FFF8E7;">
+     <p class="text-sm font-semibold" style="color:#8B6914;">⏱ Time: 20 minutes &nbsp;|&nbsp; 📄 Output: Written reflection (1 page)</p>
+    </div>
+    <div class="space-y-4 text-sm" style="color:#5a5040;">
+     <div>
+      <h4 class="font-bold mb-2" style="color:#2C2416;">Instructions:</h4>
+      <p>Think of an information management problem you've <em>personally experienced</em> — as a student, customer, employee, or user of any system. Then analyze it using the 5-step framework from the lesson.</p>
+     </div>
+     <div class="space-y-3">
+      <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;">
+       <div class="step-dot text-xs" style="background:#8B6914; color:#FAF7F2;">
+        1
+       </div>
+       <div><strong style="color:#2C2416;">Describe the situation</strong><br>
+         What happened? What system or process was involved? (3-4 sentences)
+       </div>
+      </div>
+      <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;">
+       <div class="step-dot text-xs" style="background:#8B6914; color:#FAF7F2;">
+        2
+       </div>
+       <div><strong style="color:#2C2416;">Identify the IM problem</strong><br>
+         Was it a data quality issue? Poor integration? Lack of access? Security failure? Name the specific IM concept.
+       </div>
+      </div>
+      <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;">
+       <div class="step-dot text-xs" style="background:#8B6914; color:#FAF7F2;">
+        3
+       </div>
+       <div><strong style="color:#2C2416;">Analyze the impact</strong><br>
+         Who was affected and how? What was the cost (time, money, trust, safety)?
+       </div>
+      </div>
+      <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;">
+       <div class="step-dot text-xs" style="background:#8B6914; color:#FAF7F2;">
+        4
+       </div>
+       <div><strong style="color:#2C2416;">Propose a fix</strong><br>
+         What specific change would solve this? Be realistic — consider budget and technology constraints.
+       </div>
+      </div>
+      <div class="flex items-start gap-3 p-3 rounded-lg" style="background:#FAF7F2;">
+       <div class="step-dot text-xs" style="background:#8B6914; color:#FAF7F2;">
+        5
+       </div>
+       <div><strong style="color:#2C2416;">Connect to course concepts</strong><br>
+         Which IM theories or principles from CC105 does this relate to? Name at least two.
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="mt-5 p-4 rounded-lg" style="background:#2C2416;">
+     <p class="text-sm font-bold" style="color:#D4A843;">💡 Examples to Get You Started:</p>
+     <ul class="text-sm mt-2 space-y-1" style="color:#e8e0d4;">
+      <li>• "My enrollment was delayed because the system showed a prerequisite I already passed"</li>
+      <li>• "I ordered food online and got someone else's order because of a glitch"</li>
+      <li>• "My bank froze my account because their fraud system flagged a normal purchase"</li>
+      <li>• "Our group project was ruined because we had 5 different versions of the same file"</li>
+     </ul>
+    </div>
+   </div><!-- Rubric -->
+   <div class="rounded-xl border p-6" style="background:#fff; border-color:#e8e0d4;">
+    <h3 class="font-bold mb-3" style="color:#2C2416;">📊 Grading Rubric</h3>
+    <div class="overflow-x-auto">
+     <table class="w-full text-sm" style="color:#5a5040;">
+      <thead>
+       <tr style="border-bottom: 2px solid #e8e0d4;">
+        <th class="text-left py-2 pr-4 font-bold" style="color:#2C2416;">Criteria</th>
+        <th class="text-center py-2 px-2 font-bold" style="color:#2C2416;">Excellent (5)</th>
+        <th class="text-center py-2 px-2 font-bold" style="color:#2C2416;">Good (3-4)</th>
+        <th class="text-center py-2 px-2 font-bold" style="color:#2C2416;">Needs Work (1-2)</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr style="border-bottom: 1px solid #e8e0d4;">
+        <td class="py-2 pr-4 font-medium">Problem Identification</td>
+        <td class="py-2 px-2 text-center text-xs">Clear, specific IM problem</td>
+        <td class="py-2 px-2 text-center text-xs">Somewhat vague</td>
+        <td class="py-2 px-2 text-center text-xs">No clear problem</td>
+       </tr>
+       <tr style="border-bottom: 1px solid #e8e0d4;">
+        <td class="py-2 pr-4 font-medium">Analysis Depth</td>
+        <td class="py-2 px-2 text-center text-xs">Thorough with evidence</td>
+        <td class="py-2 px-2 text-center text-xs">Basic analysis</td>
+        <td class="py-2 px-2 text-center text-xs">Surface-level only</td>
+       </tr>
+       <tr style="border-bottom: 1px solid #e8e0d4;">
+        <td class="py-2 pr-4 font-medium">Solution Quality</td>
+        <td class="py-2 px-2 text-center text-xs">Realistic &amp; actionable</td>
+        <td class="py-2 px-2 text-center text-xs">Possible but vague</td>
+        <td class="py-2 px-2 text-center text-xs">Unrealistic or missing</td>
+       </tr>
+       <tr>
+        <td class="py-2 pr-4 font-medium">Course Connection</td>
+        <td class="py-2 px-2 text-center text-xs">2+ concepts cited correctly</td>
+        <td class="py-2 px-2 text-center text-xs">1 concept cited</td>
+        <td class="py-2 px-2 text-center text-xs">No connection</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+  </div><!-- ===== GROUP ACTIVITY TAB ===== -->
+  <div id="panel-group" class="tab-panel hidden fade-in">
+   <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">Group Activity &amp; Presentation</h2>
+   <p class="mb-6" style="color: #7a7060;">Work in groups of 4-5. Each group selects ONE case study and prepares an analysis + presentation.</p><!-- Phase 1 -->
+   <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+    <div class="flex items-center gap-2 mb-4">
+     <div class="step-dot" style="background:#8B6914; color:#FAF7F2;">
+      A
+     </div>
+     <h3 class="font-bold" style="color:#2C2416;">Phase 1: Group Case Analysis (30 minutes)</h3>
+    </div>
+    <div class="space-y-3 text-sm" style="color:#5a5040;">
+     <p><strong style="color:#2C2416;">Step 1:</strong> Form groups of 4-5. Each group picks one case from the Case Studies tab (or the instructor assigns one).</p>
+     <p><strong style="color:#2C2416;">Step 2:</strong> Assign roles within the group:</p>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 my-3">
+      <div class="p-3 rounded-lg text-center" style="background:#FFF8E7;">
+       <p class="text-lg">🔍</p>
+       <p class="text-xs font-bold" style="color:#2C2416;">Analyst</p>
+       <p class="text-xs" style="color:#7a7060;">Identifies root cause &amp; maps info flow</p>
+      </div>
+      <div class="p-3 rounded-lg text-center" style="background:#FFF8E7;">
+       <p class="text-lg">👥</p>
+       <p class="text-xs font-bold" style="color:#2C2416;">Stakeholder Lead</p>
+       <p class="text-xs" style="color:#7a7060;">Maps all affected parties &amp; their needs</p>
+      </div>
+      <div class="p-3 rounded-lg text-center" style="background:#FFF8E7;">
+       <p class="text-lg">💡</p>
+       <p class="text-xs font-bold" style="color:#2C2416;">Solutions Architect</p>
+       <p class="text-xs" style="color:#7a7060;">Proposes realistic fixes &amp; timeline</p>
+      </div>
+      <div class="p-3 rounded-lg text-center" style="background:#FFF8E7;">
+       <p class="text-lg">📊</p>
+       <p class="text-xs font-bold" style="color:#2C2416;">Presenter</p>
+       <p class="text-xs" style="color:#7a7060;">Organizes &amp; delivers the final presentation</p>
+      </div>
+     </div>
+     <p><strong style="color:#2C2416;">Step 3:</strong> Use the 5-step analysis framework to build your group's case analysis. Document your findings.</p>
+    </div>
+   </div><!-- Phase 2 -->
+   <div class="rounded-xl border p-6 mb-5" style="background:#fff; border-color:#e8e0d4;">
+    <div class="flex items-center gap-2 mb-4">
+     <div class="step-dot" style="background:#8B6914; color:#FAF7F2;">
+      B
+     </div>
+     <h3 class="font-bold" style="color:#2C2416;">Phase 2: Group Presentation (8-10 minutes per group)</h3>
+    </div>
+    <div class="text-sm space-y-2" style="color:#5a5040;">
+     <p>Each group presents their case analysis to the class. Your presentation should cover:</p>
+     <div class="space-y-2 my-3">
+      <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;">
+       <span style="color:#8B6914;">❶</span> <span><strong style="color:#2C2416;">Case Overview</strong> — Brief summary of the situation (1-2 min)</span>
+      </div>
+      <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;">
+       <span style="color:#8B6914;">❷</span> <span><strong style="color:#2C2416;">Root Cause Analysis</strong> — What went wrong and why, using IM concepts (2-3 min)</span>
+      </div>
+      <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;">
+       <span style="color:#8B6914;">❸</span> <span><strong style="color:#2C2416;">Stakeholder Map</strong> — Who's affected and how (1-2 min)</span>
+      </div>
+      <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;">
+       <span style="color:#8B6914;">❹</span> <span><strong style="color:#2C2416;">Recommended Solution</strong> — Your group's proposed fix with timeline (2-3 min)</span>
+      </div>
+      <div class="flex items-start gap-2 p-3 rounded-lg" style="background:#FAF7F2;">
+       <span style="color:#8B6914;">❺</span> <span><strong style="color:#2C2416;">Q&amp;A</strong> — Answer questions from classmates and the instructor (2 min)</span>
+      </div>
+     </div>
+    </div>
+   </div><!-- Rubric -->
+   <div class="rounded-xl border p-6" style="background:#fff; border-color:#e8e0d4;">
+    <h3 class="font-bold mb-3" style="color:#2C2416;">📊 Group Presentation Rubric (Total: 100 points)</h3>
+    <div class="overflow-x-auto">
+     <table class="w-full text-sm" style="color:#5a5040;">
+      <thead>
+       <tr style="border-bottom: 2px solid #e8e0d4;">
+        <th class="text-left py-2 pr-4 font-bold" style="color:#2C2416;">Criteria</th>
+        <th class="text-center py-2 px-2 font-bold" style="color:#2C2416;">Points</th>
+        <th class="text-left py-2 px-2 font-bold" style="color:#2C2416;">Description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr style="border-bottom: 1px solid #e8e0d4;">
+        <td class="py-2 pr-4 font-medium">Problem Analysis</td>
+        <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">25</td>
+        <td class="py-2 px-2 text-xs">Clear identification of IM problem with root cause explained</td>
+       </tr>
+       <tr style="border-bottom: 1px solid #e8e0d4;">
+        <td class="py-2 pr-4 font-medium">Use of IM Concepts</td>
+        <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">25</td>
+        <td class="py-2 px-2 text-xs">Correctly applies course theories and terminology</td>
+       </tr>
+       <tr style="border-bottom: 1px solid #e8e0d4;">
+        <td class="py-2 pr-4 font-medium">Solution Quality</td>
+        <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">20</td>
+        <td class="py-2 px-2 text-xs">Realistic, specific, and actionable recommendations</td>
+       </tr>
+       <tr style="border-bottom: 1px solid #e8e0d4;">
+        <td class="py-2 pr-4 font-medium">Presentation Delivery</td>
+        <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">15</td>
+        <td class="py-2 px-2 text-xs">Clear, organized, confident, within time limit</td>
+       </tr>
+       <tr>
+        <td class="py-2 pr-4 font-medium">Teamwork &amp; Q&amp;A</td>
+        <td class="py-2 px-2 text-center font-bold" style="color:#8B6914;">15</td>
+        <td class="py-2 px-2 text-xs">All members contribute; handle questions well</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+  </div><!-- ===== SELF-CHECK QUIZ TAB ===== -->
+  <div id="panel-quiz" class="tab-panel hidden fade-in">
+   <h2 class="font-display text-2xl mb-1" style="color: #2C2416;">Self-Check Quiz</h2>
+   <p class="mb-6" style="color: #7a7060;">Test your understanding before the group activity. Click an answer to check.</p>
+   <div id="quiz-container" class="space-y-5"></div>
+   <div id="quiz-result" class="hidden mt-6 p-5 rounded-xl text-center" style="background:#2C2416;">
+    <p class="font-display text-xl" style="color:#D4A843;" id="quiz-score-text"></p>
+    <p class="text-sm mt-1" style="color:#e8e0d4;" id="quiz-feedback"></p><button onclick="resetQuiz()" class="mt-3 px-4 py-2 rounded-lg text-sm font-semibold" style="background:#8B6914; color:#FAF7F2;">Try Again</button>
+   </div>
+  </div><!-- Footer -->
+  <footer class="border-t py-6 mt-8" style="border-color:#e8e0d4;">
+   <div class="max-w-5xl mx-auto px-4 text-center">
+    <p class="text-xs" style="color:#7a7060;">CC105 - Information Management · Finals Week 3 · Prof. MKDB</p>
+   </div>
+  </footer>
+  <script>
+  // === CONFIG & SDK ===
+  const defaultConfig = {
+    course_title: 'CC105 - Information Management',
+    instructor_name: 'Prof. MKDB',
+    week_label: 'Finals Week 4',
+    topic_title: 'Project Development and Consultation',
+    background_color: '#FAF7F2',
+    surface_color: '#FFFFFF',
+    text_color: '#2C2416',
+    primary_action: '#8B6914',
+    secondary_action: '#7a7060',
+    font_family: 'DM Sans',
+    font_size: 16
+  };
+
+  function applyConfig(config) {
+    const c = { ...defaultConfig, ...config };
+    document.getElementById('el-course').textContent = c.course_title;
+    document.getElementById('el-instructor').textContent = c.instructor_name;
+    document.getElementById('el-week').textContent = c.week_label;
+    document.getElementById('el-topic').innerHTML = c.topic_title.replace('(', '<br>(');
+
+    // Colors
+    document.getElementById('app').style.backgroundColor = c.background_color;
+    document.querySelectorAll('header, nav').forEach(el => el.style.backgroundColor = c.background_color);
+    document.querySelectorAll('.section-card, .case-item, [style*="background:#fff"]').forEach(el => {
+      if (el.style.background === '#fff' || el.style.backgroundColor === '#fff' || el.classList.contains('section-card') || el.classList.contains('case-item')) {
+        el.style.backgroundColor = c.surface_color;
+      }
+    });
+
+    // Font
+    const font = c.font_family || defaultConfig.font_family;
+    document.getElementById('app').style.fontFamily = `${font}, DM Sans, sans-serif`;
+    document.querySelectorAll('.font-display').forEach(el => {
+      el.style.fontFamily = `DM Serif Display, ${font}, serif`;
+    });
+
+    const base = c.font_size || defaultConfig.font_size;
+    document.getElementById('app').style.fontSize = base + 'px';
+  }
+
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => applyConfig(config),
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.primary_action || defaultConfig.primary_action, set: v => { config.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
+        { get: () => config.secondary_action || defaultConfig.secondary_action, set: v => { config.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } }
+      ],
+      borderables: [],
+      fontEditable: {
+        get: () => config.font_family || defaultConfig.font_family,
+        set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+      },
+      fontSizeable: {
+        get: () => config.font_size || defaultConfig.font_size,
+        set: v => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+      }
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['course_title', config.course_title || defaultConfig.course_title],
+      ['instructor_name', config.instructor_name || defaultConfig.instructor_name],
+      ['week_label', config.week_label || defaultConfig.week_label],
+      ['topic_title', config.topic_title || defaultConfig.topic_title]
+    ])
+  });
+
+  // === TABS ===
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+  const tabNames = ['lesson', 'guide', 'individual', 'group', 'checklist'];
+  let visitedTabs = new Set(['lesson']);
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      visitedTabs.add(tab);
+      tabs.forEach(t => { t.classList.remove('active'); t.style.color = '#7a7060'; t.style.borderColor = 'transparent'; });
+      btn.classList.add('active'); btn.style.color = '#8B6914'; btn.style.borderColor = '#8B6914';
+      panels.forEach(p => p.classList.add('hidden'));
+      const panel = document.getElementById('panel-' + tab);
+      panel.classList.remove('hidden');
+      panel.classList.remove('fade-in');
+      void panel.offsetWidth;
+      panel.classList.add('fade-in');
+      updateProgress();
+    });
+  });
+
+  function updateProgress() {
+    const pct = Math.round((visitedTabs.size / tabNames.length) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = pct + '%';
+  }
+
+  // === CASE ACCORDIONS ===
+  function toggleCase(idx) {
+    const bodies = document.querySelectorAll('.case-accordion-body');
+    const chevrons = document.querySelectorAll('.case-chevron');
+    bodies.forEach((b, i) => {
+      if (i === idx) {
+        b.classList.toggle('open');
+        chevrons[i].style.transform = b.classList.contains('open') ? 'rotate(180deg)' : '';
+      } else {
+        b.classList.remove('open');
+        chevrons[i].style.transform = '';
+      }
+    });
+  }
+
+  // === QUIZ ===
+  const quizData = [
+    { q: 'A hospital has 3 separate patient systems that don\'t share data. This is an example of:', options: ['Data redundancy', 'Data silos', 'Data mining', 'Data warehousing'], answer: 1 },
+    { q: 'What is the FIRST step in the case study analysis framework?', options: ['Propose solutions', 'Identify the problem', 'Analyze stakeholders', 'Predict outcomes'], answer: 1 },
+    { q: 'FreshMart\'s inventory updates once per day but sells items hourly. This causes:', options: ['Data security breach', 'Real-time accuracy issues', 'Data redundancy', 'System integration success'], answer: 1 },
+    { q: 'State University migrated systems without parallel testing. This violates which IM principle?', options: ['Data minimization', 'Change management & risk mitigation', 'Data mining best practices', 'Social media policy'], answer: 1 },
+    { q: 'When raw data is organized and given context, it becomes:', options: ['A database', 'Information', 'Software', 'An algorithm'], answer: 1 }
+  ];
+
+  let quizAnswers = {};
+  function buildQuiz() {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = '';
+    quizAnswers = {};
+    document.getElementById('quiz-result').classList.add('hidden');
+    quizData.forEach((item, qi) => {
+      const div = document.createElement('div');
+      div.className = 'rounded-xl border p-5';
+      div.style.cssText = 'background:#fff;border-color:#e8e0d4;';
+      let optHtml = item.options.map((o, oi) =>
+        `<button class="quiz-option w-full text-left p-3 rounded-lg border text-sm" style="border-color:#e8e0d4;color:#5a5040;" data-q="${qi}" data-o="${oi}" onclick="selectAnswer(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`
+      ).join('');
+      div.innerHTML = `<p class="font-bold text-sm mb-3" style="color:#2C2416;">${qi+1}. ${item.q}</p><div class="space-y-2">${optHtml}</div>`;
+      container.appendChild(div);
+    });
+  }
+
+  function selectAnswer(qi, oi) {
+    if (quizAnswers[qi] !== undefined) return;
+    quizAnswers[qi] = oi;
+    const btns = document.querySelectorAll(`[data-q="${qi}"]`);
+    btns.forEach(b => {
+      const o = parseInt(b.dataset.o);
+      if (o === quizData[qi].answer) b.classList.add('correct');
+      else if (o === oi) b.classList.add('wrong');
+      b.style.pointerEvents = 'none';
+    });
+    if (Object.keys(quizAnswers).length === quizData.length) {
+      const correct = Object.entries(quizAnswers).filter(([k,v]) => v === quizData[k].answer).length;
+      document.getElementById('quiz-score-text').textContent = `${correct} / ${quizData.length} Correct!`;
+      document.getElementById('quiz-feedback').textContent = correct === quizData.length ? 'Perfect! You\'re ready for the group activity.' : correct >= 3 ? 'Good job! Review the ones you missed.' : 'Review the lesson tab and try again.';
+      document.getElementById('quiz-result').classList.remove('hidden');
+    }
+  }
+
+  function resetQuiz() { buildQuiz(); }
+  buildQuiz();
+
+  lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9eb8aafc54e811d9',t:'MTc3NjA2NDQwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
