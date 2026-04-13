@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CC105 - Business Intelligence and Decision Support</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Outfit', 'sans-serif'],
+            body: ['Source Serif 4', 'Georgia', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    .lesson-wrapper { height: 100%; overflow-y: auto; overflow-x: hidden; }
+    .tab-btn.active { background: var(--accent); color: #fff; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .tool-card { transition: all 0.3s ease; }
+    .compare-cell { transition: background 0.2s; }
+    .compare-cell:hover { background: rgba(37,99,235,0.06); }
+    .activity-check { accent-color: var(--accent); width: 18px; height: 18px; }
+    .fade-in { animation: fadeIn 0.5s ease forwards; opacity: 0; }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .section-divider { height: 3px; background: linear-gradient(90deg, var(--accent), var(--secondary), transparent); border-radius: 2px; }
+    :root {
+      --bg: #F0EDE6;
+      --surface: #FFFFFF;
+      --text: #1E293B;
+      --accent: #2563EB;
+      --secondary: #7C3AED;
+    }
+    .hero-pattern {
+      background-image: radial-gradient(circle at 20% 50%, rgba(37,99,235,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(124,58,237,0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 60% 80%, rgba(37,99,235,0.04) 0%, transparent 40%);
+    }
+    .worksheet-input {
+      border: none; border-bottom: 2px dashed #cbd5e1; background: transparent;
+      font-family: 'Source Serif 4', serif; font-size: 15px; padding: 4px 2px;
+      width: 100%; outline: none; transition: border-color 0.2s;
+    }
+    .worksheet-input:focus { border-bottom-color: var(--accent); }
+    .quiz-option { cursor: pointer; transition: all 0.2s; border: 2px solid #e2e8f0; }
+    .quiz-option:hover { border-color: var(--accent); background: rgba(37,99,235,0.04); }
+    .quiz-option.selected { border-color: var(--accent); background: rgba(37,99,235,0.08); }
+    .quiz-option.correct { border-color: #16a34a; background: rgba(22,163,74,0.1); }
+    .quiz-option.wrong { border-color: #dc2626; background: rgba(220,38,38,0.08); }
+    .progress-ring { transition: stroke-dashoffset 0.6s ease; }
+    .dashboard-demo { border-radius: 12px; overflow: hidden; border: 2px solid #e2e8f0; }
+    .chart-bar { display: inline-block; vertical-align: bottom; background: var(--accent); border-radius: 4px 4px 0 0; }
+    @media print {
+      .no-print { display: none !important; }
+      .lesson-wrapper { overflow: visible; height: auto; }
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full" style="background:var(--bg); color:var(--text);">
+  <div class="lesson-wrapper"><!-- HEADER -->
+   <header class="hero-pattern" style="background-color:var(--bg);">
+    <div class="max-w-4xl mx-auto px-5 pt-8 pb-6">
+     <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <span id="courseBadge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-display font-600 tracking-wide" style="background:var(--accent);color:#fff;"> <i data-lucide="book-open" style="width:14px;height:14px;"></i> CC105 - Information Management </span> <span id="weekBadge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-display font-500" style="background:var(--secondary);color:#fff;"> <i data-lucide="calendar" style="width:14px;height:14px;"></i> Finals Week 2 </span>
+     </div>
+     <h1 id="topicTitle" class="font-display font-800 text-3xl sm:text-4xl md:text-5xl leading-tight mb-3" style="color:var(--text);">Business Intelligence and Decision Support</h1>
+     <p id="instructorLine" class="font-body text-base opacity-70 flex items-center gap-2"><i data-lucide="user" style="width:16px;height:16px;"></i> Prof. MKDB</p>
+     <div class="section-divider mt-6"></div>
+    </div>
+   </header><!-- ILO BANNER -->
+   <section class="max-w-4xl mx-auto px-5 mb-8">
+    <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+     <h2 class="font-display font-700 text-sm uppercase tracking-widest mb-3" style="color:var(--accent);"><i data-lucide="target" style="width:16px;height:16px;display:inline;vertical-align:-3px;margin-right:6px;"></i> Intended Learning Outcomes</h2>
+     <ul class="space-y-2 font-body text-base">
+      <li class="flex items-start gap-2"><span style="color:var(--accent);">✦</span> Explain how information supports business decision-making and strategy</li>
+      <li class="flex items-start gap-2"><span style="color:var(--secondary);">✦</span> Interpret basic reports, dashboards, and KPIs to extract insights</li>
+      <li class="flex items-start gap-2"><span style="color:var(--accent);">✦</span> Apply BI tools to real-world business scenarios through case analysis</li>
+     </ul>
+    </div>
+   </section><!-- ===================== LESSON CONTENT ===================== --><!-- PART 1: What is BI? -->
+   <section class="mb-10 fade-in">
+    <h2 class="font-display font-700 text-2xl mb-4" style="color:var(--text);"><span style="color:var(--accent);">01</span> &nbsp;What is Business Intelligence?</h2>
+    <div class="rounded-2xl p-5 sm:p-6 border mb-5" style="background:var(--surface);border-color:#e2e8f0;">
+     <p class="font-body text-base leading-relaxed mb-4">Business Intelligence (BI) is the process of <strong>collecting, analyzing, and interpreting data to support business decision-making</strong>. It transforms raw facts into actionable insights that help organizations understand what's happening, why it's happening, and what to do next.</p>
+     <div class="rounded-xl p-4 mb-4" style="background:rgba(37,99,235,0.06);border-left:4px solid var(--accent);">
+      <p class="font-body text-sm leading-relaxed"><strong>🎓 Real-World Example:</strong> A college canteen manager notices Tuesday sales are slow. Without BI, they'd guess. With BI, they check data: Tuesday evening classes are fewer. Action: Offer 3-5pm happy hour discount. Result: Tuesday sales jump 40%, and now they know which promo works.</p>
+     </div>
+     <p class="font-body text-base leading-relaxed">BI helps leaders answer critical questions: "Why did revenue drop?" "Which customers are loyal?" "Should we expand?" "What's overstocked?" Without data, these decisions are just gambles.</p>
+    </div>
+   </section><!-- PART 2: The Data Journey -->
+   <section class="mb-10 fade-in" style="animation-delay:0.1s;">
+    <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">02</span> &nbsp;The Journey: Data → Information → Insight</h2>
+    <div class="grid sm:grid-cols-3 gap-4 mb-5">
+     <div class="rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;">
+      <div class="text-3xl mb-3">
+       📊
+      </div>
+      <h3 class="font-display font-700 text-lg mb-2">Data</h3>
+      <p class="font-body text-sm mb-3">Raw, unprocessed numbers and facts.</p>
+      <div class="rounded-xl p-2 text-xs font-mono" style="background:var(--bg);">
+       <p>Jan 15: ₱2,500</p>
+       <p>Jan 16: ₱1,800</p>
+       <p>Jan 17: ₱3,200</p>
+      </div>
+     </div>
+     <div class="rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;">
+      <div class="text-3xl mb-3">
+       📈
+      </div>
+      <h3 class="font-display font-700 text-lg mb-2">Information</h3>
+      <p class="font-body text-sm mb-3">Data organized and summarized.</p>
+      <div class="rounded-xl p-2 text-xs" style="background:var(--bg);">
+       <p><strong>Total:</strong> ₱7,500</p>
+       <p><strong>Avg:</strong> ₱2,500/day</p>
+       <p><strong>Best:</strong> Jan 17</p>
+      </div>
+     </div>
+     <div class="rounded-2xl p-5 border" style="background:var(--surface);border-color:#e2e8f0;">
+      <div class="text-3xl mb-3">
+       💡
+      </div>
+      <h3 class="font-display font-700 text-lg mb-2">Insight</h3>
+      <p class="font-body text-sm mb-3">Actionable understanding.</p>
+      <div class="rounded-xl p-2 text-xs" style="background:rgba(37,99,235,0.06);">
+       <p><strong>🎯 Action:</strong> Monday peak suggests weekend promotions work. Replicate Mondays?</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- PART 3: Key BI Terms -->
+   <section class="mb-10 fade-in" style="animation-delay:0.2s;">
+    <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">03</span> &nbsp;Key BI Concepts</h2>
+    <div class="space-y-3">
+     <div class="rounded-xl p-4 border-l-4 flex items-start gap-3" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--accent);">
+      <div class="text-2xl mt-1">
+       📌
+      </div>
+      <div>
+       <h3 class="font-display font-700 text-sm">KPI — Key Performance Indicator</h3>
+       <p class="font-body text-sm mt-1">A measurable value showing how well something performs.</p>
+       <p class="font-body text-xs mt-1 opacity-60">Examples: Revenue, customer satisfaction, website traffic, employee retention.</p>
+      </div>
+     </div>
+     <div class="rounded-xl p-4 border-l-4 flex items-start gap-3" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--secondary);">
+      <div class="text-2xl mt-1">
+       📊
+      </div>
+      <div>
+       <h3 class="font-display font-700 text-sm">Metric</h3>
+       <p class="font-body text-sm mt-1">A quantifiable measurement to track progress.</p>
+       <p class="font-body text-xs mt-1 opacity-60">Examples: Average order value, conversion rate, cart abandonment, bounce rate.</p>
+      </div>
+     </div>
+     <div class="rounded-xl p-4 border-l-4 flex items-start gap-3" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--accent);">
+      <div class="text-2xl mt-1">
+       📺
+      </div>
+      <div>
+       <h3 class="font-display font-700 text-sm">Dashboard</h3>
+       <p class="font-body text-sm mt-1">A visual display of metrics and KPIs, real-time updated.</p>
+       <p class="font-body text-xs mt-1 opacity-60">One-page view showing key data via charts, gauges, and alerts.</p>
+      </div>
+     </div>
+     <div class="rounded-xl p-4 border-l-4 flex items-start gap-3" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--secondary);">
+      <div class="text-2xl mt-1">
+       📄
+      </div>
+      <div>
+       <h3 class="font-display font-700 text-sm">Report</h3>
+       <p class="font-body text-sm mt-1">A detailed summary with historical trends and analysis.</p>
+       <p class="font-body text-xs mt-1 opacity-60">Deep-dive view showing comparisons, forecasts, and explanations.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- PART 4: Decision-Making Support -->
+   <section class="mb-10 fade-in" style="animation-delay:0.3s;">
+    <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">04</span> &nbsp;How BI Supports Decision-Making</h2>
+    <div class="rounded-2xl p-5 sm:p-6 border mb-5" style="background:var(--surface);border-color:#e2e8f0;">
+     <h3 class="font-display font-700 text-lg mb-4">The Decision Cycle</h3>
+     <div class="space-y-3">
+      <div class="flex gap-4 items-start">
+       <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:var(--accent);color:#fff;">
+        <span class="font-display font-700">1</span>
+       </div>
+       <div>
+        <h4 class="font-display font-700 text-sm">Question Emerges</h4>
+        <p class="font-body text-sm opacity-70">"Why are returns increasing? Should we hire? Expand?"</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:var(--secondary);color:#fff;">
+        <span class="font-display font-700">2</span>
+       </div>
+       <div>
+        <h4 class="font-display font-700 text-sm">Gather &amp; Analyze Data</h4>
+        <p class="font-body text-sm opacity-70">BI tools query databases, create reports, discover patterns.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:var(--accent);color:#fff;">
+        <span class="font-display font-700">3</span>
+       </div>
+       <div>
+        <h4 class="font-display font-700 text-sm">Visualize &amp; Interpret</h4>
+        <p class="font-body text-sm opacity-70">Dashboard shows data: "68% of returns are from Supplier X since 3 months ago."</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background:var(--secondary);color:#fff;">
+        <span class="font-display font-700">4</span>
+       </div>
+       <div>
+        <h4 class="font-display font-700 text-sm">Decision &amp; Action</h4>
+        <p class="font-body text-sm opacity-70">Switch supplier or audit quality. Expected: Returns ↓ 60%.</p>
+       </div>
+      </div>
+     </div>
+    </div>
+    <h3 class="font-display font-700 text-lg mb-3">Three Levels of Decisions</h3>
+    <div class="grid sm:grid-cols-3 gap-3">
+     <div class="rounded-xl p-4 border" style="background:var(--surface);border-color:#e2e8f0;"><span class="text-3xl mb-2 block">⚙️</span>
+      <h4 class="font-display font-700 text-sm">Operational</h4>
+      <p class="font-body text-xs mt-1">Daily decisions (hours-days)</p>
+      <p class="font-body text-xs mt-2 opacity-60">Low stock? Reorder now?</p>
+     </div>
+     <div class="rounded-xl p-4 border" style="background:var(--surface);border-color:#e2e8f0;"><span class="text-3xl mb-2 block">📈</span>
+      <h4 class="font-display font-700 text-sm">Tactical</h4>
+      <p class="font-body text-xs mt-1">Quarterly decisions (weeks-months)</p>
+      <p class="font-body text-xs mt-2 opacity-60">Run summer promo or skip?</p>
+     </div>
+     <div class="rounded-xl p-4 border" style="background:var(--surface);border-color:#e2e8f0;"><span class="text-3xl mb-2 block">🎯</span>
+      <h4 class="font-display font-700 text-sm">Strategic</h4>
+      <p class="font-body text-xs mt-1">Annual decisions (months-years)</p>
+      <p class="font-body text-xs mt-2 opacity-60">Expand to new country?</p>
+     </div>
+    </div>
+   </section><!-- PART 5: Sample Dashboards -->
+   <section class="mb-10 fade-in" style="animation-delay:0.4s;">
+    <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">05</span> &nbsp;Sample BI Dashboards in Action</h2>
+    <div class="space-y-5"><!-- Dashboard 1: Sales -->
+     <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+      <h3 class="font-display font-700 text-lg mb-4 flex items-center gap-2"><span style="color:var(--accent);">📊</span> Sales Performance Dashboard</h3>
+      <div class="grid sm:grid-cols-4 gap-3 mb-5">
+       <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+        <p class="font-body text-xs opacity-70">Total Revenue</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--accent);">₱2.48M</p>
+        <p class="font-body text-xs mt-1 text-green-600">↑ 12% vs last month</p>
+       </div>
+       <div class="rounded-lg p-4" style="background:rgba(124,58,237,0.06);">
+        <p class="font-body text-xs opacity-70">Conversion Rate</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--secondary);">3.2%</p>
+        <p class="font-body text-xs mt-1 text-green-600">↑ 0.8% vs last month</p>
+       </div>
+       <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+        <p class="font-body text-xs opacity-70">Avg Order Value</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--accent);">₱1,240</p>
+        <p class="font-body text-xs mt-1 text-orange-600">↓ 3% vs last month</p>
+       </div>
+       <div class="rounded-lg p-4" style="background:rgba(124,58,237,0.06);">
+        <p class="font-body text-xs opacity-70">Customer Retention</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--secondary);">68%</p>
+        <p class="font-body text-xs mt-1 text-green-600">↑ 5% vs last month</p>
+       </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+       <div class="rounded-lg p-4" style="background:var(--bg);">
+        <p class="font-display font-700 text-sm mb-3">Sales by Category</p>
+        <div class="space-y-2">
+         <div class="flex items-center gap-2">
+          <div class="chart-bar" style="width:75%;height:24px;background:var(--accent);"></div><span class="font-body text-xs opacity-70 w-20">Electronics 45%</span>
+         </div>
+         <div class="flex items-center gap-2">
+          <div class="chart-bar" style="width:55%;height:24px;background:var(--secondary);"></div><span class="font-body text-xs opacity-70 w-20">Fashion 33%</span>
+         </div>
+         <div class="flex items-center gap-2">
+          <div class="chart-bar" style="width:35%;height:24px;background:#10b981;"></div><span class="font-body text-xs opacity-70 w-20">Home 22%</span>
+         </div>
+        </div>
+       </div>
+       <div class="rounded-lg p-4" style="background:var(--bg);">
+        <p class="font-display font-700 text-sm mb-3">Daily Revenue Trend (Last 7 Days)</p>
+        <div class="flex items-end gap-1 h-24">
+         <div class="flex-1 rounded-t" style="height:60%;background:var(--accent);opacity:0.7;"></div>
+         <div class="flex-1 rounded-t" style="height:75%;background:var(--accent);"></div>
+         <div class="flex-1 rounded-t" style="height:55%;background:var(--accent);opacity:0.7;"></div>
+         <div class="flex-1 rounded-t" style="height:85%;background:var(--accent);"></div>
+         <div class="flex-1 rounded-t" style="height:70%;background:var(--accent);"></div>
+         <div class="flex-1 rounded-t" style="height:90%;background:var(--secondary);"></div>
+         <div class="flex-1 rounded-t" style="height:95%;background:var(--secondary);"></div>
+        </div>
+        <p class="font-body text-xs mt-2 opacity-60">Mon – Sun</p>
+       </div>
+      </div>
+     </div><!-- Dashboard 2: Customer Analytics -->
+     <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+      <h3 class="font-display font-700 text-lg mb-4 flex items-center gap-2"><span style="color:var(--secondary);">👥</span> Customer Analytics Dashboard</h3>
+      <div class="grid sm:grid-cols-4 gap-3 mb-5">
+       <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+        <p class="font-body text-xs opacity-70">Total Customers</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--accent);">14,820</p>
+        <p class="font-body text-xs mt-1 text-green-600">↑ 4.2% vs last month</p>
+       </div>
+       <div class="rounded-lg p-4" style="background:rgba(124,58,237,0.06);">
+        <p class="font-body text-xs opacity-70">New This Month</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--secondary);">582</p>
+        <p class="font-body text-xs mt-1 text-orange-600">↓ 8% vs last month</p>
+       </div>
+       <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+        <p class="font-body text-xs opacity-70">Repeat Purchase Rate</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--accent);">41%</p>
+        <p class="font-body text-xs mt-1 text-green-600">↑ 3% vs last month</p>
+       </div>
+       <div class="rounded-lg p-4" style="background:rgba(124,58,237,0.06);">
+        <p class="font-body text-xs opacity-70">Avg Lifetime Value</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--secondary);">₱5,840</p>
+        <p class="font-body text-xs mt-1 text-green-600">↑ 6% vs last month</p>
+       </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+       <div class="rounded-lg p-4" style="background:var(--bg);">
+        <p class="font-display font-700 text-sm mb-3">Customer Segments</p>
+        <div class="space-y-2">
+         <div class="flex justify-between items-center"><span class="font-body text-xs">Premium (High Value)</span> <span class="font-display font-600 text-sm" style="color:var(--accent);">1,248 (8%)</span>
+         </div>
+         <div class="w-full h-2 rounded" style="background:#e2e8f0;overflow:hidden;">
+          <div style="width:8%;height:100%;background:var(--accent);"></div>
+         </div>
+         <div class="flex justify-between items-center mt-3"><span class="font-body text-xs">Regular (Medium Value)</span> <span class="font-display font-600 text-sm" style="color:var(--secondary);">6,084 (41%)</span>
+         </div>
+         <div class="w-full h-2 rounded" style="background:#e2e8f0;overflow:hidden;">
+          <div style="width:41%;height:100%;background:var(--secondary);"></div>
+         </div>
+         <div class="flex justify-between items-center mt-3"><span class="font-body text-xs">Occasional (Low Value)</span> <span class="font-display font-600 text-sm" style="color:#10b981;">7,488 (51%)</span>
+         </div>
+         <div class="w-full h-2 rounded" style="background:#e2e8f0;overflow:hidden;">
+          <div style="width:51%;height:100%;background:#10b981;"></div>
+         </div>
+        </div>
+       </div>
+       <div class="rounded-lg p-4" style="background:var(--bg);">
+        <p class="font-display font-700 text-sm mb-3">Churn Risk Alert</p>
+        <div class="space-y-2">
+         <div class="rounded p-3" style="background:rgba(220,38,38,0.1);border-left:4px solid #dc2626;">
+          <p class="font-body text-xs font-600" style="color:#dc2626;">⚠️ High Risk</p>
+          <p class="font-body text-xs mt-1">842 customers inactive &gt;90 days</p>
+         </div>
+         <div class="rounded p-3" style="background:rgba(245,158,11,0.1);border-left:4px solid #f59e0b;">
+          <p class="font-body text-xs font-600" style="color:#f59e0b;">⚡ Medium Risk</p>
+          <p class="font-body text-xs mt-1">1,204 customers inactive 30-90 days</p>
+         </div>
+         <div class="rounded p-3" style="background:rgba(16,185,129,0.1);border-left:4px solid #10b981;">
+          <p class="font-body text-xs font-600" style="color:#10b981;">✓ Healthy</p>
+          <p class="font-body text-xs mt-1">12,774 customers active (86%)</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Dashboard 3: Operations -->
+     <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+      <h3 class="font-display font-700 text-lg mb-4 flex items-center gap-2"><span style="color:var(--accent);">⚙️</span> Operations Dashboard</h3>
+      <div class="grid sm:grid-cols-4 gap-3 mb-5">
+       <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+        <p class="font-body text-xs opacity-70">Avg Order Processing Time</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--accent);">4.2 hrs</p>
+        <p class="font-body text-xs mt-1 text-green-600">↓ 0.5hrs vs target</p>
+       </div>
+       <div class="rounded-lg p-4" style="background:rgba(124,58,237,0.06);">
+        <p class="font-body text-xs opacity-70">Order Fulfillment Rate</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--secondary);">97.8%</p>
+        <p class="font-body text-xs mt-1 text-green-600">✓ On target</p>
+       </div>
+       <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+        <p class="font-body text-xs opacity-70">Return Rate</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--accent);">2.1%</p>
+        <p class="font-body text-xs mt-1 text-orange-600">↑ 0.3% vs last month</p>
+       </div>
+       <div class="rounded-lg p-4" style="background:rgba(124,58,237,0.06);">
+        <p class="font-body text-xs opacity-70">Warehouse Stock Turnover</p>
+        <p class="font-display font-700 text-xl mt-1" style="color:var(--secondary);">6.4x/yr</p>
+        <p class="font-body text-xs mt-1 text-green-600">↑ 0.8x vs last year</p>
+       </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+       <div class="rounded-lg p-4" style="background:var(--bg);">
+        <p class="font-display font-700 text-sm mb-3">Inventory Status by Category</p>
+        <div class="space-y-2">
+         <div>
+          <div class="flex justify-between mb-1"><span class="font-body text-xs">Electronics</span> <span class="font-body text-xs font-600">45/100 units</span>
+          </div>
+          <div class="w-full h-2 rounded" style="background:#e2e8f0;">
+           <div style="width:45%;height:100%;background:var(--accent);border-radius:2px;"></div>
+          </div>
+         </div>
+         <div>
+          <div class="flex justify-between mb-1"><span class="font-body text-xs">Fashion</span> <span class="font-body text-xs font-600">12/100 units</span>
+          </div>
+          <div class="w-full h-2 rounded" style="background:#e2e8f0;">
+           <div style="width:12%;height:100%;background:#f59e0b;border-radius:2px;"></div>
+          </div>
+         </div>
+         <div>
+          <div class="flex justify-between mb-1"><span class="font-body text-xs">Home &amp; Garden</span> <span class="font-body text-xs font-600">78/100 units</span>
+          </div>
+          <div class="w-full h-2 rounded" style="background:#e2e8f0;">
+           <div style="width:78%;height:100%;background:#10b981;border-radius:2px;"></div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="rounded-lg p-4" style="background:var(--bg);">
+        <p class="font-display font-700 text-sm mb-3">Service Level by Warehouse</p>
+        <div class="space-y-2">
+         <div class="flex items-center justify-between"><span class="font-body text-xs">Manila Hub</span>
+          <div class="flex items-center gap-2"><span class="font-display font-600 text-sm" style="color:var(--accent);">98.2%</span> <span class="text-green-600">✓</span>
+          </div>
+         </div>
+         <div class="flex items-center justify-between"><span class="font-body text-xs">Cebu Center</span>
+          <div class="flex items-center gap-2"><span class="font-display font-600 text-sm" style="color:var(--accent);">96.8%</span> <span class="text-green-600">✓</span>
+          </div>
+         </div>
+         <div class="flex items-center justify-between"><span class="font-body text-xs">Davao Branch</span>
+          <div class="flex items-center gap-2"><span class="font-display font-600 text-sm" style="color:#f59e0b;">91.5%</span> <span style="color:#f59e0b;">⚠️</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- PART 6: Case Study -->
+   <section class="mb-10 fade-in" style="animation-delay:0.5s;">
+    <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">06</span> &nbsp;Case Study: Retail Business BI in Action</h2>
+    <div class="rounded-2xl p-5 sm:p-6 border mb-5" style="background:var(--surface);border-color:#e2e8f0;">
+     <h3 class="font-display font-700 text-lg mb-4">🏪 The Scenario: FastMart Regional Convenience Stores</h3>
+     <div class="grid sm:grid-cols-2 gap-4 mb-5">
+      <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+       <p class="font-body text-xs font-600 mb-2" style="color:var(--accent);">THE PROBLEM</p>
+       <p class="font-body text-sm">FastMart operates 45 stores across Metro Manila. Profit margins are dropping. Some stores are thriving, others struggling. Management doesn't know why or what to do.</p>
+      </div>
+      <div class="rounded-lg p-4" style="background:rgba(124,58,237,0.06);">
+       <p class="font-body text-xs font-600 mb-2" style="color:var(--secondary);">THE QUESTIONS</p>
+       <p class="font-body text-sm">Why are margins down? Which stores underperform? What products should we stock more? Where should we open next?</p>
+      </div>
+     </div>
+     <div class="rounded-xl p-4 border-l-4" style="background:var(--bg);border-left-color:var(--accent);">
+      <p class="font-display font-700 text-sm mb-3">What BI Did:</p>
+      <ol class="space-y-2 font-body text-sm">
+       <li><strong>1. Collected Data</strong> — Point-of-sale systems from all 45 stores: sales, inventory, customer counts, foot traffic.</li>
+       <li><strong>2. Analyzed Patterns</strong> — Found: Store #12 (Makati) does ₱850K/month, Store #38 (Caloocan) does ₱320K. Why?</li>
+       <li><strong>3. Drilled Deeper</strong> — Traffic similar. But Store #12 customers buy snacks+beverage combo (₱280 avg). Store #38 mostly snacks (₱95 avg).</li>
+       <li><strong>4. Discovered Root Cause</strong> — Store #12 has coolers near checkout. Store #38 doesn't. Small difference, huge impact.</li>
+       <li><strong>5. Created Dashboard</strong> — Real-time view: sales by store, product mix, profit margin by location, customer behavior.</li>
+      </ol>
+     </div>
+    </div>
+    <h3 class="font-display font-700 text-lg mb-3">📊 The Dashboard Revealed</h3>
+    <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+     <div class="grid sm:grid-cols-3 gap-3 mb-5">
+      <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+       <p class="font-body text-xs opacity-70">Top Store</p>
+       <p class="font-display font-700 text-lg mt-1" style="color:var(--accent);">Store #12</p>
+       <p class="font-body text-xs mt-2">₱850K/month<br>
+         26.8% margin</p>
+      </div>
+      <div class="rounded-lg p-4" style="background:rgba(245,158,11,0.1);">
+       <p class="font-body text-xs opacity-70">Lowest Store</p>
+       <p class="font-display font-700 text-lg mt-1" style="color:#f59e0b;">Store #38</p>
+       <p class="font-body text-xs mt-2">₱320K/month<br>
+         12.1% margin</p>
+      </div>
+      <div class="rounded-lg p-4" style="background:rgba(16,185,129,0.1);">
+       <p class="font-body text-xs opacity-70">Average</p>
+       <p class="font-display font-700 text-lg mt-1" style="color:#10b981;">All Stores</p>
+       <p class="font-body text-xs mt-2">₱585K/month<br>
+         19.4% margin</p>
+      </div>
+     </div>
+     <h4 class="font-display font-700 text-sm mb-3">Product Sales Comparison</h4>
+     <div class="space-y-3">
+      <div>
+       <div class="flex justify-between mb-1"><span class="font-body text-xs font-600">Store #12 (High Performer)</span> <span class="font-body text-xs opacity-70">Beverage 34% | Snacks 42% | Dairy 24%</span>
+       </div>
+       <div class="flex gap-1 h-6 rounded-full overflow-hidden">
+        <div style="width:34%;background:#3b82f6;"></div>
+        <div style="width:42%;background:#7c3aed;"></div>
+        <div style="width:24%;background:#10b981;"></div>
+       </div>
+      </div>
+      <div>
+       <div class="flex justify-between mb-1"><span class="font-body text-xs font-600">Store #38 (Low Performer)</span> <span class="font-body text-xs opacity-70">Beverage 18% | Snacks 68% | Dairy 14%</span>
+       </div>
+       <div class="flex gap-1 h-6 rounded-full overflow-hidden">
+        <div style="width:18%;background:#3b82f6;"></div>
+        <div style="width:68%;background:#7c3aed;"></div>
+        <div style="width:14%;background:#10b981;"></div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="mb-10 fade-in" style="animation-delay:0.55s;">
+    <h3 class="font-display font-700 text-lg mb-4">🎯 Decision &amp; Action Taken</h3>
+    <div class="space-y-3">
+     <div class="rounded-xl p-4 border-l-4" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--accent);">
+      <h4 class="font-display font-700 text-sm mb-2">DECISION 1 (Operational)</h4>
+      <p class="font-body text-sm"><strong>What:</strong> Install coolers near checkout in all 45 stores. <strong>Cost:</strong> ₱85K/store. <strong>Expected:</strong> Beverage sales ↑ 22%, margin ↑ 4%. <strong>Timeline:</strong> 3 months.</p>
+     </div>
+     <div class="rounded-xl p-4 border-l-4" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--secondary);">
+      <h4 class="font-display font-700 text-sm mb-2">DECISION 2 (Tactical)</h4>
+      <p class="font-body text-sm"><strong>What:</strong> Stock premium beverages in high-traffic stores (#12, #5, #8). Generic brands in others. <strong>Expected:</strong> Reduce dead inventory 18%, improve margin. <strong>Timeline:</strong> Monthly review.</p>
+     </div>
+     <div class="rounded-xl p-4 border-l-4" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--accent);">
+      <h4 class="font-display font-700 text-sm mb-2">DECISION 3 (Strategic)</h4>
+      <p class="font-body text-sm"><strong>What:</strong> Next store location: Open in high-foot-traffic areas (BGC, Makati Central) with cooler+premium mix model. Avoid low-traffic suburbs. <strong>Timeline:</strong> 2024-2025.</p>
+     </div>
+    </div>
+   </section>
+   <section class="mb-8 fade-in" style="animation-delay:0.6s;">
+    <h3 class="font-display font-700 text-lg mb-4">📈 Results After 6 Months</h3>
+    <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+     <div class="grid sm:grid-cols-4 gap-3">
+      <div class="rounded-lg p-4 text-center" style="background:rgba(16,185,129,0.1);">
+       <p class="font-body text-xs opacity-70">Total Sales</p>
+       <p class="font-display font-700 text-lg mt-1" style="color:#10b981;">↑ ₱2.8M</p>
+       <p class="font-body text-xs mt-1">+8% growth</p>
+      </div>
+      <div class="rounded-lg p-4 text-center" style="background:rgba(16,185,129,0.1);">
+       <p class="font-body text-xs opacity-70">Avg Margin</p>
+       <p class="font-display font-700 text-lg mt-1" style="color:#10b981;">↑ 3.2%</p>
+       <p class="font-body text-xs mt-1">from 19.4% to 22.6%</p>
+      </div>
+      <div class="rounded-lg p-4 text-center" style="background:rgba(16,185,129,0.1);">
+       <p class="font-body text-xs opacity-70">Problem Stores</p>
+       <p class="font-display font-700 text-lg mt-1" style="color:#10b981;">↑ 18%</p>
+       <p class="font-body text-xs mt-1">avg improvement</p>
+      </div>
+      <div class="rounded-lg p-4 text-center" style="background:rgba(16,185,129,0.1);">
+       <p class="font-body text-xs opacity-70">ROI</p>
+       <p class="font-display font-700 text-lg mt-1" style="color:#10b981;">340%</p>
+       <p class="font-body text-xs mt-1">on cooler investment</p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="mb-8 fade-in" style="animation-delay:0.65s;">
+    <h3 class="font-display font-700 text-lg mb-4">💬 Class Discussion: What Would You Do?</h3>
+    <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+     <div class="space-y-3">
+      <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+       <p class="font-display font-700 text-sm mb-2" style="color:var(--accent);">Question 1: Diagnosis</p>
+       <p class="font-body text-sm">Store #38 has 18% beverage sales vs Store #12's 34%. What other <strong>data</strong> would you request to confirm the cooler placement hypothesis?</p>
+       <p class="font-body text-xs mt-2 opacity-60"><em>Hint: Think about foot traffic patterns, location, customer demographics, store layout, competitor proximity.</em></p>
+      </div>
+      <div class="rounded-lg p-4" style="background:rgba(124,58,237,0.06);">
+       <p class="font-display font-700 text-sm mb-2" style="color:var(--secondary);">Question 2: Risk</p>
+       <p class="font-body text-sm">FastMart decides to install coolers. But Store #38 is in a low-traffic area with limited foot traffic. Could adding coolers hurt or fail? Why or why not?</p>
+       <p class="font-body text-xs mt-2 opacity-60"><em>Hint: Consider capacity utilization, storage costs, spoilage, customer base size.</em></p>
+      </div>
+      <div class="rounded-lg p-4" style="background:rgba(37,99,235,0.06);">
+       <p class="font-display font-700 text-sm mb-2" style="color:var(--accent);">Question 3: Strategy</p>
+       <p class="font-body text-sm">The CEO wants to "close underperforming stores" to cut costs. Using BI, how would you evaluate this decision? Should all low-margin stores close?</p>
+       <p class="font-body text-xs mt-2 opacity-60"><em>Hint: Consider location value, market position, brand presence, future growth potential, employee impact.</em></p>
+      </div>
+      <div class="rounded-lg p-4" style="background:rgba(124,58,237,0.06);">
+       <p class="font-display font-700 text-sm mb-2" style="color:var(--secondary);">Question 4: Metrics</p>
+       <p class="font-body text-sm">FastMart tracks 45 store metrics monthly. Which 3-5 KPIs should appear on the <strong>executive dashboard</strong> (1-page view for CEO)? Why those?</p>
+       <p class="font-body text-xs mt-2 opacity-60"><em>Hint: Think about what a CEO needs to know to make strategic decisions in 5 minutes.</em></p>
+      </div>
+     </div>
+    </div>
+   </section><!-- PART 6b: Real Examples -->
+   <section class="mb-8 fade-in" style="animation-delay:0.7s;">
+    <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">07</span> &nbsp;Real-World BI Success Stories</h2>
+    <div class="space-y-3">
+     <div class="rounded-xl p-4 border-l-4" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--accent);">
+      <h3 class="font-display font-700 text-sm" style="color:var(--accent);">🛒 E-Commerce (Shopee/Lazada)</h3>
+      <p class="font-body text-xs mt-1"><strong>Insight:</strong> Cart abandonment rate 45% when shipping ₱150+ (&gt;15% of order). <strong>Action:</strong> Free shipping on orders &gt;₱500. <strong>Result:</strong> Completion ↑28%, revenue ↑35%.</p>
+     </div>
+     <div class="rounded-xl p-4 border-l-4" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--secondary);">
+      <h3 class="font-display font-700 text-sm" style="color:var(--secondary);">🏥 Hospital</h3>
+      <p class="font-body text-xs mt-1"><strong>Insight:</strong> ER wait times peak 2-4pm with only 2 doctors. <strong>Action:</strong> Schedule 3 doctors during peak hours. <strong>Result:</strong> Wait times ↓ from 90min to 30min, patient satisfaction ↑.</p>
+     </div>
+     <div class="rounded-xl p-4 border-l-4" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--accent);">
+      <h3 class="font-display font-700 text-sm" style="color:var(--accent);">📱 Social Media (TikTok)</h3>
+      <p class="font-body text-xs mt-1"><strong>Insight:</strong> 15-30sec vertical videos get 3x engagement vs longer. <strong>Action:</strong> Promote short-form in algorithm. <strong>Result:</strong> Session time ↑25%, ad revenue ↑40%.</p>
+     </div>
+     <div class="rounded-xl p-4 border-l-4" style="background:var(--surface);border-color:#e2e8f0;border-left-color:var(--secondary);">
+      <h3 class="font-display font-700 text-sm" style="color:var(--secondary);">🎓 University</h3>
+      <p class="font-body text-xs mt-1"><strong>Insight:</strong> CS grads have 92% job placement; Liberal Arts 64%. <strong>Action:</strong> Market CS programs, revise LA curriculum. <strong>Result:</strong> CS enrollment ↑18%.</p>
+     </div>
+    </div>
+   </section><!-- PART 8: Reflection Activity -->
+   <section class="mb-10 fade-in" style="animation-delay:0.75s;">
+    <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">08</span> &nbsp;Your Turn: Reflection Activity</h2>
+    <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+     <h3 class="font-display font-700 text-lg mb-4">📋 Guided Worksheet: Apply BI to Your Own Context</h3>
+     <p class="font-body text-base mb-5">Choose a business, organization, or scenario you know (your part-time job, school, family business, social media, etc.). Apply the BI mindset.</p>
+     <div class="space-y-5"><!-- Question 1 -->
+      <div class="rounded-lg p-4" style="background:var(--bg);">
+       <h4 class="font-display font-700 text-sm mb-3" style="color:var(--accent);">Step 1: Identify the Organization</h4>
+       <p class="font-body text-xs opacity-70 mb-2">What business or organization do you want to analyze?</p><input type="text" class="worksheet-input placeholder-opacity-40" placeholder="e.g., My school's canteen, GCash, Jollibee branch near me, etc." id="org-name">
+       <p class="font-body text-xs opacity-60 mt-2">Include: Type (retail, food, tech, etc.) and location/scope.</p>
+      </div><!-- Question 2 -->
+      <div class="rounded-lg p-4" style="background:var(--bg);">
+       <h4 class="font-display font-700 text-sm mb-3" style="color:var(--secondary);">Step 2: The Problem</h4>
+       <p class="font-body text-xs opacity-70 mb-2">What challenge or question does this org face?</p><textarea class="worksheet-input placeholder-opacity-40" placeholder="e.g., Low lunch sales on Fridays, high customer churn, inventory waste, etc." id="problem" style="min-height:60px;resize:none;"></textarea>
+       <p class="font-body text-xs opacity-60 mt-2">Avoid: "We want more sales." Be specific about the problem.</p>
+      </div><!-- Question 3 -->
+      <div class="rounded-lg p-4" style="background:var(--bg);">
+       <h4 class="font-display font-700 text-sm mb-3" style="color:var(--accent);">Step 3: What Data Would You Collect?</h4>
+       <p class="font-body text-xs opacity-70 mb-2">List 3-5 data points to diagnose this problem.</p>
+       <div class="space-y-2"><input type="text" class="worksheet-input placeholder-opacity-40" placeholder="Data point 1 (e.g., Daily sales by day of week)" id="data-1"> <input type="text" class="worksheet-input placeholder-opacity-40" placeholder="Data point 2" id="data-2"> <input type="text" class="worksheet-input placeholder-opacity-40" placeholder="Data point 3" id="data-3"> <input type="text" class="worksheet-input placeholder-opacity-40" placeholder="Data point 4 (optional)" id="data-4"> <input type="text" class="worksheet-input placeholder-opacity-40" placeholder="Data point 5 (optional)" id="data-5">
+       </div>
+       <p class="font-body text-xs opacity-60 mt-2">Think: What numbers would help you understand the problem?</p>
+      </div><!-- Question 4 -->
+      <div class="rounded-lg p-4" style="background:var(--bg);">
+       <h4 class="font-display font-700 text-sm mb-3" style="color:var(--secondary);">Step 4: Hypothesized Insight</h4>
+       <p class="font-body text-xs opacity-70 mb-2">What do you <strong>predict</strong> the data will show? (Your guess before analyzing.)</p><textarea class="worksheet-input placeholder-opacity-40" placeholder="e.g., I think Friday lunch is slow because students leave campus early for the weekend." id="hypothesis" style="min-height:60px;resize:none;"></textarea>
+       <p class="font-body text-xs opacity-60 mt-2">This is your educated guess. No wrong answer.</p>
+      </div><!-- Question 5 -->
+      <div class="rounded-lg p-4" style="background:var(--bg);">
+       <h4 class="font-display font-700 text-sm mb-3" style="color:var(--accent);">Step 5: Decision You'd Make</h4>
+       <p class="font-body text-xs opacity-70 mb-2">If your hypothesis is correct, what action would you take?</p><textarea class="worksheet-input placeholder-opacity-40" placeholder="e.g., Offer a Friday happy hour from 3-5pm with 20% discount to retain students." id="decision" style="min-height:60px;resize:none;"></textarea>
+       <p class="font-body text-xs opacity-60 mt-2">At what level? Operational (daily)? Tactical (monthly)? Strategic (annual)?</p>
+      </div><!-- Question 6 -->
+      <div class="rounded-lg p-4" style="background:var(--bg);">
+       <h4 class="font-display font-700 text-sm mb-3" style="color:var(--secondary);">Step 6: Measure Success</h4>
+       <p class="font-body text-xs opacity-70 mb-2">What KPI would you track to measure if the decision worked?</p><input type="text" class="worksheet-input placeholder-opacity-40" placeholder="e.g., Friday sales ↑ 25% month-over-month, or Friday customer count ↑ 40" id="kpi">
+       <p class="font-body text-xs opacity-60 mt-2">How would you know if your action was successful?</p>
+      </div><!-- Submit Button -->
+      <div class="flex gap-3 mt-6"><button onclick="saveReflection()" class="px-5 py-3 rounded-lg font-display font-600 text-sm transition-all hover:scale-105" style="background:var(--accent);color:#fff;border:none;cursor:pointer;"> 💾 Save My Reflection </button> <button onclick="clearReflection()" class="px-5 py-3 rounded-lg font-display font-600 text-sm border-2 transition-all hover:scale-105" style="border-color:#cbd5e1;background:transparent;cursor:pointer;"> Clear </button>
+      </div><!-- Feedback Section -->
+      <div id="reflection-feedback" class="rounded-lg p-4" style="background:rgba(16,185,129,0.1);border-left:4px solid #10b981;display:none;">
+       <p class="font-display font-700 text-sm mb-2" style="color:#10b981;">✓ Reflection Saved!</p>
+       <p class="font-body text-xs">Your worksheet has been saved. You're now thinking like a BI professional!</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- PART 9: Key Takeaways -->
+   <section class="mb-8 fade-in" style="animation-delay:0.8s;">
+    <h2 class="font-display font-700 text-2xl mb-4"><span style="color:var(--accent);">09</span> &nbsp;Key Takeaways</h2>
+    <div class="rounded-2xl p-5 sm:p-6 border" style="background:var(--surface);border-color:#e2e8f0;">
+     <ul class="space-y-3 font-body text-base">
+      <li class="flex items-start gap-3"><span class="mt-1 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-display font-700" style="background:var(--accent);color:#fff;">1</span> BI transforms data into insights that drive business decisions.</li>
+      <li class="flex items-start gap-3"><span class="mt-1 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-display font-700" style="background:var(--secondary);color:#fff;">2</span> Data → Information → Insight is the progression from facts to action.</li>
+      <li class="flex items-start gap-3"><span class="mt-1 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-display font-700" style="background:var(--accent);color:#fff;">3</span> KPIs, metrics, dashboards, and reports are BI's core tools.</li>
+      <li class="flex items-start gap-3"><span class="mt-1 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-display font-700" style="background:var(--secondary);color:#fff;">4</span> BI supports operational, tactical, and strategic decisions.</li>
+      <li class="flex items-start gap-3"><span class="mt-1 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-display font-700" style="background:var(--accent);color:#fff;">5</span> You can apply BI thinking to any business—today, for practice.</li>
+     </ul>
+    </div>
+   </section>
+  </div>
+  <script>
+// ===== ELEMENT SDK =====
+const defaultConfig = {
+  background_color: '#F0EDE6',
+  surface_color: '#FFFFFF',
+  text_color: '#1E293B',
+  accent_color: '#2563EB',
+  secondary_color: '#7C3AED',
+  font_family: 'Outfit',
+  font_size: 16,
+  course_title: 'CC105 - Information Management',
+  instructor_name: 'Prof. MKDB',
+  week_label: 'Finals Week 2',
+  topic_title: 'Business Intelligence and Decision Support'
+};
+
+function applyConfig(cfg) {
+  const root = document.documentElement.style;
+  root.setProperty('--bg', cfg.background_color || defaultConfig.background_color);
+  root.setProperty('--surface', cfg.surface_color || defaultConfig.surface_color);
+  root.setProperty('--text', cfg.text_color || defaultConfig.text_color);
+  root.setProperty('--accent', cfg.accent_color || defaultConfig.accent_color);
+  root.setProperty('--secondary', cfg.secondary_color || defaultConfig.secondary_color);
+
+  document.body.style.color = cfg.text_color || defaultConfig.text_color;
+  document.body.style.background = cfg.background_color || defaultConfig.background_color;
+
+  const font = cfg.font_family || defaultConfig.font_family;
+  document.querySelectorAll('.font-display').forEach(el => { el.style.fontFamily = `${font}, Outfit, sans-serif`; });
+  document.querySelectorAll('.font-body').forEach(el => { el.style.fontFamily = `Source Serif 4, Georgia, serif`; });
+
+  const titleEl = document.getElementById('topicTitle');
+  if (titleEl) titleEl.textContent = cfg.topic_title || defaultConfig.topic_title;
+  const instrEl = document.getElementById('instructorLine');
+  if (instrEl) instrEl.innerHTML = `<i data-lucide="user" style="width:16px;height:16px;"></i> ${cfg.instructor_name || defaultConfig.instructor_name}`;
+  const courseEl = document.getElementById('courseBadge');
+  if (courseEl) courseEl.innerHTML = `<i data-lucide="book-open" style="width:14px;height:14px;"></i> ${cfg.course_title || defaultConfig.course_title}`;
+  const weekEl = document.getElementById('weekBadge');
+  if (weekEl) weekEl.innerHTML = `<i data-lucide="calendar" style="width:14px;height:14px;"></i> ${cfg.week_label || defaultConfig.week_label}`;
+
+  document.querySelectorAll('.tab-btn.active').forEach(btn => {
+    btn.style.background = cfg.accent_color || defaultConfig.accent_color;
+    btn.style.borderColor = cfg.accent_color || defaultConfig.accent_color;
+  });
+
+  lucide.createIcons();
+}
+
+// ===== REFLECTION WORKSHEET FUNCTIONS =====
+function saveReflection() {
+  const data = {
+    org: document.getElementById('org-name').value,
+    problem: document.getElementById('problem').value,
+    data1: document.getElementById('data-1').value,
+    data2: document.getElementById('data-2').value,
+    data3: document.getElementById('data-3').value,
+    data4: document.getElementById('data-4').value,
+    data5: document.getElementById('data-5').value,
+    hypothesis: document.getElementById('hypothesis').value,
+    decision: document.getElementById('decision').value,
+    kpi: document.getElementById('kpi').value,
+    timestamp: new Date().toLocaleString()
+  };
+
+  // Save to localStorage
+  localStorage.setItem('bi-reflection', JSON.stringify(data));
+
+  // Show success feedback
+  const feedback = document.getElementById('reflection-feedback');
+  feedback.style.display = 'block';
+  setTimeout(() => {
+    feedback.style.display = 'none';
+  }, 3000);
+}
+
+function clearReflection() {
+  document.getElementById('org-name').value = '';
+  document.getElementById('problem').value = '';
+  document.getElementById('data-1').value = '';
+  document.getElementById('data-2').value = '';
+  document.getElementById('data-3').value = '';
+  document.getElementById('data-4').value = '';
+  document.getElementById('data-5').value = '';
+  document.getElementById('hypothesis').value = '';
+  document.getElementById('decision').value = '';
+  document.getElementById('kpi').value = '';
+}
+
+function loadReflection() {
+  const saved = localStorage.getItem('bi-reflection');
+  if (saved) {
+    const data = JSON.parse(saved);
+    document.getElementById('org-name').value = data.org || '';
+    document.getElementById('problem').value = data.problem || '';
+    document.getElementById('data-1').value = data.data1 || '';
+    document.getElementById('data-2').value = data.data2 || '';
+    document.getElementById('data-3').value = data.data3 || '';
+    document.getElementById('data-4').value = data.data4 || '';
+    document.getElementById('data-5').value = data.data5 || '';
+    document.getElementById('hypothesis').value = data.hypothesis || '';
+    document.getElementById('decision').value = data.decision || '';
+    document.getElementById('kpi').value = data.kpi || '';
+  }
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (cfg) => { applyConfig(cfg); },
+    mapToCapabilities: (cfg) => ({
+      recolorables: [
+        { get: () => cfg.background_color || defaultConfig.background_color, set: (v) => { cfg.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => cfg.surface_color || defaultConfig.surface_color, set: (v) => { cfg.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => cfg.text_color || defaultConfig.text_color, set: (v) => { cfg.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => cfg.accent_color || defaultConfig.accent_color, set: (v) => { cfg.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+        { get: () => cfg.secondary_color || defaultConfig.secondary_color, set: (v) => { cfg.secondary_color = v; window.elementSdk.setConfig({ secondary_color: v }); } }
+      ],
+      borderables: [],
+      fontEditable: { get: () => cfg.font_family || defaultConfig.font_family, set: (v) => { cfg.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+      fontSizeable: { get: () => cfg.font_size || defaultConfig.font_size, set: (v) => { cfg.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+    }),
+    mapToEditPanelValues: (cfg) => new Map([
+      ['course_title', cfg.course_title || defaultConfig.course_title],
+      ['instructor_name', cfg.instructor_name || defaultConfig.instructor_name],
+      ['week_label', cfg.week_label || defaultConfig.week_label],
+      ['topic_title', cfg.topic_title || defaultConfig.topic_title]
+    ])
+  });
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  lucide.createIcons();
+  
+  // Load any saved reflection
+  loadReflection();
+  
+  // Apply initial config
+  if (window.elementSdk) {
+    applyConfig(window.elementSdk.config);
+  } else {
+    applyConfig(defaultConfig);
+  }
+});
+
+// Ensure icons render when switching tabs
+window.addEventListener('load', function() {
+  lucide.createIcons();
+});
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9eb88d78f17d11d9',t:'MTc3NjA2MzE5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
